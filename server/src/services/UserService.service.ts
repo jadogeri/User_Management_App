@@ -3,25 +3,32 @@ import { IUserService } from "../interfaces/IUserService.interface";
 
 @Service()
 export class UserService implements IUserService{
-    private users = [{ id: 1, name: "Alice" }, { id: 2, name: "Bob" }];
+    private users = [
+        { code: 200, message: "login user" }, 
+        { code: 200, message: "logout user" }, 
+        { code: 200, message: "forgot user" }, 
+        { code: 200, message: "reset user" }, 
+        { code: 200, message: "delete user" }, 
+        { code: 201, message: "create user" }
+    ];
 
     public async login(): Promise<any> {
-        return this.users;
+        return this.users[0];
     }
     public async logout(): Promise<any> {
-        return this.users;
+        return this.users[1];
     }
     public async forgot(): Promise<any> {
-        return this.users;
+        return this.users[2];
     }
     public async reset(): Promise<any> {
-        return this.users;
+        return this.users[3];
     }
     public async delete(): Promise<any> {
-        return this.users;
+        return this.users[4];
     }
     public async create(): Promise<any> {
-        return this.users;
+        return this.users[5];
     }
 
 
