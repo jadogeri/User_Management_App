@@ -8,7 +8,7 @@ const mongoConnection : MongoConnectionOptions =  {
 
     type: process.env.DATASOURCE_TYPE as MongoConnectionOptions["type"] || "mongodb",
     host: process.env.DATASOURCE_HOST as MongoConnectionOptions["host"] || "localhost",
-    port: process.env.DATASOURCE_HOST as MongoConnectionOptions["port"] || 27017,
+    port: process.env.DATASOURCE_PORT as MongoConnectionOptions["port"] || 27017,
     database: process.env.DATASOURCE_DATABASE as MongoConnectionOptions["database"] || "devDB",
 
 }
