@@ -1,7 +1,9 @@
 
 import { Request, Controller as BaseController, Body, Delete, Get, Post, Put, Route, Tags, Response, Path, Example, SuccessResponse, Res, TsoaResponse} from "tsoa";
-import { Controller } from "../decorators";
+import { AutoWired, Controller } from "../decorators";
 import { IUserController } from "../interfaces/IUserController.interface";
+import { IUserService } from "../interfaces/IUserService.interface";
+import { TYPES } from "../types/binding.type";
 
 
 interface ValidateErrorJSON {
@@ -19,7 +21,8 @@ interface ValidateErrorJSON {
 @Response<ValidateErrorJSON>(422, "Validation Failed")
 export class UserController extends BaseController implements IUserController {
 
-  private users = [{ id: 1, name: "Alice" }, { id: 2, name: "Bob" }];
+  @AutoWired(TYPES.IUserService)
+  private readonly userService!: IUserService;
 
 
   constructor() {
@@ -27,27 +30,27 @@ export class UserController extends BaseController implements IUserController {
   }
   @Post("/login")
   public async loginUser(): Promise<any> {
-    return this.users;
+    return this.userService.login();
   }
   @Post("/logout")
   public async logoutUser(): Promise<any> {
-    return this.users;
+    return this.userService.logout();
   }
   @Post("/forgot")
   public async forgotUser(): Promise<any> {
-    return this.users;
+    return this.userService.forgot();
   }
   @Post("/reset") 
   public async resetUser(): Promise<any> {
-    return this.users;
+    return this.userService.reset();
   }
   @Delete("/deactivate")
   public async deleteUser(): Promise<any> {
-    return this.users;
+    return this.userService.delete();
   }
   @Post("/register")
   public async createUser(): Promise<any> {
-    return this.users;
+    return this.userService.create();
   }
 
   @Get("/")
