@@ -4,18 +4,16 @@ import { IUserRepository } from "../interfaces/IUserRepository.interface";
 //import { User } from "../entities/User.entity";
 import { inject } from "inversify";
 import { TYPES } from "../types/binding.type";
+import { User } from "../entities/User.entity";
+import { IDatabaseService } from "../interfaces/IDatabaseService.interface";
 
 
 @Repository()
-export class UserRepository extends BaseRepository<any> implements IUserRepository {
+export class UserRepository extends BaseRepository<User> implements IUserRepository {
 
-    constructor(@inject(TYPES.DataSource) private dataSource: DataSource) {
-        super(User, dataSource.createEntityManager());
+    constructor(@inject(TYPES.IDatabaseService) private readonly databaseService: IDatabaseService) {
+        super(User, databaseService.connect().getDataSource().createEntityManager());
     }
-
-    // constructor(@inject(TYPES.DataSource) private dataSource: DataSource) {
-    //     super(User, dataSource.createEntityManager());
-    // }
 
 
     async findByEmail(email: string): Promise<any> {

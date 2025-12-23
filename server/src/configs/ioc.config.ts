@@ -26,6 +26,7 @@ export const configureIOC = () => {
 
     iocContainer.bind<IUserService>(TYPES.IUserService).to(UserService).inSingletonScope();
     iocContainer.bind<IUserRepository>(TYPES.IUserRepository).to(UserRepository).inSingletonScope();
+    iocContainer.bind<IDataSource>(TYPES.DataSource).toConstantValue(/* your DataSource instance here */);
 
 
     return iocContainer
