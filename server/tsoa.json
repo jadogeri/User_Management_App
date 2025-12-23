@@ -5,7 +5,7 @@
   "spec": {
     "outputDirectory": "src",
     "specVersion": 3,
-    "name": "User API",
+    "name": "User Management API",
     "description": "This is a sample server User server.  You can find out more about Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).",
     "version": "1.0.7",
     "termsOfService": "http://swagger.io/terms/",
@@ -43,8 +43,12 @@
     }
   },
   "routes": {
-    "routesDir": "src"
-
-  }
+    "routesDir": "src",
+    "middleware": "express",
+    "iocModule": "./src/configs/ioc.config.ts"
+    }
 }
+
+
+
 
