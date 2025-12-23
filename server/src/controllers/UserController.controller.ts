@@ -19,30 +19,38 @@ interface ValidateErrorJSON {
 @Response<ValidateErrorJSON>(422, "Validation Failed")
 export class UserController extends BaseController implements IUserController {
 
+  private users = [{ id: 1, name: "Alice" }, { id: 2, name: "Bob" }];
+
 
   constructor() {
     super();
   }
-  loginUser(): Promise<any> {
-    throw new Error("Method not implemented.");
+  @Post("/login")
+  public async loginUser(): Promise<any> {
+    return this.users;
   }
-  logoutUser(): Promise<any> {
-    throw new Error("Method not implemented.");
+  @Post("/logout")
+  public async logoutUser(): Promise<any> {
+    return this.users;
   }
-  forgotUser(): Promise<any> {
-    throw new Error("Method not implemented.");
+  @Post("/forgot")
+  public async forgotUser(): Promise<any> {
+    return this.users;
   }
-  resetUser(): Promise<any> {
-    throw new Error("Method not implemented.");
+  @Post("/reset") 
+  public async resetUser(): Promise<any> {
+    return this.users;
   }
-  deleteUser(): Promise<any> {
-    throw new Error("Method not implemented.");
+  @Delete("/deactivate")
+  public async deleteUser(): Promise<any> {
+    return this.users;
   }
-  createUser(): Promise<any> {
-    throw new Error("Method not implemented.");
+  @Post("/register")
+  public async createUser(): Promise<any> {
+    return this.users;
   }
 
-   @Get("/")
+  @Get("/")
   public async getUsers(
     // TSOA's @Request() decorator injects the Express request object
     @Request() req: Request ,
