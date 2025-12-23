@@ -9,6 +9,10 @@ import { TYPES } from "../types/binding.type";
 @Repository()
 export class UserRepository extends BaseRepository<any> implements IUserRepository {
 
+    constructor(@inject(TYPES.DataSource) private dataSource: DataSource) {
+        super(User, dataSource.createEntityManager());
+    }
+
     // constructor(@inject(TYPES.DataSource) private dataSource: DataSource) {
     //     super(User, dataSource.createEntityManager());
     // }
