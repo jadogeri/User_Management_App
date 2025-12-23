@@ -7,6 +7,8 @@ import { buildProviderModule } from "inversify-binding-decorators";
 import { TYPES } from '../types/binding.type';
 import { IUserService } from '../interfaces/IUserService.interface';
 import { UserService } from '../services/UserService.service';
+import { IUserRepository } from '../interfaces/IUserRepository.interface';
+import { UserRepository } from '../repositories/UserRepository.repository';
 
 
 const iocContainer = new Container();
@@ -23,6 +25,8 @@ export const configureIOC = () => {
     //iocContainer.bind<UserController>(TYPES.IUserController).to(UserController).inSingletonScope();
 
     iocContainer.bind<IUserService>(TYPES.IUserService).to(UserService).inSingletonScope();
+    iocContainer.bind<IUserRepository>(TYPES.IUserRepository).to(UserRepository).inSingletonScope();
+
 
     return iocContainer
 

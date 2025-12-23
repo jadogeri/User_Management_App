@@ -1,8 +1,14 @@
-import { Service } from "../decorators";
+import { AutoWired, Service } from "../decorators";
+import { IUserRepository } from "../interfaces/IUserRepository.interface";
 import { IUserService } from "../interfaces/IUserService.interface";
+import { TYPES } from "../types/binding.type";
 
 @Service()
 export class UserService implements IUserService{
+
+    @AutoWired(TYPES.IUserRepository)
+    private readonly userRepository!: IUserRepository;
+
     private users = [
         { code: 200, message: "login user" }, 
         { code: 200, message: "logout user" }, 
@@ -22,13 +28,13 @@ export class UserService implements IUserService{
         return this.users[2];
     }
     public async reset(): Promise<any> {
-        return this.users[3];
+        return this.userRepository.findByUsername("testuser");
     }
     public async delete(): Promise<any> {
-        return this.users[4];
+        return this.userRepository.findById(1);
     }
     public async create(): Promise<any> {
-        return this.users[5];
+        return this.userRepository.findByEmail("test@example.com");
     }
 
 
