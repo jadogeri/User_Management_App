@@ -36,12 +36,12 @@ export type UserType =  {
   updatedAt: Date;
 }
 
-/**
- * Represents a user create body object
- */
-export interface UserCreationBody extends Pick<UserType, "email" | "name" | "age">{}
+// /**
+//  * Represents a user create body object
+//  */
+// // export interface UserCreationBody extends Pick<UserType, "email" | "name" | "age">{}
 
-/**
- * Represents a user update body object
- */
-export interface UserUpdateBody extends Partial<Pick<UserType, "email" | "name" | "age">>{}
+// // /**
+// //  * Represents a user update body object
+// //  */
+// // export interface UserUpdateBody extends Partial<Pick<UserType, "email" | "name" | "age">>{}

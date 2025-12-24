@@ -7,7 +7,7 @@ import { TYPES } from "../types/binding.type";
 export class UserService implements IUserService{
 
     @AutoWired(TYPES.IUserRepository)
-    private readonly userRepository!: IUserRepository;
+    private readonly userRepository!:  IUserRepository;
 
     private users = [
         { code: 200, message: "login user" }, 
@@ -19,8 +19,10 @@ export class UserService implements IUserService{
     ];
 
     public async login(): Promise<any> {
-        return this.users[0];
+        return this.userRepository.find({});
+        
     }
+
     public async logout(): Promise<any> {
         return this.users[1];
     }

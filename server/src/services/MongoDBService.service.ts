@@ -1,6 +1,6 @@
 import { injectable } from "inversify";
 import { DataSource } from "typeorm";
-import { User } from "../entities/User.entity";
+import { User } from "../entities/MongoUser.entity";
 import { IDatabaseService } from "../interfaces/IDatabaseService.interface";
 import { MongoConnectionOptions } from "typeorm/driver/mongodb/MongoConnectionOptions";
 
@@ -9,13 +9,13 @@ const mongoConnection : MongoConnectionOptions =  {
     type: process.env.DATASOURCE_TYPE as MongoConnectionOptions["type"] || "mongodb",
     host: process.env.DATASOURCE_HOST as MongoConnectionOptions["host"] || "localhost",
     port: process.env.DATASOURCE_PORT as MongoConnectionOptions["port"] || 27017,
-    database: process.env.DATASOURCE_DATABASE as MongoConnectionOptions["database"] || "devDB",
+    database: process.env.DATASOURCE_DATABASE as MongoConnectionOptions["database"] || "user-management-app",
 
 }
 @injectable()
 export class MongoDBService implements IDatabaseService{
   
-  private dataSource: DataSource;
+  private readonly dataSource: DataSource;
 
   constructor() {
     this.dataSource = new DataSource({

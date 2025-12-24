@@ -34,6 +34,7 @@
     "@babel/preset-env": "^7.28.3",
     "@babel/preset-typescript": "^7.27.1",
     "@tsoa/runtime": "^6.6.0",
+    "better-sqlite3": "^12.5.0",
     "body-parser": "^2.2.0",
     "class-validator": "^0.14.3",
     "cors": "^2.8.5",
@@ -45,10 +46,11 @@
     "inversify-express-utils": "^6.5.0",
     "mongodb": "^7.0.0",
     "mongoose": "^9.0.0",
+    "mysql2": "^3.16.0",
     "reflect-metadata": "^0.2.2",
     "swagger-ui-express": "^5.0.1",
     "ts-node-dev": "^2.0.0",
-    "typeorm": "^0.3.27"
+    "typeorm": "^0.3.28"
   },
   "devDependencies": {
     "@testcontainers/mongodb": "^11.9.0",

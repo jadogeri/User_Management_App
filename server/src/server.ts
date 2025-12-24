@@ -1,27 +1,43 @@
+import "reflect-metadata";
 import {buildApp} from "./app";
 const port =  process.env.EXPRESS_APP_PORT || 3000;
 import { MongoDBService } from "./services/MongoDBService.service";
-import { iocContainer } from "./configs/ioc.config";
+import { bindDataSource, iocContainer } from "./configs/ioc.config";
 import { Application } from "express";
+import { SQLiteService } from "./services/SQLiteService.service";
 
-const app: Application = buildApp();
 
 async function bootstrap() {
- await iocContainer.get(MongoDBService).connect();
-  if (process.env.NODE_ENV !== 'test') {
-    app.listen(port , () => {
-      console.log(`🚀 Server is running on: http://localhost:${port}`);
-      console.log(`📚 API Documentation: http://localhost:${port}/docs`);
-    });
+  try {
+    // A. Resolve the service and connect
+    const databaseService = iocContainer.get<SQLiteService>(SQLiteService);
+    await databaseService.connect(); 
+
+    const dataSource = databaseService.getDataSource();
+    console.log("DataSource initialized:", dataSource.isInitialized);              
+
+    // B. Inject the live DataSource into the container
+    // This allows Repositories to resolve TYPES.DataSource
+    bindDataSource(dataSource);
+
+    // C. Now start the server
+    const app: Application = buildApp();
+    const port = process.env.PORT || 3000;   
+
+    if (process.env.NODE_ENV !== 'test') {
+      app.listen(port , () => {
+        console.log(`🚀 Server is running on: http://localhost:${port}`);
+        console.log(`📚 API Documentation: http://localhost:${port}/docs`);
+      });
+    }
+  } catch (error) {
+    console.error("❌ Database connection failed:", error);
+    process.exit(1);
   }
+
 }
 
-bootstrap().catch(console.error);
-
-
-
-
-
+bootstrap();
 
 
 

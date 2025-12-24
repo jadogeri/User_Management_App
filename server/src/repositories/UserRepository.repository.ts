@@ -1,22 +1,27 @@
 import { DataSource, Repository as BaseRepository } from "typeorm";
 import { Repository } from "../decorators";
 import { IUserRepository } from "../interfaces/IUserRepository.interface";
-//import { User } from "../entities/User.entity";
 import { inject } from "inversify";
 import { TYPES } from "../types/binding.type";
-import { User } from "../entities/User.entity";
-import { IDatabaseService } from "../interfaces/IDatabaseService.interface";
+import { User } from "../entities/MongoUser.entity";
+import { SQLUser } from "../entities/SqliteUser.entity";
 
 
 @Repository()
-export class UserRepository extends BaseRepository<User> implements IUserRepository {
+export class UserRepository extends BaseRepository<SQLUser> implements IUserRepository {
+    
 
-    constructor(@inject(TYPES.IDatabaseService) private readonly databaseService: IDatabaseService) {
-        super(User, databaseService.getDataSource().createEntityManager());
+    constructor(@inject(TYPES.DataSource) dataSource: DataSource) {
+        //console.log("Registered Entities:", dataSource.entityMetadatas.map(m => m.name));
+        super(SQLUser, dataSource.createEntityManager());
+        
+    }
+    findActiveUsers(): Promise<SQLUser[]> {
+        throw new Error("Method not implemented.");
     }
 
 
-    async findByEmail(email: string): Promise<any> {
+    async findByEmail(email: string): Promise<any> {                
         
         return {message: "found by email: " + email};
     }
@@ -32,3 +37,5 @@ export class UserRepository extends BaseRepository<User> implements IUserReposit
         return {message: "found by id: " + id};
     }
 }
+
+

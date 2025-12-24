@@ -1,13 +1,13 @@
 // src/entities/User.ts
 import { Entity,  Column, ObjectIdColumn, ObjectId, CreateDateColumn, UpdateDateColumn } from "typeorm";
 import { Min, IsInt, IsString, IsDate } from 'class-validator';
-import { UserType as IUser } from "../types/userType.type";
 
 // Assuming a MongoDB setup from earlier context
+
 @Entity()
-export class User implements IUser{
+export class User {
   @ObjectIdColumn()
-  _id: ObjectId;
+  _id: ObjectId; 
 
   @Column({type: "varchar", length: 40, nullable: false, unique: true })
   @IsString()

@@ -1,4 +1,3 @@
-import 'reflect-metadata'; 
 import express,{ Application, json, urlencoded} from 'express';
 import * as bodyParser from "body-parser";
 import * as dotenv from "dotenv";
@@ -6,7 +5,6 @@ import { RegisterRoutes } from "./routes";
 import * as swaggerJson from "./swagger.json";
 import * as swaggerUI from "swagger-ui-express";
 import cors from 'cors';
-import { configureIOC } from './configs/ioc.config';
 import { corsOptions } from './configs/cors.config';
 
 import "./controllers/UserController.controller";
@@ -14,9 +12,7 @@ import "./controllers/UserController.controller";
 
 
 dotenv.config();
-
-export const buildApp  = () : Application =>{
-    configureIOC();
+export const buildApp = () : Application  =>{
 
     const app: Application = express();
 

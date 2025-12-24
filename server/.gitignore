@@ -32,3 +32,6 @@ yarn-error.log*
 
 
 .early.coverage
+
+# db
+user-management-app.sqlite
