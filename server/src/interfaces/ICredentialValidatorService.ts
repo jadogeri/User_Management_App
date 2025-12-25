@@ -1,10 +1,5 @@
-import { UserDeactivateRequestDTO } from "../dtos/request/UserDeactivateRequestDTO";
-import { UserForgotRequestDTO } from "../dtos/request/UserForgotRequestDTO";
-import { UserLoginRequestDTO } from "../dtos/request/UserLoginRequestDTO";
-import { UserRegisterRequestDTO } from "../dtos/request/UserRegisterRequestDTO";
-import { UserResetRequestDTO } from "../dtos/request/UserResetRequestDTO";
-import { ValidationResponse } from "../entities/ValidationResponse";
-import { IJwtPayload } from "./IJWTPayload";
+import { UserRegisterRequestDTO, UserLoginRequestDTO, UserDeactivateRequestDTO, UserResetPasswordRequestDTO, UserForgotPasswordRequestDTO } from "../dtos/requests/user-request.dto";
+
 
 export interface ICredentialValidatorService {
 
@@ -12,11 +7,11 @@ export interface ICredentialValidatorService {
 
   validateLogin(userRequest: UserLoginRequestDTO): ValidationResponse;
 
-  validateForgotPassword(userRequest: UserForgotRequestDTO): ValidationResponse;
+  validateForgotPassword(userRequest: UserForgotPasswordRequestDTO): ValidationResponse;
 
   validateLogout(userRequest: IJwtPayload): ValidationResponse;
 
-  validateResetPassword(userRequest: UserResetRequestDTO): ValidationResponse;
+  validateResetPassword(userRequest: UserResetPasswordRequestDTO): ValidationResponse;
   
   validateDeactivate(userRequest: UserDeactivateRequestDTO): ValidationResponse;
 
