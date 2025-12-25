@@ -4,7 +4,9 @@ import { AutoWired, Controller } from "../decorators";
 import { IUserController } from "../interfaces/IUserController.interface";
 import { IUserService } from "../interfaces/IUserService.interface";
 import { TYPES } from "../types/binding.type";
-import { UserCreationResponse } from "../dtos/responses/user-create-response.dto";
+import { UserCreationResponse } from "../dtos/responses/user-response.dto";
+import { UserCreationRequest } from "../dtos/requests/user-request.dto";
+import { ErrorResponse } from "../models/error-response.model";
 
 
 interface ValidateErrorJSON {
@@ -56,21 +58,21 @@ export class UserController extends BaseController implements IUserController {
    * @returns The newly created user.
    */
   @SuccessResponse("201", "Created")
-  @Post()
   @Example<UserCreationResponse>({
     id: 1,
     username: "john1doe",
     fullname: "John Doe",
     email: "johndoe@tsoa.com",
+    phone: "123-456-7890",
     age:21,
     createdAt: new Date("2023-01-01T10:00:00Z"),
     updatedAt: new Date("2023-01-01T11:30:00Z"),
   })  
   @Post("/register")
-  public async registerUser(): Promise<any> {
+  public async registerUser( @Body() requestBody: UserCreationRequest): Promise<UserCreationResponse |  ErrorResponse> {
     return this.userService.create();
   }
-
+  
   @Get("/")
   public async getUsers(
     // TSOA's @Request() decorator injects the Express request object

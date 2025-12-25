@@ -26,4 +26,8 @@ export class User extends Audit implements UserType {
   @Min(0, { message: 'Quantity cannot be a negative number' })
   age: number;
 
+  @Column({type: "varchar", length: 15, nullable: true })
+  @IsString()
+  phone: string;
+
 }

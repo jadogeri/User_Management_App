@@ -29,6 +29,116 @@
 				],
 				"type": "object",
 				"additionalProperties": false
+			},
+			"UserCreationResponse": {
+				"description": "Represents a user object with database timestamps and ID.",
+				"properties": {
+					"phone": {
+						"type": "string",
+						"description": "The user's phone number.",
+						"example": "123-456-7890"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time",
+						"description": "The date and time when the user was last updated.",
+						"example": "2024-01-01T13:00:00.000Z"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time",
+						"description": "The date and time when the user was created.",
+						"example": "2024-01-01T12:00:00.000Z"
+					},
+					"age": {
+						"type": "integer",
+						"format": "int32",
+						"description": "The user's age.",
+						"example": 21,
+						"minimum": 0
+					},
+					"email": {
+						"type": "string",
+						"description": "The user's email.",
+						"example": "JohnDoe@gmail.com",
+						"pattern": "^(.+)@(.+)$"
+					},
+					"username": {
+						"type": "string",
+						"description": "The user's name.",
+						"example": "John Doe"
+					},
+					"fullname": {
+						"type": "string",
+						"description": "The user's name.",
+						"example": "John Doe"
+					},
+					"id": {
+						"type": "number",
+						"format": "double",
+						"description": "The user's identifier.",
+						"example": "1"
+					}
+				},
+				"required": [
+					"phone",
+					"updatedAt",
+					"createdAt",
+					"age",
+					"email",
+					"username",
+					"fullname",
+					"id"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ErrorResponse": {
+				"properties": {},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UserCreationRequest": {
+				"description": "Represents a user object creation request.",
+				"properties": {
+					"email": {
+						"type": "string",
+						"description": "The user's email.",
+						"example": "JohnDoe@gmail.com",
+						"pattern": "^(.+)@(.+)$"
+					},
+					"username": {
+						"type": "string",
+						"description": "The user's name.",
+						"example": "John Doe"
+					},
+					"age": {
+						"type": "integer",
+						"format": "int32",
+						"description": "The user's age.",
+						"example": 21,
+						"minimum": 0
+					},
+					"fullname": {
+						"type": "string",
+						"description": "The user's name.",
+						"example": "John Doe"
+					},
+					"phone": {
+						"type": "string",
+						"description": "The user's phone number.",
+						"example": "123-456-7890"
+					}
+				},
+				"required": [
+					"email",
+					"username",
+					"age",
+					"fullname",
+					"phone"
+				],
+				"type": "object",
+				"additionalProperties": false
 			}
 		},
 		"securitySchemes": {}
@@ -203,13 +313,36 @@
 		},
 		"/users/register": {
 			"post": {
-				"operationId": "CreateUser",
+				"operationId": "RegisterUser",
 				"responses": {
-					"200": {
-						"description": "Ok",
+					"201": {
+						"description": "Created",
 						"content": {
 							"application/json": {
-								"schema": {}
+								"schema": {
+									"anyOf": [
+										{
+											"$ref": "#/components/schemas/UserCreationResponse"
+										},
+										{
+											"$ref": "#/components/schemas/ErrorResponse"
+										}
+									]
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"id": 1,
+											"username": "john1doe",
+											"fullname": "John Doe",
+											"email": "johndoe@tsoa.com",
+											"phone": "123-456-7890",
+											"age": 21,
+											"createdAt": "2023-01-01T10:00:00.000Z",
+											"updatedAt": "2023-01-01T11:30:00.000Z"
+										}
+									}
+								}
 							}
 						}
 					},
@@ -224,11 +357,25 @@
 						}
 					}
 				},
+				"description": "Creates a new user in the system.",
+				"summary": "Create a new user",
 				"tags": [
 					"User"
 				],
 				"security": [],
-				"parameters": []
+				"parameters": [],
+				"requestBody": {
+					"description": "The user details for creation.",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UserCreationRequest",
+								"description": "The user details for creation."
+							}
+						}
+					}
+				}
 			}
 		},
 		"/users": {

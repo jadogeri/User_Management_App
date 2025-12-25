@@ -1,4 +1,9 @@
 export type UserType =  {
+    /**
+   * The user's identifier.
+   * @example "1"
+   */
+id: number
   /**
    * The user's name.
    * @example "John Doe"
@@ -34,14 +39,10 @@ export type UserType =  {
    * @example "2024-01-01T13:00:00.000Z"
    */
   updatedAt: Date;
+  /**
+   * The user's phone number.
+   * @example "123-456-7890"
+   */
+  phone: string;
 }
 
-// /**
-//  * Represents a user create body object
-//  */
-// // export interface UserCreationBody extends Pick<UserType, "email" | "name" | "age">{}
-
-// // /**
-// //  * Represents a user update body object
-// //  */
-// // export interface UserUpdateBody extends Partial<Pick<UserType, "email" | "name" | "age">>{}
