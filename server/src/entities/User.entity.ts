@@ -1,13 +1,12 @@
 // src/entities/User.ts
-import { Entity,  Column, ObjectIdColumn, ObjectId, CreateDateColumn, UpdateDateColumn } from "typeorm";
+import { Entity,  Column, CreateDateColumn, UpdateDateColumn, PrimaryGeneratedColumn } from "typeorm";
 import { Min, IsInt, IsString, IsDate } from 'class-validator';
 
 // Assuming a MongoDB setup from earlier context
-
 @Entity()
 export class User {
-  @ObjectIdColumn()
-  _id: ObjectId; 
+  @PrimaryGeneratedColumn() // SQLite uses auto-increment integers by default
+  id: number;
 
   @Column({type: "varchar", length: 40, nullable: false, unique: true })
   @IsString()
@@ -21,7 +20,7 @@ export class User {
   @IsString()
   email: string;
 
-  @Column({type: "number",default: 0, nullable: false, unsigned: true})
+  @Column({type: "integer",default: 0, nullable: false, unsigned: true})
   @IsInt() // Optional: ensures it's an integer
   @Min(0, { message: 'Quantity cannot be a negative number' })
   age: number;

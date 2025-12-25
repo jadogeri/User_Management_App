@@ -1,7 +1,6 @@
 import "reflect-metadata";
 import {buildApp} from "./app";
 const port =  process.env.EXPRESS_APP_PORT || 3000;
-import { MongoDBService } from "./services/MongoDBService.service";
 import { bindDataSource, iocContainer } from "./configs/ioc.config";
 import { Application } from "express";
 import { SQLiteService } from "./services/SQLiteService.service";
