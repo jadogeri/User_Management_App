@@ -1,5 +1,6 @@
-import { UserCreationRequest } from "../dtos/requests/user-request.dto";
-import { UserCreationResponse } from "../dtos/responses/user-response.dto";
+
+import { UserRegisterRequestDTO } from "../dtos/requests/user-request.dto";
+import { UserRegisterResponseDTO } from "../dtos/responses/user-response.dto";
 import { ErrorResponse } from "../models/error-response.model";
 
 export interface IUserController{
@@ -8,5 +9,5 @@ export interface IUserController{
   forgotUser(): Promise<any>;
   resetUser(): Promise<any>;
   deleteUser(): Promise<any>;
-  registerUser( requestBody: UserCreationRequest): Promise<UserCreationResponse |  ErrorResponse> ;
+  registerUser( requestBody: UserRegisterRequestDTO): Promise<UserRegisterResponseDTO |  ErrorResponse> ;
 }

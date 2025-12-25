@@ -96,16 +96,15 @@ class CredentialValidatorService implements ICredentialValidatorService{
 
     }
     validateDeactivate(userRequest: UserDeactivateRequestDTO): ValidationResponse{
-        const { email, password, confirm} : UserDeactivateRequestDTO  = userRequest
-        if (!email || !password || confirm == undefined) {
+        const { email, password, confirmDeactivation} : UserDeactivateRequestDTO  = userRequest
+        if (!email || !password || confirmDeactivation == undefined) {
             return new ValidationResponse(false, new ErrorResponse(400,"All fields are mandatory!"));
         }
         if(!isValidEmail(email )){
             return new ValidationResponse(false, new ErrorResponse(400,"not a  valid email"));
 
         }
-
-        if(confirm!== true){
+        if(confirmDeactivation !== true){
             return new ValidationResponse(false, new ErrorResponse(400,"confirm must be true"));
 
         }

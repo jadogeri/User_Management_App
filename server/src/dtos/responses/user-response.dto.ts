@@ -1,10 +1,11 @@
 
-import { UserType } from "../../types/userType.type";
+import { UserType } from "../../types/user.type";
 
 /**
  * Represents a user register response dto object.
  */
-export interface UserRegisterResponseDTO extends UserType{}
+export interface UserRegisterResponseDTO extends Omit<UserType, 'password'>{}
+
 /**
  * Represents a user login response dto object.
  */

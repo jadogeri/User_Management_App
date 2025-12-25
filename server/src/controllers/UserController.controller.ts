@@ -4,9 +4,11 @@ import { AutoWired, Controller } from "../decorators";
 import { IUserController } from "../interfaces/IUserController.interface";
 import { IUserService } from "../interfaces/IUserService.interface";
 import { TYPES } from "../types/binding.type";
-import { UserCreationResponse } from "../dtos/responses/user-response.dto";
 import { ErrorResponse } from "../models/error-response.model";
 import { UserRegisterRequestDTO } from "../dtos/requests/user-request.dto";
+import { UserRegisterResponseDTO } from "../dtos/responses/user-response.dto";
+import { ValidationResponse } from "../models/validation-response.model";
+import { errorBroadcaster } from "../utils/errorBroadcaster";
 
 
 interface ValidateErrorJSON {
@@ -26,6 +28,7 @@ export class UserController extends BaseController implements IUserController {
 
   @AutoWired(TYPES.IUserService)
   private readonly userService!: IUserService;
+  credentialValidatorService: any;
 
 
   constructor() {
@@ -58,7 +61,7 @@ export class UserController extends BaseController implements IUserController {
    * @returns The newly created user.
    */
   @SuccessResponse("201", "Created")
-  @Example<UserCreationResponse>({
+  @Example<UserRegisterResponseDTO>({
     id: 1,
     username: "john1doe",
     fullname: "John Doe",
@@ -68,8 +71,33 @@ export class UserController extends BaseController implements IUserController {
     createdAt: new Date("2023-01-01T10:00:00Z"),
     updatedAt: new Date("2023-01-01T11:30:00Z"),
   })  
-  @Post("/register")
-  public async registerUser( requestBody: UserRegisterRequestDTO): Promise<UserCreationResponse |  ErrorResponse> {
+  @Post("/register")   
+  public async registerUser( @Body() requestBody: UserRegisterRequestDTO): Promise<UserRegisterResponseDTO |  ErrorResponse> {
+
+
+    const userRequest : UserRegisterRequestDTO = requestBody
+    // calling validation service
+    const validation : ValidationResponse = this.credentialValidatorService.validateRegistration(userRequest);
+    if(!validation.isValid()){
+      const errorResponse : ErrorResponse = validation.getErrorResponse() as ErrorResponse;
+      return errorResponse;
+      //errorBroadcaster(res,errorResponse.getCode(), errorResponse.getMessage())
+    }   
+    //calling user service
+    //const userResponse : ErrorResponse | UserRegisterResponseDTO = await this.userService.registerUser(userRequest);    
+
+    // if(userResponse instanceof ErrorResponse){
+    //   errorBroadcaster(res, userResponse.getCode(), userResponse.getMessage())
+    // }else{
+    //   // SEND RESPONSE  
+    //   res.status(201).send(userResponse);
+    // }
+
+
+
+
+
+
     return this.userService.create();
   }
   

@@ -4,13 +4,13 @@
 // // export interface UserCreationBody extends Pick<UserType, "email" | "name" | "age">{}
 
 import { IJwtPayload } from "../../interfaces/IJWTPayload";
-import { UserType } from "../../types/userType.type";
+import { UserType } from "../../types/user.type";
 
 
 /**
  * Represents a user object creation request.
  */
-export interface UserRegisterRequestDTO extends Pick<UserType, "email" | "username" | "age" | "fullname" | "phone">{}
+export interface UserRegisterRequestDTO extends Pick<UserType, "email" | "username" | "age" | "fullname" | "phone" | "password">{}
 /**
  * Represents a user login request dto object.
  */
@@ -34,6 +34,8 @@ export interface UserResetPasswordRequestDTO extends Pick<UserType, "email">{
 /**
  * Represents a user deactivate account request dto object.
  */
-export interface UserDeactivateRequestDTO extends UserType{}
+export interface UserDeactivateRequestDTO extends Pick<UserType, "email" | "password">{
+    confirmDeactivation: boolean;
+}
 
 
