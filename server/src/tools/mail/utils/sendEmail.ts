@@ -1,4 +1,4 @@
-import { Mail } from "../../../types/Mail"
+import { Mail } from "../../../types/mail.type"
 import { Recipient } from "../../../types/recipient.type"
 import { loadTemplate } from "./loadTemplate"
 import transportMail from "./transportMail"

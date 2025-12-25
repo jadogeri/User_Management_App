@@ -1,4 +1,5 @@
-import {transporter} from "../../../configs/nodemailer";
+import { transporter } from "../../../configs/nodemailer.config";
+
 /**
  * Sends an email using the provided mail object.
  * @param mail - The email configuration object containing recipient, subject, and body.
