@@ -4,6 +4,7 @@ import { AutoWired, Controller } from "../decorators";
 import { IUserController } from "../interfaces/IUserController.interface";
 import { IUserService } from "../interfaces/IUserService.interface";
 import { TYPES } from "../types/binding.type";
+import { UserCreationResponse } from "../dtos/responses/user-create-response.dto";
 
 
 interface ValidateErrorJSON {
@@ -48,8 +49,25 @@ export class UserController extends BaseController implements IUserController {
   public async deleteUser(): Promise<any> {
     return this.userService.delete();
   }
+  /**
+   * Creates a new user in the system.
+   * @summary Create a new user
+   * @param requestBody The user details for creation.
+   * @returns The newly created user.
+   */
+  @SuccessResponse("201", "Created")
+  @Post()
+  @Example<UserCreationResponse>({
+    id: 1,
+    username: "john1doe",
+    fullname: "John Doe",
+    email: "johndoe@tsoa.com",
+    age:21,
+    createdAt: new Date("2023-01-01T10:00:00Z"),
+    updatedAt: new Date("2023-01-01T11:30:00Z"),
+  })  
   @Post("/register")
-  public async createUser(): Promise<any> {
+  public async registerUser(): Promise<any> {
     return this.userService.create();
   }
 
