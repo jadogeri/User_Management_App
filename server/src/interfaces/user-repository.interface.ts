@@ -1,6 +1,5 @@
 import { Repository } from "typeorm/repository/Repository";
-//import { User } from "../entities/MongoUser.entity";
-import { User } from "../entities/User.entity";
+import { User } from "../entities/user.entity";
 
 export interface ICustomUserRepositoryMethods {
     findActiveUsers(): Promise<User[]>;

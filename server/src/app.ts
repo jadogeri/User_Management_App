@@ -7,11 +7,11 @@ import * as swaggerUI from "swagger-ui-express";
 import cors from 'cors';
 import { corsOptions } from './configs/cors.config';
 
-import "./controllers/UserController.controller";
-
-
-
 dotenv.config();
+
+import "./controllers/user.controller";
+
+
 export const buildApp = () : Application  =>{
 
     const app: Application = express();

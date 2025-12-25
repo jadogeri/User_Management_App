@@ -1,11 +1,13 @@
 
+import { Service } from "../decorators";
 import { UserRegisterRequestDTO, UserLoginRequestDTO, UserForgotPasswordRequestDTO, UserResetPasswordRequestDTO, UserDeactivateRequestDTO } from "../dtos/requests/user-request.dto";
-import { ICredentialValidatorService } from "../interfaces/ICredentialValidatorService";
+import { ICredentialValidatorService } from "../interfaces/credential-validator-service.interface";
 import { IJwtPayload } from "../interfaces/IJWTPayload";
 import { ErrorResponse } from "../models/error-response.model";
 import { ValidationResponse } from "../models/validation-response.model";
 import {isValidEmail, isValidPassword, isValidUsername, isValidatePhoneNumber} from "../utils/inputValidation"
 
+@Service()
 class CredentialValidatorService implements ICredentialValidatorService{
 
     constructor(){
@@ -18,14 +20,14 @@ class CredentialValidatorService implements ICredentialValidatorService{
         if (!username || !email || !password) {
             return new ValidationResponse(false, new ErrorResponse(400,"All fields are mandatory!"));
         }
-        if(!isValidEmail(email as string)){
+        if(!isValidEmail(email)){
             return new ValidationResponse(false, new ErrorResponse(400,"not a valid email"));
         }
-        if(!isValidUsername(username as string)){
+        if(!isValidUsername(username)){
             return new ValidationResponse(false, new ErrorResponse(400,"not a valid username"));
 
         }
-        if(!isValidPassword(password as string)){
+        if(!isValidPassword(password)){
             return new ValidationResponse(false, new ErrorResponse(400,"not a valid password"));
         }  
         //if phone number is provided check if string is a valid phone number
@@ -69,7 +71,7 @@ class CredentialValidatorService implements ICredentialValidatorService{
     }
 
     validateLogout(userRequest: IJwtPayload): ValidationResponse{
-        const token = userRequest.token as string
+        const token = userRequest.token;
         if(!token){ 
             return new ValidationResponse(false, new ErrorResponse(400,"field token is mandatory"));
         } 
@@ -82,11 +84,11 @@ class CredentialValidatorService implements ICredentialValidatorService{
           return new ValidationResponse(false, new ErrorResponse(400 ,"All fields are mandatory!"));
     
         }
-        if(!isValidEmail(email as string)){
+        if(!isValidEmail(email)){
           return new ValidationResponse(false, new ErrorResponse(400,"not a  valid email"));
       
         }
-        if(!isValidPassword(newPassword as string)){
+        if(!isValidPassword(newPassword)){
           return new ValidationResponse(false, new ErrorResponse(400,"not a valid new password"));
         }  
         if(newPassword !== confirmNewPassword){

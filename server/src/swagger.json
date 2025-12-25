@@ -77,6 +77,17 @@
 						"type": "string",
 						"description": "The user's phone number.",
 						"example": "123-456-7890"
+					},
+					"failedLogins": {
+						"type": "number",
+						"format": "double",
+						"description": "The user's failed login attempts.",
+						"example": 0
+					},
+					"isEnabled": {
+						"type": "boolean",
+						"description": "The user's account status.",
+						"example": true
 					}
 				},
 				"required": [
@@ -87,7 +98,9 @@
 					"age",
 					"createdAt",
 					"updatedAt",
-					"phone"
+					"phone",
+					"failedLogins",
+					"isEnabled"
 				],
 				"type": "object",
 				"description": "From T, pick a set of properties whose keys are in the union K"
@@ -140,6 +153,17 @@
 						"type": "string",
 						"description": "The user's phone number.",
 						"example": "123-456-7890"
+					},
+					"failedLogins": {
+						"type": "number",
+						"format": "double",
+						"description": "The user's failed login attempts.",
+						"example": 0
+					},
+					"isEnabled": {
+						"type": "boolean",
+						"description": "The user's account status.",
+						"example": true
 					}
 				},
 				"required": [
@@ -150,7 +174,9 @@
 					"age",
 					"createdAt",
 					"updatedAt",
-					"phone"
+					"phone",
+					"failedLogins",
+					"isEnabled"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -407,7 +433,9 @@
 											"phone": "123-456-7890",
 											"age": 21,
 											"createdAt": "2023-01-01T10:00:00.000Z",
-											"updatedAt": "2023-01-01T11:30:00.000Z"
+											"updatedAt": "2023-01-01T11:30:00.000Z",
+											"failedLogins": 0,
+											"isEnabled": false
 										}
 									}
 								}

@@ -1,9 +1,10 @@
 import { injectable } from "inversify";
 import { DataSource } from "typeorm";
 import { IDatabaseService } from "../interfaces/IDatabaseService.interface";
-import { User } from "../entities/User.entity";
+import { User } from "../entities/user.entity";
+import { Service } from "../decorators";
 
-@injectable()
+@Service()
 export class SQLiteService implements IDatabaseService{
   
   private readonly dataSource: DataSource;

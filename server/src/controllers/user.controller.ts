@@ -1,14 +1,15 @@
 
 import { Request, Controller as BaseController, Body, Delete, Get, Post, Put, Route, Tags, Response, Path, Example, SuccessResponse, Res, TsoaResponse} from "tsoa";
 import { AutoWired, Controller } from "../decorators";
-import { IUserController } from "../interfaces/IUserController.interface";
-import { IUserService } from "../interfaces/IUserService.interface";
+import { IUserController } from "../interfaces/user-controller.interface";
+import { IUserService } from "../interfaces/user-service.interface";
 import { TYPES } from "../types/binding.type";
 import { ErrorResponse } from "../models/error-response.model";
 import { UserRegisterRequestDTO } from "../dtos/requests/user-request.dto";
 import { UserRegisterResponseDTO } from "../dtos/responses/user-response.dto";
 import { ValidationResponse } from "../models/validation-response.model";
 import { errorBroadcaster } from "../utils/errorBroadcaster";
+import { ICredentialValidatorService } from "../interfaces/credential-validator-service.interface";
 
 
 interface ValidateErrorJSON {
@@ -28,7 +29,9 @@ export class UserController extends BaseController implements IUserController {
 
   @AutoWired(TYPES.IUserService)
   private readonly userService!: IUserService;
-  credentialValidatorService: any;
+
+  @AutoWired(TYPES.ICredentialValidatorService)
+  private readonly credentialValidatorService: ICredentialValidatorService;
 
 
   constructor() {
@@ -67,9 +70,11 @@ export class UserController extends BaseController implements IUserController {
     fullname: "John Doe",
     email: "johndoe@tsoa.com",
     phone: "123-456-7890",
-    age:21,
+    age: 21,
     createdAt: new Date("2023-01-01T10:00:00Z"),
     updatedAt: new Date("2023-01-01T11:30:00Z"),
+    failedLogins: 0,
+    isEnabled: false
   })  
   @Post("/register")   
   public async registerUser( @Body() requestBody: UserRegisterRequestDTO): Promise<UserRegisterResponseDTO |  ErrorResponse> {
@@ -79,26 +84,17 @@ export class UserController extends BaseController implements IUserController {
     // calling validation service
     const validation : ValidationResponse = this.credentialValidatorService.validateRegistration(userRequest);
     if(!validation.isValid()){
+      console.log("validation failed in controller", validation.getErrorResponse()?.getMessage());
       const errorResponse : ErrorResponse = validation.getErrorResponse() as ErrorResponse;
       return errorResponse;
       //errorBroadcaster(res,errorResponse.getCode(), errorResponse.getMessage())
     }   
     //calling user service
-    //const userResponse : ErrorResponse | UserRegisterResponseDTO = await this.userService.registerUser(userRequest);    
+    const userResponse : ErrorResponse | UserRegisterResponseDTO = await this.userService.register(userRequest);    
 
-    // if(userResponse instanceof ErrorResponse){
-    //   errorBroadcaster(res, userResponse.getCode(), userResponse.getMessage())
-    // }else{
-    //   // SEND RESPONSE  
-    //   res.status(201).send(userResponse);
-    // }
+return userResponse;
 
 
-
-
-
-
-    return this.userService.create();
   }
   
   @Get("/")

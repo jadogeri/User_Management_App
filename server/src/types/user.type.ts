@@ -49,5 +49,14 @@ id: number
    * @example "SecurePassword123!"
    */
   password: string;
+    /**
+   * The user's failed login attempts.
+   * @example 0
+   */
+  failedLogins: number;
+    /**
+   * The user's account status.
+   * @example true
+   */
+  isEnabled: boolean;
 }
-
