@@ -1,6 +1,8 @@
 import "reflect-metadata";
+import * as dotenv from "dotenv";
+dotenv.config();
+
 import {buildApp} from "./app";
-const port =  process.env.EXPRESS_APP_PORT || 3000;
 import { bindDataSource, iocContainer } from "./configs/ioc.config";
 import { Application } from "express";
 import { SQLiteService } from "./services/SQLiteService.service";

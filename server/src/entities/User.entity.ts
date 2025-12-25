@@ -2,14 +2,14 @@
 import { Entity,  Column, PrimaryGeneratedColumn } from "typeorm";
 import { Min, IsInt, IsString } from 'class-validator';
 import { Audit } from "../models/audit.model";
-import { UserType } from "../types/userType.type";
+import { UserType } from "../types/user.type";
 
 @Entity()
 export class User extends Audit implements UserType {
   @PrimaryGeneratedColumn() // SQLite uses auto-increment integers by default
   id: number;
 
-  @Column({type: "varchar", length: 40, nullable: false, unique: true })
+  @Column({type: "varchar", length: 40, nullable: false, unique: false })
   @IsString()
   fullname: string;
 
@@ -30,4 +30,15 @@ export class User extends Audit implements UserType {
   @IsString()
   phone: string;
 
+  @Column({type: "varchar", length: 100, nullable: false })
+  @IsString()
+  password: string;
+
+  @Column({type: "integer", default: 0, nullable: false, unsigned: true })
+  @IsInt()
+  failedLogins: number;
+
+  @Column({type: "boolean", default: true, nullable: false })
+  @IsInt()
+  isEnabled: boolean; 
 }

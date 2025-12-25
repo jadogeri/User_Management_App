@@ -44,5 +44,19 @@ id: number
    * @example "123-456-7890"
    */
   phone: string;
+  /**
+   * The user's password.
+   * @example "SecurePassword123!"
+   */
+  password: string;
+    /**
+   * The user's failed login attempts.
+   * @example 0
+   */
+  failedLogins: number;
+    /**
+   * The user's account status.
+   * @example true
+   */
+  isEnabled: boolean;
 }
-

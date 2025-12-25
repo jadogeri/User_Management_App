@@ -1,16 +1,20 @@
 // src/ioc.config.ts
 import { Container, decorate, injectable } from 'inversify';
-import { UserController } from '../controllers/UserController.controller';
+import { UserController } from '../controllers/user.controller';
 import { Controller } from 'tsoa';
 import { buildProviderModule } from "inversify-binding-decorators";
 import { TYPES } from '../types/binding.type';
-import { IUserService } from '../interfaces/IUserService.interface';
-import { UserService } from '../services/UserService.service';
-import { IUserRepository } from '../interfaces/IUserRepository.interface';
-import { UserRepository } from '../repositories/UserRepository.repository';
+import { IUserService } from '../interfaces/user-service.interface';
+import { UserService } from '../services/user.service';
+import { IUserRepository } from '../interfaces/user-repository.interface';
+import { UserRepository } from '../repositories/user.repository';
 import { IDatabaseService } from '../interfaces/IDatabaseService.interface';
 import { SQLiteService} from '../services/SQLiteService.service';    
 import { DataSource } from 'typeorm';
+import { ICredentialValidatorService } from '../interfaces/credential-validator-service.interface';
+import CredentialValidatorService from '../services/credential-validator.service';
+import { IEmailService } from '../interfaces/email-service.interface';
+import EmailService from '../services/email.service';
 
 
 
@@ -28,6 +32,9 @@ iocContainer.load(buildProviderModule());
 
     iocContainer.bind<IDatabaseService>(TYPES.IDatabaseService).to(SQLiteService).inSingletonScope();
     iocContainer.bind<IUserService>(TYPES.IUserService).to(UserService).inSingletonScope();
+    iocContainer.bind<ICredentialValidatorService>(TYPES.ICredentialValidatorService).to(CredentialValidatorService).inSingletonScope();
+    iocContainer.bind<IEmailService>(TYPES.IEmailService).to(EmailService).inSingletonScope();  
+    
    // Bind the interface to the concrete implementation
     //iocContainer.bind<MongoDBService>(MongoDBService).to(MongoDBService).inSingletonScope();
     //iocContainer.bind<SQLiteService>(SQLiteService).to(SQLiteService).inSingletonScope();

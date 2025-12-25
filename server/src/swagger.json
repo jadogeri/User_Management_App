@@ -30,25 +30,29 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"UserCreationResponse": {
-				"description": "Represents a user object with database timestamps and ID.",
+			"Pick_UserType.Exclude_keyofUserType.password__": {
 				"properties": {
-					"phone": {
-						"type": "string",
-						"description": "The user's phone number.",
-						"example": "123-456-7890"
+					"id": {
+						"type": "number",
+						"format": "double",
+						"description": "The user's identifier.",
+						"example": "1"
 					},
-					"updatedAt": {
+					"fullname": {
 						"type": "string",
-						"format": "date-time",
-						"description": "The date and time when the user was last updated.",
-						"example": "2024-01-01T13:00:00.000Z"
+						"description": "The user's name.",
+						"example": "John Doe"
 					},
-					"createdAt": {
+					"username": {
 						"type": "string",
-						"format": "date-time",
-						"description": "The date and time when the user was created.",
-						"example": "2024-01-01T12:00:00.000Z"
+						"description": "The user's name.",
+						"example": "John Doe"
+					},
+					"email": {
+						"type": "string",
+						"description": "The user's email.",
+						"example": "JohnDoe@gmail.com",
+						"pattern": "^(.+)@(.+)$"
 					},
 					"age": {
 						"type": "integer",
@@ -57,38 +61,122 @@
 						"example": 21,
 						"minimum": 0
 					},
-					"email": {
+					"createdAt": {
 						"type": "string",
-						"description": "The user's email.",
-						"example": "JohnDoe@gmail.com",
-						"pattern": "^(.+)@(.+)$"
+						"format": "date-time",
+						"description": "The date and time when the user was created.",
+						"example": "2024-01-01T12:00:00.000Z"
 					},
-					"username": {
+					"updatedAt": {
 						"type": "string",
-						"description": "The user's name.",
-						"example": "John Doe"
+						"format": "date-time",
+						"description": "The date and time when the user was last updated.",
+						"example": "2024-01-01T13:00:00.000Z"
+					},
+					"phone": {
+						"type": "string",
+						"description": "The user's phone number.",
+						"example": "123-456-7890"
+					},
+					"failedLogins": {
+						"type": "number",
+						"format": "double",
+						"description": "The user's failed login attempts.",
+						"example": 0
+					},
+					"isEnabled": {
+						"type": "boolean",
+						"description": "The user's account status.",
+						"example": true
+					}
+				},
+				"required": [
+					"id",
+					"fullname",
+					"username",
+					"email",
+					"age",
+					"createdAt",
+					"updatedAt",
+					"phone",
+					"failedLogins",
+					"isEnabled"
+				],
+				"type": "object",
+				"description": "From T, pick a set of properties whose keys are in the union K"
+			},
+			"UserRegisterResponseDTO": {
+				"description": "Represents a user register response dto object.",
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double",
+						"description": "The user's identifier.",
+						"example": "1"
 					},
 					"fullname": {
 						"type": "string",
 						"description": "The user's name.",
 						"example": "John Doe"
 					},
-					"id": {
+					"username": {
+						"type": "string",
+						"description": "The user's name.",
+						"example": "John Doe"
+					},
+					"email": {
+						"type": "string",
+						"description": "The user's email.",
+						"example": "JohnDoe@gmail.com",
+						"pattern": "^(.+)@(.+)$"
+					},
+					"age": {
+						"type": "integer",
+						"format": "int32",
+						"description": "The user's age.",
+						"example": 21,
+						"minimum": 0
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time",
+						"description": "The date and time when the user was created.",
+						"example": "2024-01-01T12:00:00.000Z"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time",
+						"description": "The date and time when the user was last updated.",
+						"example": "2024-01-01T13:00:00.000Z"
+					},
+					"phone": {
+						"type": "string",
+						"description": "The user's phone number.",
+						"example": "123-456-7890"
+					},
+					"failedLogins": {
 						"type": "number",
 						"format": "double",
-						"description": "The user's identifier.",
-						"example": "1"
+						"description": "The user's failed login attempts.",
+						"example": 0
+					},
+					"isEnabled": {
+						"type": "boolean",
+						"description": "The user's account status.",
+						"example": true
 					}
 				},
 				"required": [
-					"phone",
-					"updatedAt",
-					"createdAt",
-					"age",
-					"email",
-					"username",
+					"id",
 					"fullname",
-					"id"
+					"username",
+					"email",
+					"age",
+					"createdAt",
+					"updatedAt",
+					"phone",
+					"failedLogins",
+					"isEnabled"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -98,19 +186,29 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"UserCreationRequest": {
+			"UserRegisterRequestDTO": {
 				"description": "Represents a user object creation request.",
 				"properties": {
-					"email": {
+					"password": {
 						"type": "string",
-						"description": "The user's email.",
-						"example": "JohnDoe@gmail.com",
-						"pattern": "^(.+)@(.+)$"
+						"description": "The user's password.",
+						"example": "SecurePassword123!"
+					},
+					"fullname": {
+						"type": "string",
+						"description": "The user's name.",
+						"example": "John Doe"
 					},
 					"username": {
 						"type": "string",
 						"description": "The user's name.",
 						"example": "John Doe"
+					},
+					"email": {
+						"type": "string",
+						"description": "The user's email.",
+						"example": "JohnDoe@gmail.com",
+						"pattern": "^(.+)@(.+)$"
 					},
 					"age": {
 						"type": "integer",
@@ -119,11 +217,6 @@
 						"example": 21,
 						"minimum": 0
 					},
-					"fullname": {
-						"type": "string",
-						"description": "The user's name.",
-						"example": "John Doe"
-					},
 					"phone": {
 						"type": "string",
 						"description": "The user's phone number.",
@@ -131,10 +224,11 @@
 					}
 				},
 				"required": [
-					"email",
-					"username",
-					"age",
+					"password",
 					"fullname",
+					"username",
+					"email",
+					"age",
 					"phone"
 				],
 				"type": "object",
@@ -322,7 +416,7 @@
 								"schema": {
 									"anyOf": [
 										{
-											"$ref": "#/components/schemas/UserCreationResponse"
+											"$ref": "#/components/schemas/UserRegisterResponseDTO"
 										},
 										{
 											"$ref": "#/components/schemas/ErrorResponse"
@@ -339,7 +433,9 @@
 											"phone": "123-456-7890",
 											"age": 21,
 											"createdAt": "2023-01-01T10:00:00.000Z",
-											"updatedAt": "2023-01-01T11:30:00.000Z"
+											"updatedAt": "2023-01-01T11:30:00.000Z",
+											"failedLogins": 0,
+											"isEnabled": false
 										}
 									}
 								}
@@ -370,7 +466,7 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/UserCreationRequest",
+								"$ref": "#/components/schemas/UserRegisterRequestDTO",
 								"description": "The user details for creation."
 							}
 						}

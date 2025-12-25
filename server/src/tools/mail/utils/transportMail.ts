@@ -6,8 +6,11 @@ import { transporter } from "../../../configs/nodemailer.config";
  * @returns A promise that resolves when the email is sent successfully.
  * @throws Will throw an error if the email sending fails.
  */
-export default function transportMail (mail: any) {
-    return transporter.sendMail(mail);
+export default async function transportMail (mail: any) {
+    console.log("In transportMail with mail:", mail);
+    const response = await transporter.sendMail(mail);
+    console.log("Email sent response:", response);
+    return response;
 }
 
 
