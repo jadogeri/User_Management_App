@@ -1,10 +1,11 @@
 // src/entities/User.ts
-import { Entity,  Column, CreateDateColumn, UpdateDateColumn, PrimaryGeneratedColumn } from "typeorm";
-import { Min, IsInt, IsString, IsDate } from 'class-validator';
+import { Entity,  Column, PrimaryGeneratedColumn } from "typeorm";
+import { Min, IsInt, IsString } from 'class-validator';
+import { Audit } from "../models/audit.model";
+import { UserType } from "../types/userType.type";
 
-// Assuming a MongoDB setup from earlier context
 @Entity()
-export class User {
+export class User extends Audit implements UserType {
   @PrimaryGeneratedColumn() // SQLite uses auto-increment integers by default
   id: number;
 
@@ -25,11 +26,4 @@ export class User {
   @Min(0, { message: 'Quantity cannot be a negative number' })
   age: number;
 
-  @CreateDateColumn()
-  @IsDate()
-  createdAt: Date;
-
-  @UpdateDateColumn()
-  @IsDate()
-  updatedAt: Date
 }
