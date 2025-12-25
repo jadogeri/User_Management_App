@@ -5,8 +5,8 @@ import { IUserController } from "../interfaces/IUserController.interface";
 import { IUserService } from "../interfaces/IUserService.interface";
 import { TYPES } from "../types/binding.type";
 import { UserCreationResponse } from "../dtos/responses/user-response.dto";
-import { UserCreationRequest } from "../dtos/requests/user-request.dto";
 import { ErrorResponse } from "../models/error-response.model";
+import { UserRegisterRequestDTO } from "../dtos/requests/user-request.dto";
 
 
 interface ValidateErrorJSON {
@@ -69,7 +69,7 @@ export class UserController extends BaseController implements IUserController {
     updatedAt: new Date("2023-01-01T11:30:00Z"),
   })  
   @Post("/register")
-  public async registerUser( @Body() requestBody: UserCreationRequest): Promise<UserCreationResponse |  ErrorResponse> {
+  public async registerUser( requestBody: UserRegisterRequestDTO): Promise<UserCreationResponse |  ErrorResponse> {
     return this.userService.create();
   }
   
