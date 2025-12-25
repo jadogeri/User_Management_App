@@ -1,8 +1,8 @@
 import { Error } from "mongoose";
-import { Recipient } from "../../../types/Recipient";
 const path = require('path')
 //import {Promise} from 'bluebird';
 const EmailTemplate  = require('email-templates').EmailTemplate 
+import { Recipient } from "../../../types/recipient.type";
 
 
 /**

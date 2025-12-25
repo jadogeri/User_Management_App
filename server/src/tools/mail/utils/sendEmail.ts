@@ -1,5 +1,5 @@
 import { Mail } from "../../../types/Mail"
-import { Recipient } from "../../../types/Recipient"
+import { Recipient } from "../../../types/recipient.type"
 import { loadTemplate } from "./loadTemplate"
 import transportMail from "./transportMail"
 export const sendEmail =  async  (templateName : string, recipient : Recipient ) =>  {
