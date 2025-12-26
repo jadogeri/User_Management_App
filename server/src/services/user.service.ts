@@ -11,6 +11,8 @@ import { User } from "../entities/user.entity";
 import { UserRegisterResponseDTO } from "../dtos/responses/user-response.dto";
 import { Recipient } from "../types/recipient.type";
 import { IEmailService } from "../interfaces/email-service.interface";
+import { EnabledStatus } from "../constants/status.constant";
+import { UserRole } from "../constants/role.constant";
 
 @Service()
 export class UserService implements IUserService{
@@ -67,7 +69,17 @@ export class UserService implements IUserService{
             console.log("Hashed Password: ", hashedPassword);
             //update password with hashed password
             userRequest.password = hashedPassword;
-            const createdUser : User = await this.userRepository.save(userRequest);
+            const newUser = new User();
+            //copy properties from DTO to entity
+            Object.assign<User, UserRegisterRequestDTO>(newUser, userRequest);
+            newUser.failedLogins = 0;
+            newUser.isEnabled = true;
+            newUser.status = EnabledStatus
+            newUser.role = UserRole; //default role assignment can be handled here
+            //set default role and status
+            //save user to database
+            
+            const createdUser : User = await this.userRepository.save(newUser);
             console.log("Created User: ", createdUser);
             //prepare response object
             

@@ -1,8 +1,10 @@
 // src/entities/User.ts
-import { Entity,  Column, PrimaryGeneratedColumn } from "typeorm";
+import { Entity,  Column, PrimaryGeneratedColumn, JoinColumn, ManyToOne } from "typeorm";
 import { Min, IsInt, IsString } from 'class-validator';
 import { Audit } from "../models/audit.model";
 import { UserType } from "../types/user.type";
+import Role from "./role.entity";
+import Status from "./status.entity";
 
 @Entity()
 export class User extends Audit implements UserType {
@@ -41,6 +43,14 @@ export class User extends Audit implements UserType {
   @Column({type: "boolean", default: true, nullable: false })
   @IsInt()
   isEnabled: boolean; 
+
+  @ManyToOne(() => Role)
+  @JoinColumn({ name: 'role_id' })
+  role: Role; // This will hold the Role object when loaded
+
+  @ManyToOne(() => Status)
+  @JoinColumn({ name: 'status_id' })
+  status: Status; // This will hold the Status object when loaded
 }
 
 export default User;

@@ -1,6 +1,7 @@
 // status.entity.ts
-import { Entity, PrimaryColumn, Column, Check } from 'typeorm';
+import { Entity, PrimaryColumn, Column, Check, OneToMany } from 'typeorm';
 import { StatusEnum } from '../types/status.type';
+import User from './user.entity';
 
 @Entity('status') // Ensure table name matches what you use in the migration
 export class Status {
@@ -14,6 +15,9 @@ export class Status {
     default: StatusEnum.ENABLED,
   })
   name: StatusEnum;
+
+  @OneToMany(() => User, (user) => user.status)
+  users: User[];
 
 }
 
