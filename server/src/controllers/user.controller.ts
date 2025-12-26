@@ -39,6 +39,8 @@ export class UserController extends BaseController implements IUserController {
     super();
   }
   currentUser(requestBody: IJwtPayload): Promise<any> {
+    //      // Manually send the JSON response
+    //return res(200, users);
     throw new Error("Method not implemented.");
   }
   @Post("/login")

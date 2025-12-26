@@ -26,7 +26,7 @@ function isValidEmail(email : string) {
  * Validates the format of an password using a regular expression. 
  * Checks for at least one lowercase letter, one uppercase letter, one digit, 
  * one special character from the set [# $ @ ! % & * ?], and ensures the length 
- * is between 6 to 16 characters. Also checks for the presence of "@" and ensuring that there are no consecutive dots following it. 
+ * is between 6 to 20 characters. Also checks for the presence of "@" and ensuring that there are no consecutive dots following it. 
  * 
  * @param password - The password to validate.
  * @returns boolean - Returns true if the password is valid, false otherwise.
@@ -34,7 +34,7 @@ function isValidEmail(email : string) {
  */
 function isValidPassword(password: string) {
     // Regular expression for password validation
-    const passwordRegex =  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{6,16}$/
+    const passwordRegex =  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{6,20}$/
   
     return passwordRegex.test(password);
   }
