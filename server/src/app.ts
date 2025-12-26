@@ -10,6 +10,8 @@ import { corsOptions } from './configs/cors.config';
 dotenv.config();
 
 import "./controllers/user.controller";
+import { errorHandler } from './middlewares/error-handler.middleware';
+import { noRouteFoundHandler } from './middlewares/no-route-found-handler.middleware';
 
 
 export const buildApp = () : Application  =>{
@@ -38,7 +40,8 @@ export const buildApp = () : Application  =>{
     app.use(["/openapi", "/docs", "/swagger"], swaggerUI.serve, swaggerUI.setup(swaggerJson));
 
     // app.use(globalErrorHandler);
-    // app.use(notFoundHandler)
+    app.use(noRouteFoundHandler)
+    app.use(errorHandler);
 
     return app;
 
