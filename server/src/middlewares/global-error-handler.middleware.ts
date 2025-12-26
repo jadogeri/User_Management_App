@@ -1,6 +1,6 @@
 import { STATUS_CODES } from "../constants/status-codes.constants";
 import { Response, Request,NextFunction } from "express";
-import { CustomError } from "../exceptions/CustomError.exception";
+import { CustomError } from "../exceptions/custom-error.exception";
 import { ValidateError } from "tsoa";
 export const globalErrorHandler = (err : unknown, req : Request, res : Response, next : NextFunction) => {
 
@@ -17,49 +17,49 @@ export const globalErrorHandler = (err : unknown, req : Request, res : Response,
   const statusCode = err.statusCode ? err.statusCode : 500;
   console.log("status codes: ", statusCode )
   switch (statusCode) {
-    case constants.BAD_REQUEST:
+    case STATUS_CODES.VALIDATION_ERROR:
       res.status(statusCode).json({
         title: "Bad Request",
         message: err.message,
         stackTrace: err.stack,
       });
       break;
-    case constants.NOT_FOUND:
+    case STATUS_CODES.NOT_FOUND:
       res.status(statusCode).json({
         title: "Not Found",
         message: err.message,
         stackTrace: err.stack,
       });
       break;
-    case constants.UNAUTHORIZED:
+    case STATUS_CODES.UNAUTHORIZED:
       res.status(statusCode).json({
         title: "Unauthorized",
         message: err.message,
         stackTrace: err.stack,
       });
       break;
-    case constants.FORBIDDEN:
+    case STATUS_CODES.FORBIDDEN:
       res.status(statusCode).json({
         title: "Forbidden",
         message: err.message,
         stackTrace: err.stack,
       });
       break;
-    case constants.SERVER_ERROR:
+    case STATUS_CODES.SERVER_ERROR:
       res.status(statusCode).json({
         title: "Server Error",
         message: err.message,
         stackTrace: err.stack,
       });
       break;
-    case constants.CONFLICT:
+    case STATUS_CODES.CONFLICT:
       res.status(statusCode).json({
         title: "Conflict",
         message: err.message,
         stackTrace: err.stack,
       });
       break;
-    case constants.LOCKED_ACCOUNT:
+    case STATUS_CODES.LOCKED_ACCOUNT:
       res.status(statusCode).json({
         title: "Locked account",
         message: err.message,
