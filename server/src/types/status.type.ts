@@ -1,5 +1,5 @@
 export enum StatusEnum  {
-  ENABLED = 'enabled',
-  LOCKED = 'locked',
-  DEACTIVATED = 'deactivated',
+  ENABLED = 'ENABLED',
+  LOCKED = 'LOCKED',
+  DISABLED = 'DISABLED',
 } ;

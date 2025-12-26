@@ -42,3 +42,5 @@ export class User extends Audit implements UserType {
   @IsInt()
   isEnabled: boolean; 
 }
+
+export default User;

@@ -1,11 +1,13 @@
 import { injectable, inject } from "inversify";
 
-export const Service = injectable;
+const Service = injectable;
 
-export const Repository = injectable;
+const Repository = injectable;
 
-export const Controller = injectable;
+const Controller = injectable;
 
-export const Middleware = injectable;
+const Middleware = injectable;
 
-export const AutoWired = inject;
+const AutoWired = inject;
+
+export { Service, Repository, Controller, Middleware, AutoWired };

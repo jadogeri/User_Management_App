@@ -1,0 +1,11 @@
+npx typeorm-ts-node-esm migration:create ./src/migrations/SeedData
+or
+If you have typeorm-ts-node-esm mapped to typeorm in your package.json scripts, use:
+e.g "typeorm" : "typeorm-ts-node-esm"
+npm run typeorm migration:create ./src/migrations/SeedData
+
+
+Next Step
+Once the file is created in ./src/migrations/, open it and paste the queryRunner logic from the previous response to handle your role and status inserts. Then, to actually run it (where you do need the -d flag), use:
+bash
+npx typeorm-ts-node-commonjs migration:run -d ./src/configs/typeOrm.config.ts
