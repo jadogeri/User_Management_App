@@ -10,7 +10,7 @@ import { corsOptions } from './configs/cors.config';
 dotenv.config();
 
 import "./controllers/user.controller";
-import { errorHandler } from './middlewares/error-handler.middleware';
+import { errorHandler } from './middlewares/global-error-handler.middleware';
 import { noRouteFoundHandler } from './middlewares/no-route-found-handler.middleware';
 
 
