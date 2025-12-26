@@ -10,6 +10,7 @@ import { UserRegisterResponseDTO } from "../dtos/responses/user-response.dto";
 import { ValidationResponse } from "../models/validation-response.model";
 import { errorBroadcaster } from "../utils/errorBroadcaster";
 import { ICredentialValidatorService } from "../interfaces/credential-validator-service.interface";
+import { IJwtPayload } from "../interfaces/IJWTPayload";
 
 
 interface ValidateErrorJSON {
@@ -36,6 +37,9 @@ export class UserController extends BaseController implements IUserController {
 
   constructor() {
     super();
+  }
+  currentUser(requestBody: IJwtPayload): Promise<any> {
+    throw new Error("Method not implemented.");
   }
   @Post("/login")
   public async loginUser(): Promise<any> {
