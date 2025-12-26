@@ -1,6 +1,6 @@
 import { UserRegisterRequestDTO, UserLoginRequestDTO, UserDeactivateRequestDTO, UserResetPasswordRequestDTO, UserForgotPasswordRequestDTO } from "../dtos/requests/user-request.dto";
 import { ValidationResponse } from "../models/validation-response.model";
-import { IJwtPayload } from "./IJWTPayload";
+import { IJwtPayload } from "./jwt-payload.interface";
 
 
 export interface ICredentialValidatorService {

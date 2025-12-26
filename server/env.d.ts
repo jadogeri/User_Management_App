@@ -1,6 +1,13 @@
 
 
 declare global {
+    namespace Express {
+      interface Request {
+        user: IJwtPayload, // Add the user property to the Request interface
+        token: string, // Add the token property to the Request interface
+        body: any
+      }
+    }
     namespace NodeJS {
         interface ProcessEnv {
             EXPRESS_APP_PORT:number;

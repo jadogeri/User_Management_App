@@ -1,16 +1,17 @@
 
 import { Request, Controller as BaseController, Body, Delete, Get, Post, Put, Route, Tags, Response, Path, Example, SuccessResponse, Res, TsoaResponse} from "tsoa";
-import { AutoWired, Controller } from "../decorators";
+import { AutoWired, Controller, Middleware } from "../decorators";
 import { IUserController } from "../interfaces/user-controller.interface";
 import { IUserService } from "../interfaces/user-service.interface";
 import { TYPES } from "../types/binding.type";
 import { ErrorResponse } from "../models/error-response.model";
-import { UserRegisterRequestDTO } from "../dtos/requests/user-request.dto";
-import { UserRegisterResponseDTO } from "../dtos/responses/user-response.dto";
+import { UserLoginRequestDTO, UserRegisterRequestDTO } from "../dtos/requests/user-request.dto";
+import { UserLoginResponseDTO, UserRegisterResponseDTO } from "../dtos/responses/user-response.dto";
 import { ValidationResponse } from "../models/validation-response.model";
 import { errorBroadcaster } from "../utils/errorBroadcaster";
 import { ICredentialValidatorService } from "../interfaces/credential-validator-service.interface";
-import { IJwtPayload } from "../interfaces/IJWTPayload";
+import { IJwtPayload } from "../interfaces/jwt-payload.interface";
+import { validateTokenMiddleWare } from "../middlewares/validate-token.middleware";
 
 
 interface ValidateErrorJSON {
@@ -38,14 +39,35 @@ export class UserController extends BaseController implements IUserController {
   constructor() {
     super();
   }
-  currentUser(requestBody: IJwtPayload): Promise<any> {
-    //      // Manually send the JSON response
-    //return res(200, users);
-    throw new Error("Method not implemented.");
+
+    /**
+   * Creates a new user in the system.
+   * @summary Create a new user
+   * @param requestBody The user details for creation.
+   * @returns The newly created user.
+   */
+  @SuccessResponse("201", "Created")
+  @Example<UserRegisterResponseDTO>({
+    id: 1,
+    username: "john1doe",
+    fullname: "John Doe",
+    email: "johndoe@tsoa.com",
+    phone: "123-456-7890",
+    age: 21,
+    createdAt: new Date("2023-01-01T10:00:00Z"),
+    updatedAt: new Date("2023-01-01T11:30:00Z"),
+    failedLogins: 0,
+    isEnabled: false
+  })  
+  @Get("/current")
+  @Middleware(validateTokenMiddleWare)
+  public async currentUser(@Request() req: IJwtPayload): Promise<any> {
+
+    return req
   }
   @Post("/login")
-  public async loginUser(): Promise<any> {
-    return this.userService.login();
+  public async loginUser(userRequest: UserLoginRequestDTO): Promise<UserLoginResponseDTO | ErrorResponse> {
+    return this.userService.login(userRequest);
   }
   @Post("/logout")
   public async logoutUser(): Promise<any> {
@@ -123,6 +145,9 @@ return userResponse;
       return ({ message: "Internal server error" });
     }
   }
-  
-  
+    
 }
+
+
+
+

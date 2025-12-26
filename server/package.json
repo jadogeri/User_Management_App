@@ -48,9 +48,12 @@
     "dotenv": "^17.2.3",
     "email-templates": "^2.7.1",
     "express": "^5.1.0",
+    "express-async-handler": "^1.2.0",
     "inversify": "^7.10.4",
     "inversify-binding-decorators": "^4.0.0",
     "inversify-express-utils": "^6.5.0",
+    "jwt-check-expiry": "^1.0.10",
+    "jwt-decode": "^4.0.0",
     "mongodb": "^7.0.0",
     "mongoose": "^9.0.0",
     "mysql2": "^3.16.0",
@@ -88,5 +91,3 @@
     "typescript": "^5.9.3"
   }
 }
-
-
