@@ -21,6 +21,11 @@
   "type": "commonjs",
   "main": "./src/server.ts",
   "scripts": {
+    "typeorm": "typeorm-ts-node-commonjs --dataSource ./src/configs/typeOrm.config.ts",
+    "migration:create": "npx typeorm-ts-node-commonjs migration:create ./src/migrations/InitialSchemaSetup",
+    "migration:generate": "npx typeorm-ts-node-commonjs migration:generate ./src/migrations/InitialSchemaSetup --dataSource ./src/configs/typeOrm.config.ts --pretty",
+    "migration:run": "npx typeorm-ts-node-commonjs migration:run --dataSource ./src/configs/typeOrm.config.ts",
+    "migration:revert": "npx typeorm-ts-node-commonjs migration:revert --dataSource ./src/configs/typeOrm.config.ts",
     "prod": "concurrently \"npm run build -- --watch\" \"ts-node-dev --respawn --watch src,swagger.json src/server.ts\"",
     "clean": "rm -rf build/",
     "build": "tsoa spec-and-routes && tsc",
