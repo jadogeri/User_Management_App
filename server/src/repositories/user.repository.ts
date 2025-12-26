@@ -20,20 +20,20 @@ export class UserRepository extends BaseRepository<User> implements IUserReposit
     }
 
 
-    async findByEmail(email: string): Promise<any> {                
+    async findByEmail(email: string): Promise<User | null> {                
         
         return this.findOne({ where: { email } });
     }
 
 
 
-    async findByUsername(username: string): Promise<any> {
+    async findByUsername(username: string): Promise<User | null> {
         return this.findOne({ where: { username: username } });
     }
 
 
-    async findById(id: any) {
-        return {message: "found by id: " + id};
+    async findById(id: number): Promise<User | null> {
+        return this.findOne({ where: { id: id } });
     }
 }
 

@@ -3,7 +3,7 @@
 //  */
 // // export interface UserCreationBody extends Pick<UserType, "email" | "name" | "age">{}
 
-import { IJwtPayload } from "../../interfaces/IJWTPayload";
+import { IJwtPayload } from "../../interfaces/jwt-payload.interface";
 import { UserType } from "../../types/user.type";
 
 
@@ -14,7 +14,7 @@ export interface UserRegisterRequestDTO extends Pick<UserType, "email" | "userna
 /**
  * Represents a user login request dto object.
  */
-export interface UserLoginRequestDTO extends UserType{}
+export interface UserLoginRequestDTO extends Pick<UserType, "email" | "password">{}
 /**
  * Represents a user logout request dto object.
  */

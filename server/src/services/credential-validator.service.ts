@@ -2,7 +2,7 @@
 import { Service } from "../decorators";
 import { UserRegisterRequestDTO, UserLoginRequestDTO, UserForgotPasswordRequestDTO, UserResetPasswordRequestDTO, UserDeactivateRequestDTO } from "../dtos/requests/user-request.dto";
 import { ICredentialValidatorService } from "../interfaces/credential-validator-service.interface";
-import { IJwtPayload } from "../interfaces/IJWTPayload";
+import { IJwtPayload } from "../interfaces/jwt-payload.interface";
 import { ErrorResponse } from "../models/error-response.model";
 import { ValidationResponse } from "../models/validation-response.model";
 import {isValidEmail, isValidPassword, isValidUsername, isValidatePhoneNumber} from "../utils/inputValidation"
