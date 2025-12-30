@@ -1,0 +1,68 @@
+{
+  "entryFile": "src/app.ts",
+  "noImplicitAdditionalProperties": "throw-on-extras",
+  "controllerPathGlobs": ["src/**/*controller.ts"],
+  "spec": {
+    "outputDirectory": "src",
+    "specVersion": 3,
+    "securityDefinitions": {
+      "jwt": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "Enter your bearer token in the format \"Bearer {token}\"",
+        "scopes": {
+                "ADMIN": "Admin privileges",
+                "USER": "User privileges"
+            }
+      }    
+
+    },
+    "name": "User Management API",
+    "description": "This is a sample server User server.  You can find out more about Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).",
+    "version": "1.0.7",
+    "termsOfService": "http://swagger.io/terms/",
+    "license": {
+      "name": "MIT License",
+      "url": "opensource.org"
+    },
+    "contact": {
+      "name": "Joseph Adogeri",
+      "email": "johndoe@gmail.com",
+      "url": "http://example.com"
+    },
+    "spec": { 
+    "tags": [
+      {
+        "name": "User",
+        "description": "Operations related to user management, including creation, retrieval, and updates."
+      },
+      {
+        "name": "Auth",
+        "description": "Operations related to authentication, including login, logout, and token management."
+      }
+    ],
+      "servers": [
+
+        {
+          "url": "http://localhost:3000",
+          "description": "Development server"
+        },
+        {
+          "url": "http://localhost:3000/api/v1",
+          "description": "Test Server"
+        },
+        {
+          "url": "http://prod:8080/api/v1",
+          "description": "Production server"
+        }
+      ]
+    }
+  },
+  "routes": {
+    "routesDir": "src",
+    "middleware": "express",
+    "iocModule": "./src/configs/ioc.config.ts",
+    "authenticationModule": "src/utils/authentication.util.ts"
+    }
+}
