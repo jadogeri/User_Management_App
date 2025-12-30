@@ -11,10 +11,12 @@ import morgan from 'morgan';
 import fs from 'fs';
 import path from 'path';
 import rateLimit from 'express-rate-limit';
+import helmet from 'helmet';
 
 dotenv.config();
 
 import "./controllers/auth.controller";
+import { helmetOptions } from './configs/helmet.config';
 // import { globalErrorHandler } from './middlewares/global-error-handler.middleware';
 // import { noRouteFoundHandler } from './middlewares/no-route-found-handler.middleware';
 
@@ -54,6 +56,8 @@ export const buildApp = () : Application  =>{
 
     // Apply the rate limiting middleware to all requests
     app.use(apiLimiter);
+    // Security Middleware
+    app.use(helmet(helmetOptions));
 
 
     RegisterRoutes(app);
