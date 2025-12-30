@@ -37,7 +37,7 @@
     "app:start": "node build/src/server.js",
     "hr": "nodemon",
     "sr": "tsoa spec-and-routes",
-    "predev": "npm run swagger-gen && npm run routes-gen",
+    "predev1": "npm run swagger-gen && npm run routes-gen",
     "dc": "concurrently \"tsc --watch\" \"nodemon dist/server.js\"",
     "swagger-gen": "tsoa spec",
     "routes-gen": "tsoa routes",
