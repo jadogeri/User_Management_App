@@ -100,7 +100,7 @@
 				"parameters": []
 			}
 		},
-		"/auths/forgot": {
+		"/auths/forgot-password": {
 			"post": {
 				"operationId": "ForgotUser",
 				"responses": {
@@ -120,7 +120,7 @@
 				"parameters": []
 			}
 		},
-		"/auths/reset": {
+		"/auths/reset-password": {
 			"post": {
 				"operationId": "ResetUser",
 				"responses": {
@@ -140,32 +140,12 @@
 				"parameters": []
 			}
 		},
-		"/auths/deactivate": {
-			"delete": {
-				"operationId": "DeactivateUser",
+		"/auths/refresh": {
+			"post": {
+				"operationId": "RefreshToken",
 				"responses": {
 					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Auth"
-				],
-				"security": [],
-				"parameters": []
-			}
-		},
-		"/auths/register": {
-			"post": {
-				"operationId": "RegisterUser",
-				"responses": {
-					"201": {
-						"description": "Created",
+						"description": "The newly created user.",
 						"content": {
 							"application/json": {
 								"schema": {}
@@ -175,26 +155,6 @@
 				},
 				"description": "Creates a new user in the system.",
 				"summary": "Create a new user",
-				"tags": [
-					"Auth"
-				],
-				"security": [],
-				"parameters": []
-			}
-		},
-		"/auths/refresh": {
-			"post": {
-				"operationId": "RefreshToken",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {}
-							}
-						}
-					}
-				},
 				"tags": [
 					"Auth"
 				],

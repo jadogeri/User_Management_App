@@ -6,6 +6,7 @@ import { bindDataSource, iocContainer } from "./configs/ioc.config";
 import { Application } from "express";
 import { SQLiteService } from "./services/sqlite.service";
 
+
 async function bootstrap() {
   try {
     // A. Resolve the service and connect

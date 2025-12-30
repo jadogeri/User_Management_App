@@ -7,5 +7,6 @@ export interface AuthServiceInterface{
   forgot(): Promise<any>;
   reset(): Promise<any>;
   refresh(): Promise<any>;
+  
 }
 
