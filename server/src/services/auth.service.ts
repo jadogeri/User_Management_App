@@ -29,12 +29,7 @@ export class AuthService implements AuthServiceInterface{
     reset(): Promise<any> {
         return this.authRepository.reset();
     }
-    deactivate(): Promise<any> {
-        return this.authRepository.deactivate();
-    }
-    register(): Promise<any> {
-        return this.authRepository.register();
-    }
+
     refresh(): Promise<any> {
         return this.authRepository.refresh();
     }

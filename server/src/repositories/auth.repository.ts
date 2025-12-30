@@ -28,12 +28,7 @@ export class AuthRepository extends BaseRepository<Auth> implements AuthReposito
     reset(): any {
         return {message: "Reset password endpoint from repository" };
     }
-    deactivate(): any {
-        return {message: "Deactivate user endpoint from repository" };
-    }
-    register(): any {
-        return {message: "Register user endpoint from repository" };
-    }
+
     refresh(): any {
         return {message: "Refresh token endpoint from repository" };
     }

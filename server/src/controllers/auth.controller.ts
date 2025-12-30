@@ -5,7 +5,6 @@ import { AutoWired, Controller, Middleware } from "../decorators";
 import { TYPES } from "../types/binding.type";
 import { AuthControllerInterface } from "../interfaces/auth-controller.interface";
 import { AuthServiceInterface } from "../interfaces/auth-service.interface";
-import { log } from "console";
 import loginLimitterMiddleware from "../middlewares/login-limitter.middleware";
 
 
@@ -40,32 +39,21 @@ export class AuthController extends BaseController implements AuthControllerInte
   public async logoutUser(): Promise<any> {
     return this.authService.logout();
   }
-  @Post("/forgot")
+  @Post("/forgot-password")
   public async forgotUser(): Promise<any> {
     return this.authService.forgot();
   }
-  @Post("/reset") 
+  @Post("/reset-password") 
   public async resetUser(): Promise<any> {
     return this.authService.reset();
   }
-  @Delete("/deactivate")
-  public async deactivateUser(): Promise<any> {
-    return this.authService.deactivate();
-  }
+
   /**
    * Creates a new user in the system.
    * @summary Create a new user
    * @param requestBody The user details for creation.
    * @returns The newly created user.
    */
-  @SuccessResponse("201", "Created")
-  @Post("/register")   
-  public async registerUser(): Promise<any> {
-
-
-    return this.authService.register();
-
-  }
 
    @Post("/refresh")
   public async refreshToken(): Promise<any> {
