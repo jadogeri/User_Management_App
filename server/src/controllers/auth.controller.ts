@@ -5,6 +5,8 @@ import { AutoWired, Controller, Middleware } from "../decorators";
 import { TYPES } from "../types/binding.type";
 import { AuthControllerInterface } from "../interfaces/auth-controller.interface";
 import { AuthServiceInterface } from "../interfaces/auth-service.interface";
+import { log } from "console";
+import loginLimitterMiddleware from "../middlewares/login-limitter.middleware";
 
 
 @Route("auths")
@@ -26,14 +28,14 @@ export class AuthController extends BaseController implements AuthControllerInte
   @Get("/current")
   public async currentUser(): Promise<any> {
     return {message: "Current user endpoint" };
-
   }
 
   @Post("/login")
+  @Middleware(loginLimitterMiddleware)
   public async loginUser(): Promise<any> {
     return this.authService.login();
 
-  }
+  }  
   @Post("/logout")
   public async logoutUser(): Promise<any> {
     return this.authService.logout();
