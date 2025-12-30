@@ -10,7 +10,7 @@ import { corsOptions } from './configs/cors.config';
 import morgan from 'morgan';
 import fs from 'fs';
 import path from 'path';
-
+import rateLimit from 'express-rate-limit';
 
 dotenv.config();
 
@@ -40,6 +40,21 @@ export const buildApp = () : Application  =>{
 
     // Setup the logger to use the 'combined' format and stream to the file
     app.use(morgan('combined', { stream: accessLogStream }))  
+
+    // Rate Limiting Middleware
+    // Global rate limiter configuration
+    const apiLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // limit each IP to 100 requests per windowMs
+    message:
+        'Too many requests from this IP, please try again after 15 minutes',
+    standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+    legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+    });
+
+    // Apply the rate limiting middleware to all requests
+    app.use(apiLimiter);
+
 
     RegisterRoutes(app);
 

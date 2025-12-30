@@ -35,3 +35,6 @@ yarn-error.log*
 
 # db
 user-management-app.sqlite
+
+# Logs
+logs

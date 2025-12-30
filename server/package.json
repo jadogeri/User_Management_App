@@ -61,6 +61,7 @@
     "email-templates": "^2.7.1",
     "express": "^5.1.0",
     "express-async-handler": "^1.2.0",
+    "express-rate-limit": "^8.2.1",
     "inversify": "^7.10.4",
     "inversify-binding-decorators": "^4.0.0",
     "inversify-express-utils": "^6.5.0",
