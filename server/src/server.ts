@@ -5,8 +5,7 @@ dotenv.config();
 import {buildApp} from "./app";
 import { bindDataSource, iocContainer } from "./configs/ioc.config";
 import { Application } from "express";
-//import { SQLiteService } from "./services/SQLiteService.service";
-
+import { SQLiteService } from "./services/sqlite.service";
 
 async function bootstrap() {
   try {

@@ -11,7 +11,7 @@ import { corsOptions } from './configs/cors.config';
 
 dotenv.config();
 
-import "./controllers/user.controller";
+import "./controllers/auth.controller";
 // import { globalErrorHandler } from './middlewares/global-error-handler.middleware';
 // import { noRouteFoundHandler } from './middlewares/no-route-found-handler.middleware';
 

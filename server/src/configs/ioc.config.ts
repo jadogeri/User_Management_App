@@ -15,6 +15,7 @@ import { AuthController } from '../controllers/auth.controller';
 // import { UserRepositoryInterface } from '../interfaces/user-repository.interface';
 // import { UserRepository } from '../repositories/user.repository';
 import { DatabaseServiceInterface } from '../interfaces/database-service.interface';
+import { SQLiteService } from '../services/sqlite.service';
 // import { SQLiteService} from '../services/SQLiteService.service';    
 // import { CredentialValidatorServiceInterface } from '../interfaces/credential-validator-service.interface';
 // import CredentialValidatorService from '../services/credential-validator.service';
@@ -42,7 +43,7 @@ iocContainer.load(buildProviderModule());
     //iocContainer.bind<UserRepositoryInterface>(TYPES.UserRepositoryInterface).to(UserRepository).inSingletonScope();
 
 
-    // iocContainer.bind<DatabaseServiceInterface>(TYPES.DatabaseServiceInterface).to(SQLiteService).inSingletonScope();
+    iocContainer.bind<DatabaseServiceInterface>(TYPES.DatabaseServiceInterface).to(SQLiteService).inSingletonScope();
     // iocContainer.bind<UserServiceInterface>(TYPES.UserServiceInterface).to(UserService).inSingletonScope();
     // iocContainer.bind<CredentialValidatorServiceInterface>(TYPES.CredentialValidatorServiceInterface).to(CredentialValidatorService).inSingletonScope();
     // iocContainer.bind<EmailServiceInterface>(TYPES.EmailServiceInterface).to(EmailService).inSingletonScope();  
