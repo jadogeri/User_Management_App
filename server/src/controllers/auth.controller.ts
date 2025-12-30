@@ -8,7 +8,7 @@ import { AuthServiceInterface } from "../interfaces/auth-service.interface";
 
 
 @Route("auths")
-@Tags("auth")
+@Tags("Auth")
 @Controller() 
 export class AuthController extends BaseController implements AuthControllerInterface {
 

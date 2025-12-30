@@ -54,7 +54,7 @@
 				"description": "Creates a new user in the system.",
 				"summary": "Create a new user",
 				"tags": [
-					"auth"
+					"Auth"
 				],
 				"security": [],
 				"parameters": []
@@ -74,7 +74,7 @@
 					}
 				},
 				"tags": [
-					"auth"
+					"Auth"
 				],
 				"security": [],
 				"parameters": []
@@ -94,7 +94,7 @@
 					}
 				},
 				"tags": [
-					"auth"
+					"Auth"
 				],
 				"security": [],
 				"parameters": []
@@ -114,7 +114,7 @@
 					}
 				},
 				"tags": [
-					"auth"
+					"Auth"
 				],
 				"security": [],
 				"parameters": []
@@ -134,7 +134,7 @@
 					}
 				},
 				"tags": [
-					"auth"
+					"Auth"
 				],
 				"security": [],
 				"parameters": []
@@ -154,7 +154,7 @@
 					}
 				},
 				"tags": [
-					"auth"
+					"Auth"
 				],
 				"security": [],
 				"parameters": []
@@ -176,7 +176,7 @@
 				"description": "Creates a new user in the system.",
 				"summary": "Create a new user",
 				"tags": [
-					"auth"
+					"Auth"
 				],
 				"security": [],
 				"parameters": []
@@ -196,7 +196,7 @@
 					}
 				},
 				"tags": [
-					"auth"
+					"Auth"
 				],
 				"security": [],
 				"parameters": []
@@ -216,7 +216,7 @@
 					}
 				},
 				"tags": [
-					"auth"
+					"Auth"
 				],
 				"security": [],
 				"parameters": []

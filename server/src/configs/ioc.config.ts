@@ -38,7 +38,7 @@ iocContainer.load(buildProviderModule());
     iocContainer.bind<AuthController>(AuthController).toSelf();
 
     // 1. Bind the service that manages the connection
-    //iocContainer.bind<SQLiteService>(SQLiteService).toSelf().inSingletonScope();
+    iocContainer.bind<SQLiteService>(SQLiteService).toSelf().inSingletonScope();
     // 2. Bind the Repository (it will wait for TYPES.DataSource to be available)
     //iocContainer.bind<UserRepositoryInterface>(TYPES.UserRepositoryInterface).to(UserRepository).inSingletonScope();
 
