@@ -1,0 +1,1 @@
+::1 - - [30/Dec/2025:05:03:41 +0000] "POST /auths/login HTTP/1.1" 200 49 "http://localhost:3000/docs/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36 Edg/143.0.0.0"
