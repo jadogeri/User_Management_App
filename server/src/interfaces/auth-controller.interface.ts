@@ -7,7 +7,7 @@ export interface AuthControllerInterface {
   logoutUser(): Promise<any>;
   forgotUser(): Promise<any>;
   resetUser(): Promise<any>;
-  deleteUser(): Promise<any>;
+  deactivateUser(): Promise<any>;
   registerUser(): Promise<any>;
   refreshToken( ): Promise<any> ;
 };

@@ -31,24 +31,24 @@ export class AuthController extends BaseController implements AuthControllerInte
 
   @Post("/login")
   public async loginUser(): Promise<any> {
-    return {message: "Login user endpoint" };
+    return this.authService.login();
 
   }
   @Post("/logout")
   public async logoutUser(): Promise<any> {
-    return {message: "Logout user endpoint" };
+    return this.authService.logout();
   }
   @Post("/forgot")
   public async forgotUser(): Promise<any> {
-    return {message: "Forgot user endpoint" };
+    return this.authService.forgot();
   }
   @Post("/reset") 
   public async resetUser(): Promise<any> {
-    return {message: "Reset user endpoint" };
+    return this.authService.reset();
   }
   @Delete("/deactivate")
-  public async deleteUser(): Promise<any> {
-    return {message: "Delete user endpoint" };
+  public async deactivateUser(): Promise<any> {
+    return this.authService.deactivate();
   }
   /**
    * Creates a new user in the system.
@@ -61,17 +61,13 @@ export class AuthController extends BaseController implements AuthControllerInte
   public async registerUser(): Promise<any> {
 
 
-    return {message: "Register user endpoint" };
-
+    return this.authService.register();
 
   }
-  
-
-
 
    @Post("/refresh")
   public async refreshToken(): Promise<any> {
-    return {message: "Refresh token endpoint" };
+    return this.authService.refresh();
   }
 
   
