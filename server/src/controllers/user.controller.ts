@@ -11,7 +11,7 @@ import { UserServiceInterface } from "../interfaces/user-service.interface";
 
 
 @Route("users")
-@Tags("Users")
+@Tags("User")
 @Controller() 
 export class UserController extends BaseController implements UserControllerInterface {
 
@@ -31,21 +31,21 @@ export class UserController extends BaseController implements UserControllerInte
     return this.userService.create();
   }
 
-  @Post("/get-one")
+  @Get("/get-one")
   @Middleware(loginLimitterMiddleware)
   public async getSingleUser(): Promise<any> {
     return this.userService.getOne();
 
   }  
-  @Post("/get-all")
+  @Get("/get-all")
   public async getAllUsers(): Promise<any> {
     return this.userService.getAll();
   }
-  @Post("/modify")
+  @Put("/modify")
   public async modifyUser(): Promise<any> {
     return this.userService.modify();
   }
-  @Post("/deactivate") 
+  @Delete("/deactivate") 
   public async deactivateUser(): Promise<any> {
     return this.userService.deactivate();
   }

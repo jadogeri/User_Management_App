@@ -15,7 +15,10 @@ import helmet from 'helmet';
 
 dotenv.config();
 
+// importing controllers to ensure they are registered
+import "./controllers/user.controller";
 import "./controllers/auth.controller";
+
 import { helmetOptions } from './configs/helmet.config';
 // import { globalErrorHandler } from './middlewares/global-error-handler.middleware';
 // import { noRouteFoundHandler } from './middlewares/no-route-found-handler.middleware';
@@ -68,7 +71,7 @@ export const buildApp = () : Application  =>{
     // app.use(noRouteFoundHandler)
 
     return app;
-
+    
 }
 
 

@@ -9,11 +9,12 @@ import { AuthService } from '../services/auth.service';
 import { AuthRepositoryInterface } from '../interfaces/auth-repository.interface';
 import { AuthRepository } from '../repositories/auth.repository';
 import { AuthController } from '../controllers/auth.controller';
+import { UserServiceInterface} from '../interfaces/user-service.interface';
+import { UserService } from '../services/user.service';
+import { UserRepositoryInterface } from '../interfaces/user-repository.interface';
+import { UserRepository } from '../repositories/user.repository';
+import { UserController } from '../controllers/user.controller';
 
-// import { UserServiceInterface} from '../interfaces/user-service.interface';
-// import { UserService } from '../services/user.service';
-// import { UserRepositoryInterface } from '../interfaces/user-repository.interface';
-// import { UserRepository } from '../repositories/user.repository';
 import { DatabaseServiceInterface } from '../interfaces/database-service.interface';
 import { SQLiteService } from '../services/sqlite.service';
 // import { SQLiteService} from '../services/SQLiteService.service';    
@@ -34,21 +35,24 @@ const iocContainer = new Container();
 decorate(injectable(), Controller); 
 iocContainer.load(buildProviderModule());
 
-    //iocContainer.bind<UserController>(UserController).toSelf();
+  //  0. bind controllers
+    iocContainer.bind<UserController>(UserController).toSelf();
     iocContainer.bind<AuthController>(AuthController).toSelf();
 
     // 1. Bind the service that manages the connection
     iocContainer.bind<SQLiteService>(SQLiteService).toSelf().inSingletonScope();
-    // 2. Bind the Repository (it will wait for TYPES.DataSource to be available)
-    //iocContainer.bind<UserRepositoryInterface>(TYPES.UserRepositoryInterface).to(UserRepository).inSingletonScope();
-
-
     iocContainer.bind<DatabaseServiceInterface>(TYPES.DatabaseServiceInterface).to(SQLiteService).inSingletonScope();
-    // iocContainer.bind<UserServiceInterface>(TYPES.UserServiceInterface).to(UserService).inSingletonScope();
+    iocContainer.bind<AuthServiceInterface>(TYPES.AuthServiceInterface).to(AuthService).inSingletonScope();
+    iocContainer.bind<UserServiceInterface>(TYPES.UserServiceInterface).to(UserService).inSingletonScope();
+
+
+    // 2. Bind the Repository (it will wait for TYPES.DataSource to be available)
+    iocContainer.bind<UserRepositoryInterface>(TYPES.UserRepositoryInterface).to(UserRepository).inSingletonScope();
+    iocContainer.bind<AuthRepositoryInterface>(TYPES.AuthRepositoryInterface).to(AuthRepository).inSingletonScope();
+
+
     // iocContainer.bind<CredentialValidatorServiceInterface>(TYPES.CredentialValidatorServiceInterface).to(CredentialValidatorService).inSingletonScope();
     // iocContainer.bind<EmailServiceInterface>(TYPES.EmailServiceInterface).to(EmailService).inSingletonScope();  
-    iocContainer.bind<AuthServiceInterface>(TYPES.AuthServiceInterface).to(AuthService).inSingletonScope();
-    iocContainer.bind<AuthRepositoryInterface>(TYPES.AuthRepositoryInterface).to(AuthRepository).inSingletonScope();
     //iocContainer.bind<TokenGeneratorInterface>(TYPES.TokenGeneratorInterface).to(TokenGeneratorService).inSingletonScope();
 
 
