@@ -162,6 +162,46 @@
 				"parameters": []
 			}
 		},
+		"/users/error": {
+			"get": {
+				"operationId": "Error",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/users/warn": {
+			"get": {
+				"operationId": "Warn",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
 		"/auths/current": {
 			"get": {
 				"operationId": "CurrentUser",

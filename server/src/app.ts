@@ -12,6 +12,8 @@ import fs from 'fs';
 import path from 'path';
 import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
+import expressWinston from 'express-winston';
+import { transports, format } from 'winston';
 
 dotenv.config();
 
@@ -20,6 +22,7 @@ import "./controllers/user.controller";
 import "./controllers/auth.controller";
 
 import { helmetOptions } from './configs/helmet.config';
+import { applicationErrorLogger } from './middlewares/application-error-logger.middleware';
 // import { globalErrorHandler } from './middlewares/global-error-handler.middleware';
 // import { noRouteFoundHandler } from './middlewares/no-route-found-handler.middleware';
 
@@ -66,6 +69,29 @@ export const buildApp = () : Application  =>{
     RegisterRoutes(app);
 
     app.use(["/openapi", "/docs", "/swagger"], swaggerUI.serve, swaggerUI.setup(swaggerJson));
+
+
+
+//     const myFormat  = format.printf(({ level: string, meta: any, timestamp }) => {
+//     return `${timestamp} ${level}: ${meta.message}`
+// })
+
+// app.use(expressWinston.errorLogger({
+//     transports: [
+//         new transports.File({
+//             filename: 'logsInternalErrors.log'
+//         })
+//     ],
+//     format: format.combine(
+//         format.json(),
+//         format.timestamp(),
+//         //myFormat
+
+//     )
+// }))
+
+app.use(applicationErrorLogger);
+
 
     // app.use(globalErrorHandler);
     // app.use(noRouteFoundHandler)

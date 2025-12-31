@@ -61,7 +61,17 @@ export class UserController extends BaseController implements UserControllerInte
   public async reactivateUser(): Promise<any> {
     return this.userService.reactivate();
   } 
-    
+
+  @Get("/error")
+  public async error(): Promise<any> {
+    throw new Error("This is a test error");
+  }
+
+    @Get("/warn")
+  public async warn(): Promise<any> {
+    throw new Error("This is a test warn");
+  }
+  
 }
 
 
