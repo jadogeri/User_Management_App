@@ -23,13 +23,16 @@ import "./controllers/auth.controller";
 
 import { helmetOptions } from './configs/helmet.config';
 import { applicationErrorLogger } from './middlewares/application-error-logger.middleware';
+import { customLogger } from './middlewares/custom-logger.middleware';
 // import { globalErrorHandler } from './middlewares/global-error-handler.middleware';
 // import { noRouteFoundHandler } from './middlewares/no-route-found-handler.middleware';
 
 export const buildApp = () : Application  =>{
+    
 
     const app: Application = express();
 
+    app.use(customLogger);
     //middlewares
     app.use(express.json())
     app.use(cookieParser());

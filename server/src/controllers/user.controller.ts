@@ -8,6 +8,7 @@ import { AuthServiceInterface } from "../interfaces/auth-service.interface";
 import loginLimitterMiddleware from "../middlewares/login-limitter.middleware";
 import { UserControllerInterface } from "../interfaces/user-controller.interface";
 import { UserServiceInterface } from "../interfaces/user-service.interface";
+import { logger } from "../configs/logger.config";
 
 
 @Route("users")
@@ -64,14 +65,22 @@ export class UserController extends BaseController implements UserControllerInte
 
   @Get("/error")
   public async error(): Promise<any> {
-    throw new Error("This is a test error");
+    logger.error("This is a test error from error endpoint");
+    return "Error logged";
   }
 
     @Get("/warn")
   public async warn(): Promise<any> {
-    throw new Error("This is a test warn");
-  }
+    logger.warn("This is a test warn logger from warn endpoint"); 
+    return "Warn logged";}
+
   
+      @Get("/info")
+  public async info(): Promise<any> {
+
+    logger.info("This is a test info from info endpoint");
+    return "Info logged";
+  }
 }
 
 
