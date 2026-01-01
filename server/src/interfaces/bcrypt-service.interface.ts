@@ -1,5 +1,5 @@
 
-export interface BcryptServiceServiceInterface {
+export interface BcryptServiceInterface {
   
   updateUUID(): void;
 
