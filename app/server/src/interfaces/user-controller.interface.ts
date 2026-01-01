@@ -2,7 +2,7 @@
 
 
 export interface UserControllerInterface {
-  createUser(): Promise<any>;
+  createUser( requestBody: UserRegisterRequestDTO): Promise<UserRegisterResponseDTO |  ErrorResponse> ;
   getSingleUser(): Promise<any>;
   getAllUsers(): Promise<any>;
   modifyUser(): Promise<any>;
