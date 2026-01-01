@@ -6,6 +6,7 @@ import { UserType } from "../types/user.type";
 import Role from "./role.entity";
 import Status from "./status.entity";
 import { SuspensionDetails } from "../types/suspension-details.type";
+import { Group } from "./group.entity";
 
 @Entity()
 export class User extends Audit implements UserType {
@@ -66,7 +67,7 @@ export class User extends Audit implements UserType {
   roles: Role[];
 
   // ManyToMany relationship with Group
-  @ManyToMany(() => Group, group => group.users)
+  @ManyToMany(() => Group, (group: { users: any; }) => group.users)
   @JoinTable({
     name: 'user_groups',
     joinColumn: { name: 'user_id', referencedColumnName: 'id' },
