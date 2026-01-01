@@ -22,8 +22,10 @@ import { PasswordGeneratorInterface } from '../interfaces/password-generator.int
  import { CredentialValidatorServiceInterface } from '../interfaces/credential-validator-service.interface';
 import CredentialValidatorService from '../services/credential-validator.service';
 // import CredentialValidatorService from '../services/credential-validator.service';
-// import { EmailServiceInterface } from '../interfaces/email-service.interface';
-// import EmailService from '../services/email.service';
+import { EmailServiceInterface } from '../interfaces/email-service.interface';
+import EmailService from '../services/email.service';
+import { TokenGeneratorInterface } from '../interfaces/token-generator.interface';
+import TokenGeneratorService from '../services/token-generator.service';
 // // import { UserController } from '../controllers/user.controller';
 
 
@@ -55,8 +57,8 @@ iocContainer.load(buildProviderModule());
 
 
     iocContainer.bind<CredentialValidatorServiceInterface>(TYPES.CredentialValidatorServiceInterface).to(CredentialValidatorService).inSingletonScope();
-    // iocContainer.bind<EmailServiceInterface>(TYPES.EmailServiceInterface).to(EmailService).inSingletonScope();  
-    //iocContainer.bind<TokenGeneratorInterface>(TYPES.TokenGeneratorInterface).to(TokenGeneratorService).inSingletonScope();
+    iocContainer.bind<EmailServiceInterface>(TYPES.EmailServiceInterface).to(EmailService).inSingletonScope();  
+    iocContainer.bind<TokenGeneratorInterface>(TYPES.TokenGeneratorInterface).to(TokenGeneratorService).inSingletonScope();
 
 
 // 3. Helper to bind the live DataSource after connection

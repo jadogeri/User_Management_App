@@ -7,8 +7,8 @@
  */
 import nodemailer from 'nodemailer';
 
-const creds = { user:process?.env?.NODEMAILER_USERNAME as string,
-    pass :process?.env?.NODEMAILER_PASSWORD as string};
+const creds = { user:process?.env?.NODEMAILER_USERNAME,
+    pass :process?.env?.NODEMAILER_PASSWORD};
 
     console.log("Nodemailer Config - User:", creds.user );
     console.log("Nodemailer Config - Pass:", creds.pass );
