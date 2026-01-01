@@ -51,13 +51,17 @@ export class Role {
    * @returns boolean
    */
   hasRequiredPermission(scopes: string[]): boolean {
+    console.log("string scoper in role: ", scopes)
+
 
     let permissionGranted: boolean = false;
 
     for (let permission of this.permissions) {
+      console.log("permission in role class: permission")
+      console.log("scopes.includes(PermissionNamesEnum[permission.name]);: ",scopes.includes(PermissionNamesEnum[permission.name]));
       permissionGranted = scopes.includes(PermissionNamesEnum[permission.name]);
-    }    
-
+    }   
+    
     return permissionGranted;
   }
 
@@ -69,3 +73,22 @@ export default Role;
 
 
 
+/**
+ * 
+ // Create a Set to store unique strings
+const uniqueStrings: Set<string> = new Set();
+
+// Add elements to the Set
+uniqueStrings.add("apple"); // Added
+uniqueStrings.add("banana"); // Added
+uniqueStrings.add("apple"); // Ignored (duplicate)
+
+console.log(uniqueStrings);
+// Output: Set(2) { 'apple', 'banana' }
+
+// Convert the Set back to an Array using the spread operator or Array.from()
+const uniqueArray: string[] = [...uniqueStrings];
+console.log(uniqueArray);
+// Output: [ 'apple', 'banana' ]
+
+ */

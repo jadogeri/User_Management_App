@@ -1,11 +1,16 @@
 
 import { Request, Controller as BaseController, Body, Delete, Get, Post, Put, Route, Tags, Response, Path, Example, SuccessResponse, Res, TsoaResponse, Security} from "tsoa";
 import { AutoWired, Controller, Middleware } from "../decorators";
+import { Request as ExpressRequest } from "express";
 
 import { TYPES } from "../types/binding.type";
 import { AuthControllerInterface } from "../interfaces/auth-controller.interface";
 import { AuthServiceInterface } from "../interfaces/auth-service.interface";
 import loginLimitterMiddleware from "../middlewares/login-limitter.middleware";
+import { AuthLoginRequestDTO } from "../dtos/requests/auth-request.dto";
+import { AuthLoginResponseDTO } from "../dtos/responses/auth-response.dto";
+import { ErrorResponse } from "../models/error-response.model";
+import { authMiddleware } from "../middlewares/authorization.middleware";
 
 
 @Route("auths")
@@ -29,12 +34,12 @@ export class AuthController extends BaseController implements AuthControllerInte
     return {message: "Current user endpoint" };
   }
 
+  @Middleware(authMiddleware("",["USERS_READ"]))
   @Post("/login")
-  @Middleware(loginLimitterMiddleware)
-  public async loginUser(): Promise<any> {
-    return this.authService.login();
-
-  }  
+  public async loginUser(@Body() userRequest: AuthLoginRequestDTO, @Request() req: ExpressRequest): Promise<AuthLoginResponseDTO | ErrorResponse> {
+    return this.authService.login(userRequest, req);
+  }
+  
   @Post("/logout")
   public async logoutUser(): Promise<any> {
     return this.authService.logout();

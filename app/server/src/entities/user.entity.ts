@@ -33,7 +33,9 @@ export class User extends Audit implements UserType {
   @IsString()
   phone: string;
 
-  @Column({type: "varchar", length: 100, nullable: false, select: false  })
+  @Column({type: "varchar", length: 100, nullable: false, //select: false 
+
+   })
   @IsString()
   password: string;
 
@@ -65,6 +67,21 @@ export class User extends Audit implements UserType {
     
   })
   roles: Role[];
+
+  getPermissionNames(): Array<string> {
+
+    const uniquePermissions: Set<string> = new Set();
+
+    for (let role of this.roles) {
+      for(let permission of role.permissions)
+        uniquePermissions.add(permission.name)
+    }   
+    console.log("unique permissions: ", uniquePermissions);
+    const permissionList: string[] = [...uniquePermissions];
+
+
+    return permissionList;
+  }
 
 
 }
