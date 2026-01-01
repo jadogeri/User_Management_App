@@ -51,13 +51,17 @@ export class Role {
    * @returns boolean
    */
   hasRequiredPermission(scopes: string[]): boolean {
+    console.log("string scoper in role: ", scopes)
+
 
     let permissionGranted: boolean = false;
 
     for (let permission of this.permissions) {
+      console.log("permission in role class: permission")
+      console.log("scopes.includes(PermissionNamesEnum[permission.name]);: ",scopes.includes(PermissionNamesEnum[permission.name]));
       permissionGranted = scopes.includes(PermissionNamesEnum[permission.name]);
     }   
-
+    
     return permissionGranted;
   }
 

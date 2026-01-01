@@ -3,7 +3,6 @@ import { ErrorResponse } from "../models/error-response.model";
 import {hash} from "bcrypt";
 import * as bcrypt from "bcrypt";
 import { TYPES } from "../types/binding.type";
-import { User } from "../entities/user.entity";
 import { Recipient } from "../types/recipient.type";
 import { AuthServiceInterface } from "../interfaces/auth-service.interface";
 import { Auth } from "../entities/auth.entity";
@@ -15,7 +14,6 @@ import { AuthLoginRequestDTO } from "../dtos/requests/auth-request.dto";
 import { AuthLoginResponseDTO } from "../dtos/responses/auth-response.dto";
 import { JwtPayloadInterface } from "../interfaces/jwt-payload.interface";
 import { EmailServiceInterface } from "../interfaces/email-service.interface";
-import { PasswordGeneratorInterface } from "../interfaces/password-generator.interface";
 import { TokenGeneratorInterface } from "../interfaces/token-generator.interface";
 
 @Service()
@@ -24,16 +22,12 @@ export class AuthService implements AuthServiceInterface{
     @AutoWired(TYPES.AuthRepositoryInterface)
     private readonly authRepository!:  AuthRepositoryInterface;
     @AutoWired(TYPES.UserRepositoryInterface)
-    private readonly userRepository!:  UserRepositoryInterface;
+    private readonly userRepository!:  UserRepositoryInterface;    
     @AutoWired(TYPES.EmailServiceInterface)
     private readonly emailService!:  EmailServiceInterface;
-    @AutoWired(TYPES.AuthServiceInterface)
-    private readonly authService!:  AuthServiceInterface;
     @AutoWired(TYPES.TokenGeneratorInterface)
     private readonly tokenGeneratorService!: TokenGeneratorInterface;
-    @AutoWired(TYPES.PasswordGeneratorInterface)
-    private readonly passwordGeneratorService!: PasswordGeneratorInterface;
-
+ 
 
     public async login(userRequest: AuthLoginRequestDTO, req: Request): Promise<AuthLoginResponseDTO | ErrorResponse > {
         const { email, password } = userRequest;
@@ -50,6 +44,7 @@ export class AuthService implements AuthServiceInterface{
             }
             console.log("Found user for login: ", user);
             //compare password with hashedpassword 
+            console.log(" compare password with hashedpassword :v",password, user.password)
             if (user &&  await bcrypt.compare(password,user.password)) {
 
                 let payload : JwtPayloadInterface = {
@@ -79,18 +74,22 @@ export class AuthService implements AuthServiceInterface{
                             maxAge: 7 * 24 * 60 * 60 * 1000 // 7 Days
                         });
                     }                    
-                const savedAuth : Auth | null = await this.authService.getByUserId(user.id);
+                const savedAuth : Auth | null = await this.authRepository.findByUserId(user.id);
                 if(savedAuth instanceof Auth === false || savedAuth === null){
                     //create new auth record
-                    await this.authService.create(user, refreshToken);
+                    const newAuth = new Auth();
+                    newAuth.user = user;
+                    newAuth.refreshToken = refreshToken;
+                    
+                    this.authRepository.save(newAuth);
                 }else{
                     //update existing auth record
                     savedAuth.refreshToken = refreshToken;
 
-                    await this.authService.update(savedAuth);
+                    await this.authRepository.save(savedAuth);
 
                 }
-            const userResponse : UserLoginResponseDTO = { accessToken: accessToken };
+            const userResponse : AuthLoginResponseDTO = { accessToken: accessToken };
             return userResponse;
             }else{ 
                 // handle incorrect password by incrementing failed login
@@ -124,20 +123,19 @@ export class AuthService implements AuthServiceInterface{
         }
        
     }
-        
     logout(): Promise<any> {
-        return this.authRepository.logout();
+        throw new Error("Method not implemented.");
     }
     forgot(): Promise<any> {
-        return this.authRepository.forgot();
+        throw new Error("Method not implemented.");
     }
-    
     reset(): Promise<any> {
-        return this.authRepository.reset();
+        throw new Error("Method not implemented.");
+    }
+    refresh(): Promise<any> {
+        throw new Error("Method not implemented.");
     }
 
-    refresh(): Promise<any> {
-        return this.authRepository.refresh();
-    }
-    
+        
+
 }

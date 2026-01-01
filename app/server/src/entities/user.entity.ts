@@ -33,7 +33,9 @@ export class User extends Audit implements UserType {
   @IsString()
   phone: string;
 
-  @Column({type: "varchar", length: 100, nullable: false, select: false  })
+  @Column({type: "varchar", length: 100, nullable: false, //select: false 
+
+   })
   @IsString()
   password: string;
 

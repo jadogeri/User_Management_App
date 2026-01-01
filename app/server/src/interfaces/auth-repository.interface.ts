@@ -8,6 +8,11 @@ export interface CustomAuthRepositoryMethodsInterface {
   findByUser(user: User): Promise<Auth | null>;
   findByUserId(userId: number): Promise<Auth | null>;
   findByRefreshToken(token: string): Promise<Auth | null>;
+
 }
 
 export interface AuthRepositoryInterface extends Repository<Auth>, CustomAuthRepositoryMethodsInterface {};
+
+
+
+

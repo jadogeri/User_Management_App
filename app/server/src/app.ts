@@ -23,8 +23,6 @@ import { applicationErrorLogger } from './middlewares/application-error-logger.m
 import { customLogger } from './middlewares/custom-logger.middleware';
 import { globalErrorHandler } from './middlewares/global-error-handler.middleware';
 import { noRouteFoundHandler } from './middlewares/no-route-found-handler.middleware';
-// import { globalErrorHandler } from './middlewares/global-error-handler.middleware';
-// import { noRouteFoundHandler } from './middlewares/no-route-found-handler.middleware';
 
 export const buildApp = () : Application  =>{
 
@@ -65,10 +63,9 @@ export const buildApp = () : Application  =>{
     app.use(apiLimiter);
     // Security Middleware
     app.use(helmet(helmetOptions));
-
-
+    
     RegisterRoutes(app);
-
+    
     app.use(["/openapi", "/docs", "/swagger"], swaggerUI.serve, swaggerUI.setup(swaggerJson));
 
         console.log("dirname in app.ts:", __dirname);
@@ -84,7 +81,6 @@ export const buildApp = () : Application  =>{
     app.get('/*splat', (req, res) => {
         res.sendFile(path.join(buildPath, 'index.html'));
     });
-
 
 
 
@@ -107,7 +103,6 @@ export const buildApp = () : Application  =>{
 // }))
 
 app.use(applicationErrorLogger);
-
 
 app.use(globalErrorHandler);
 app.use(noRouteFoundHandler)
