@@ -2,7 +2,7 @@
 import { DataSource } from 'typeorm';
 import { Seeder } from 'typeorm-extension';
 import { Role } from '../../entities/role.entity';
-import { AdminRole, UserRole, ViewerRole, EditorRole } from '../../constants/role.constant';
+import { AdminRole, UserRole, ViewerRole, EditorRole } from '../../data/role.data';
 export default class RoleSeeder implements Seeder {
 /**
    * Checks for the existence of predefined status entities in the database 

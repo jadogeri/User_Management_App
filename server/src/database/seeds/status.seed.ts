@@ -2,7 +2,7 @@
 import { DataSource } from 'typeorm';
 import { Seeder } from 'typeorm-extension';
 import { Status } from '../../entities/status.entity';
-import { EnabledStatus, DisabledStatus, LockedStatus } from '../../constants/status.constant';
+import { EnabledStatus, DisabledStatus, LockedStatus } from '../../data/status.data';
 
 export default class StatusSeeder implements Seeder {
 /**
