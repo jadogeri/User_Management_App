@@ -26,7 +26,7 @@ const generateRootUser = async () => {
     root.email = process.env.ROOT_EMAIL;
     const hashedPassword =  await generateRootPassword();
     root.password = hashedPassword;
-    root.role = AdminRole;
+    root.roles = [AdminRole]
     root.status = EnabledStatus;
     root.createdAt = new Date();
     root.updatedAt = new Date();

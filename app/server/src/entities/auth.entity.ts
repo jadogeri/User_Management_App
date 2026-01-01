@@ -17,8 +17,9 @@ export class Auth extends Audit implements AuthType {
     @Column({ type: 'varchar', unique: true, nullable: true })
     refreshToken: string;
 
-    @OneToOne(()=> User, { onDelete: 'CASCADE' })
+    @OneToOne(()=> User, { onDelete: 'CASCADE', cascade: true })
     @JoinColumn() 
     user: User;
 
 }
+

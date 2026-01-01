@@ -57,11 +57,12 @@ export class User extends Audit implements UserType {
   status: Status; // This will hold the Status object when loaded
 
   // ManyToMany relationship with Role, managed by a join table
-  @ManyToMany(() => Role, role => role.users)
+  @ManyToMany(() => Role, role => role.users,{ cascade: true })
   @JoinTable({
     name: 'user_roles', // Custom name for the join table
     joinColumn: { name: 'user_id', referencedColumnName: 'id' },
     inverseJoinColumn: { name: 'role_id', referencedColumnName: 'id' },
+    
   })
   roles: Role[];
 
