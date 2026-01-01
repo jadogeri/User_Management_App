@@ -35,7 +35,7 @@ export class AuthController extends BaseController implements AuthControllerInte
 
   @Post("/login")
   public async loginUser(@Body() userRequest: AuthLoginRequestDTO, @Request() req: ExpressRequest): Promise<AuthLoginResponseDTO | ErrorResponse> {
-    return this.userService.login(userRequest, req);
+    return this.authService.login(userRequest, req);
   }
 
   @Post("/logout")
