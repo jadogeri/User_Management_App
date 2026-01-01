@@ -27,20 +27,6 @@ import { customLogger } from './middlewares/custom-logger.middleware';
 export const buildApp = () : Application  =>{
 
     const app: Application = express();
-    console.log("dirname in app.ts:", __dirname);
-
-    // Serve static files from the React build directory
-    // The path.join ensures it works correctly across different operating systems
-    const buildPath = path.join(__dirname, '../..', 'client', 'build');
-    app.use(express.static(buildPath));
-
-    // All other GET requests not handled by previous routes
-    // (including the static files middleware) will be handled here
-    // This ensures that React Router works correctly for client-side routing
-    app.get('/*splat', (req, res) => {
-        res.sendFile(path.join(buildPath, 'index.html'));
-    });
-
 
     app.use(customLogger);
     //middlewares
@@ -82,6 +68,21 @@ export const buildApp = () : Application  =>{
     RegisterRoutes(app);
 
     app.use(["/openapi", "/docs", "/swagger"], swaggerUI.serve, swaggerUI.setup(swaggerJson));
+
+        console.log("dirname in app.ts:", __dirname);
+
+    // Serve static files from the React build directory
+    // The path.join ensures it works correctly across different operating systems
+    const buildPath = path.join(__dirname, '../..', 'client', 'build');
+    app.use(express.static(buildPath));
+
+    // All other GET requests not handled by previous routes
+    // (including the static files middleware) will be handled here
+    // This ensures that React Router works correctly for client-side routing
+    app.get('/*splat', (req, res) => {
+        res.sendFile(path.join(buildPath, 'index.html'));
+    });
+
 
 
 
