@@ -1,33 +1,27 @@
 
 import { UserType } from "../../types/user.type";
 
-/**
- * Represents a user register response dto object.
- */
-export interface UserRegisterResponseDTO extends Omit<UserType, 'password'>{}
 
 /**
  * Represents a user login response dto object.
  */
-export interface UserLoginResponseDTO {
+export interface AuthLoginResponseDTO {
     accessToken: string;
 }
 /**
  * Represents a user logout response dto object.
  */
-export interface UserLogoutResponseDTO extends UserType{}
+export interface AuthLogoutResponseDTO extends UserType{}
 /**
  * Represents a user forgot password response dto object.
  */
-export interface UserForgotPasswordResponseDTO extends UserType{}
+export interface AuthForgotPasswordResponseDTO extends UserType{}
 /**
  * Represents a user reset password response dto object.
  */
-export interface UserResetPasswordResponseDTO extends UserType{}
+export interface AuthResetPasswordResponseDTO extends UserType{}
 /**
- * Represents a user deactivate account response dto object.
+ * Represents a user refresh token response dto object.
  */
-export interface UserDeactivateResponseDTO extends UserType{}
-
-
+export interface AuthRefreshTokenResponseDTO extends UserType{}
 
