@@ -17,6 +17,9 @@ import { UserController } from '../controllers/user.controller';
 
 import { DatabaseServiceInterface } from '../interfaces/database-service.interface';
 import { SQLiteService } from '../services/sqlite.service';
+import { B } from '@faker-js/faker/dist/airline-DF6RqYmq';
+import { BcryptService } from '../services/bcrypt.service';
+import { BcryptServiceInterface } from '../interfaces/bcrypt-service.interface';
 // import { SQLiteService} from '../services/SQLiteService.service';    
 // import { CredentialValidatorServiceInterface } from '../interfaces/credential-validator-service.interface';
 // import CredentialValidatorService from '../services/credential-validator.service';
@@ -44,6 +47,7 @@ iocContainer.load(buildProviderModule());
     iocContainer.bind<DatabaseServiceInterface>(TYPES.DatabaseServiceInterface).to(SQLiteService).inSingletonScope();
     iocContainer.bind<AuthServiceInterface>(TYPES.AuthServiceInterface).to(AuthService).inSingletonScope();
     iocContainer.bind<UserServiceInterface>(TYPES.UserServiceInterface).to(UserService).inSingletonScope();
+    iocContainer.bind<BcryptServiceInterface>(TYPES.BcryptServiceInterface).to(BcryptService).inSingletonScope();
 
 
     // 2. Bind the Repository (it will wait for TYPES.DataSource to be available)

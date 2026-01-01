@@ -1,7 +1,6 @@
 import express,{ Application } from 'express';
 import * as bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
-import * as dotenv from "dotenv";
 import { RegisterRoutes } from "./routes";
 import * as swaggerJson from "./swagger.json";
 import * as swaggerUI from "swagger-ui-express";
@@ -15,8 +14,6 @@ import helmet from 'helmet';
 import expressWinston from 'express-winston';
 import { transports, format } from 'winston';
 
-dotenv.config();
-
 // importing controllers to ensure they are registered
 import "./controllers/user.controller";
 import "./controllers/auth.controller";
@@ -28,7 +25,7 @@ import { customLogger } from './middlewares/custom-logger.middleware';
 // import { noRouteFoundHandler } from './middlewares/no-route-found-handler.middleware';
 
 export const buildApp = () : Application  =>{
-    
+
 
     const app: Application = express();
 
