@@ -14,22 +14,27 @@ export class UserRepository extends BaseRepository<User> implements UserReposito
         super(User, dataSource.createEntityManager());
         
     }
-    getOne(): any {
-        return {message: "Get one user endpoint from repository" };
-    }
-    getAll(): any {
-        return {message: "Get all users endpoint from repository" };
-    }
-    modify(): any {
-        return {message: "Modify user endpoint from repository" };
-    }
-    reactivate(): any {
-        return {message: "Reactivate user endpoint from repository" };
-    }
-    deactivate( ): any {
-        return {message: "Deactivate user endpoint from repository" };
+
+    findActiveUsers(): Promise<User[]> {
+        throw new Error("Method not implemented.");
     }
 
+
+    async findByEmail(email: string): Promise<User | null> {                
+        
+        return this.findOne({ where: { email },relations: ["role","status"] });
+    }
+
+
+
+    async findByUsername(username: string): Promise<User | null> {
+        return this.findOne({ where: { username: username } });
+    }
+
+
+    async findById(id: number): Promise<User | null> {
+        return this.findOne({ where: { id: id } });
+    }
 }
 
 
