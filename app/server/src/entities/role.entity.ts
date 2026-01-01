@@ -8,7 +8,6 @@ import { Entity, PrimaryGeneratedColumn, Column, Check, JoinTable, ManyToMany } 
 import { RoleNamesEnum } from '../types/role-names.type';
 import User from './user.entity';
 import { Permission } from './permission.entity';
-import { Group } from './group.entity';
 
 @Entity('role')
 export class Role {
@@ -44,9 +43,6 @@ export class Role {
 
   @ManyToMany(() => User, user => user.roles)
   users: User[];
-
-  @ManyToMany(() => Group, group => group.roles)
-  groups: Group[];
 
 }
 
