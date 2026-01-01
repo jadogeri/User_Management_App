@@ -3,8 +3,6 @@ import { Request, Controller as BaseController, Body, Delete, Get, Post, Put, Ro
 import { AutoWired, Controller, Middleware } from "../decorators";
 
 import { TYPES } from "../types/binding.type";
-import { AuthControllerInterface } from "../interfaces/auth-controller.interface";
-import { AuthServiceInterface } from "../interfaces/auth-service.interface";
 import loginLimitterMiddleware from "../middlewares/login-limitter.middleware";
 import { UserControllerInterface } from "../interfaces/user-controller.interface";
 import { UserServiceInterface } from "../interfaces/user-service.interface";
