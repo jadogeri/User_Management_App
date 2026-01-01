@@ -1,9 +1,11 @@
-import { UserCreateRequestDTO } from "../dtos/requests/user-request.dto";
+import { AuthLoginRequestDTO } from "../dtos/requests/auth-request.dto";
+import { AuthLoginResponseDTO } from "../dtos/responses/auth-response.dto";
+import { ErrorResponse } from "../models/error-response.model";
 
 
 export interface AuthServiceInterface{
 
-  login(): Promise<any>;
+  login(userRequest: AuthLoginRequestDTO, req: Request): Promise<AuthLoginResponseDTO | ErrorResponse >;
   logout(): Promise<any>;
   forgot(): Promise<any>;
   reset(): Promise<any>;
