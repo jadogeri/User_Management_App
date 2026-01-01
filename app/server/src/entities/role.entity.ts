@@ -44,9 +44,6 @@ export class Role {
   @ManyToMany(() => User, user => user.roles)
   users: User[];
 
-  @ManyToMany(() => Group, group => group.roles)
-  groups: Group[];
-
 }
 
 export default Role;
