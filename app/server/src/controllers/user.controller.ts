@@ -9,6 +9,9 @@ import { UserServiceInterface } from "../interfaces/user-service.interface";
 import { logger } from "../configs/logger.config";
 import { UserCreateResponseDTO } from "../dtos/responses/user-response.dto";
 import { UserCreateRequestDTO } from "../dtos/requests/user-request.dto";
+import { ErrorResponse } from "../models/error-response.model";
+import { ValidationResponse } from "../models/validation-response.model";
+import { CredentialValidatorServiceInterface } from "../interfaces/credential-validator-service.interface";
 
 
 @Route("users")
@@ -18,6 +21,16 @@ export class UserController extends BaseController implements UserControllerInte
 
   @AutoWired(TYPES.UserServiceInterface)
   private readonly userService!: UserServiceInterface;
+  @AutoWired(TYPES.CredentialValidatorServiceInterface)
+  private readonly credentialValidatorService!: CredentialValidatorServiceInterface
+  //@AutoWired(TYPES.UserRepositoryInterface)
+    // private readonly userRepository!:  UserRepositoryInterface;
+    // @AutoWired(TYPES.EmailServiceInterface)
+    // private readonly emailService!:  EmailServiceInterface;
+    // @AutoWired(TYPES.AuthServiceInterface)
+    // private readonly authService!:  AuthServiceInterface;
+    // @AutoWired(TYPES.TokenGeneratorInterface)
+    // private readonly tokenGeneratorService!: TokenGeneratorInterface;
 
 
 /**
@@ -39,8 +52,8 @@ export class UserController extends BaseController implements UserControllerInte
     failedLogins: 0,
     isEnabled: false
   })  
-  @Post("/register")   
-  public async registerUser( @Body() requestBody: UserCreateRequestDTO): Promise<UserCreateResponseDTO |  ErrorResponse> {
+  @Post("/")   
+  public async createUser( @Body() requestBody: UserCreateRequestDTO): Promise<UserCreateResponseDTO |  ErrorResponse> {
 
 
     const userRequest : UserCreateRequestDTO = requestBody
@@ -53,7 +66,7 @@ export class UserController extends BaseController implements UserControllerInte
       //errorBroadcaster(res,errorResponse.getCode(), errorResponse.getMessage())
     }   
     //calling user service
-    const userResponse : ErrorResponse | UserRegisterResponseDTO = await this.userService.register(userRequest);    
+    const userResponse : ErrorResponse | UserCreateResponseDTO = await this.userService.create(userRequest);    
 
     return userResponse;
 

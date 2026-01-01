@@ -19,8 +19,8 @@ import { DatabaseServiceInterface } from '../interfaces/database-service.interfa
 import { SQLiteService } from '../services/sqlite.service';
 import { BcryptService } from '../services/bcrypt.service';
 import { BcryptServiceInterface } from '../interfaces/bcrypt-service.interface';
-// import { SQLiteService} from '../services/SQLiteService.service';    
-// import { CredentialValidatorServiceInterface } from '../interfaces/credential-validator-service.interface';
+ import { CredentialValidatorServiceInterface } from '../interfaces/credential-validator-service.interface';
+import CredentialValidatorService from '../services/credential-validator.service';
 // import CredentialValidatorService from '../services/credential-validator.service';
 // import { EmailServiceInterface } from '../interfaces/email-service.interface';
 // import EmailService from '../services/email.service';
@@ -54,7 +54,7 @@ iocContainer.load(buildProviderModule());
     iocContainer.bind<AuthRepositoryInterface>(TYPES.AuthRepositoryInterface).to(AuthRepository).inSingletonScope();
 
 
-    // iocContainer.bind<CredentialValidatorServiceInterface>(TYPES.CredentialValidatorServiceInterface).to(CredentialValidatorService).inSingletonScope();
+    iocContainer.bind<CredentialValidatorServiceInterface>(TYPES.CredentialValidatorServiceInterface).to(CredentialValidatorService).inSingletonScope();
     // iocContainer.bind<EmailServiceInterface>(TYPES.EmailServiceInterface).to(EmailService).inSingletonScope();  
     //iocContainer.bind<TokenGeneratorInterface>(TYPES.TokenGeneratorInterface).to(TokenGeneratorService).inSingletonScope();
 

@@ -11,10 +11,6 @@ import {isValidEmail, isValidPassword, isValidUsername, isValidatePhoneNumber} f
 @Service()
 class CredentialValidatorService implements CredentialValidatorServiceInterface{
 
-    constructor(){
-
-    }
-
     validateRegistration(userRequest: UserCreateRequestDTO): ValidationResponse{
         const { username, email, password, phone } = userRequest;
 
