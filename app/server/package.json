@@ -30,6 +30,7 @@
     "seeder": "ts-node ./node_modules/typeorm-extension/bin/cli.cjs seed:run --dataSource ./src/configs/typeOrm.config.ts",
     "clean": "rm -rf build/",
     "build": "tsoa spec-and-routes && tsc",
+    "react-build": "cd ../client && npm run build",
     "start": "node ./build/src/server.js",
     "dev": "ts-node-dev ./src/server.ts",
     "app:dev": "concurrently \"nodemon\" \"nodemon -x tsoa spec-and-routes\"",

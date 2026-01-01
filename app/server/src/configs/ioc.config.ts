@@ -17,7 +17,6 @@ import { UserController } from '../controllers/user.controller';
 
 import { DatabaseServiceInterface } from '../interfaces/database-service.interface';
 import { SQLiteService } from '../services/sqlite.service';
-import { B } from '@faker-js/faker/dist/airline-DF6RqYmq';
 import { BcryptService } from '../services/bcrypt.service';
 import { BcryptServiceInterface } from '../interfaces/bcrypt-service.interface';
 // import { SQLiteService} from '../services/SQLiteService.service';    
