@@ -7,7 +7,7 @@ import { Status } from '../entities/status.entity';
 import { Auth } from '../entities/auth.entity';
 import { NodeEnvironment } from '../types/node-environment.type';
 
-const env : NodeEnvironment = process.env.NODE_ENV as NodeEnvironment || 'development';
+const env : NodeEnvironment = process.env.NODE_ENV || 'development';
 console.log(`Current Environment: ${env}`);
 
 const options: DataSourceOptions & SeederOptions = {
