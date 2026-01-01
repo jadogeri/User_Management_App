@@ -69,6 +69,9 @@ export class UserController extends BaseController implements UserControllerInte
     return this.userService.getOne();
 
   }  
+
+   @Security("jwt",["USER_CREATE"])
+  // @Middleware(loggerMiddleware)
   @Get("/get-all")
   public async getAllUsers(): Promise<any> {
     return this.userService.getAll();

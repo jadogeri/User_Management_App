@@ -8,6 +8,7 @@ import { Entity, PrimaryGeneratedColumn, Column, Check, JoinTable, ManyToMany } 
 import { RoleNamesEnum } from '../types/role-names.type';
 import User from './user.entity';
 import { Permission } from './permission.entity';
+import { PermissionNamesEnum } from '../types/permission-names.type';
 
 @Entity('role')
 export class Role {
@@ -43,6 +44,22 @@ export class Role {
 
   @ManyToMany(() => User, user => user.roles)
   users: User[];
+
+  /**
+   * Check if the role has a specific permission.
+   * @param permission The permission to check.
+   * @returns boolean
+   */
+  hasRequiredPermission(scopes: string[]): boolean {
+
+    let permissionGranted: boolean = false;
+
+    for (let permission of this.permissions) {
+      permissionGranted = scopes.includes(PermissionNamesEnum[permission.name]);
+    }    
+
+    return permissionGranted;
+  }
 
 }
 

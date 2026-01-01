@@ -338,7 +338,13 @@
 				"tags": [
 					"User"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": [
+							"USER_CREATE"
+						]
+					}
+				],
 				"parameters": []
 			}
 		},
