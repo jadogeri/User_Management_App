@@ -73,7 +73,8 @@ export class AuthService implements AuthServiceInterface{
                             sameSite: 'lax', // CSRF protection
                             maxAge: 7 * 24 * 60 * 60 * 1000 // 7 Days
                         });
-                    }                    
+                    }       
+                                 
                 const savedAuth : Auth | null = await this.authRepository.findByUserId(user.id);
                 if(savedAuth instanceof Auth === false || savedAuth === null){
                     //create new auth record
