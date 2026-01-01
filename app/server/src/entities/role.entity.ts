@@ -4,9 +4,10 @@
  * @description class representing Role entity;
  */
 
-import { Entity, PrimaryGeneratedColumn, Column, Check, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, Check, JoinTable, ManyToMany } from 'typeorm';
 import { RoleNamesEnum } from '../types/role-names.type';
 import User from './user.entity';
+import { Permission } from './permission.entity';
 
 @Entity('role')
 export class Role {
@@ -18,6 +19,8 @@ export class Role {
     type: 'simple-enum',    
     unique: true,
     length: 20,
+    nullable: false,
+    enum: RoleNamesEnum,
     default: RoleNamesEnum.USER,
   })
   name: RoleNamesEnum;  
@@ -30,12 +33,25 @@ export class Role {
   })  
   description: string;  
 
-  @OneToMany(() => User, (user) => user.role)
+  @ManyToMany(() => Permission, permission => permission.roles)
+  @JoinTable({
+    name: 'role_permissions', // Custom name for the join table
+    joinColumn: { name: 'role_id', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'permission_id', referencedColumnName: 'id' },
+  })
+  permissions: Permission[];
+
+  @ManyToMany(() => User, user => user.roles)
   users: User[];
+
+  @ManyToMany(() => Group, group => group.roles)
+  groups: Group[];
 
 }
 
 export default Role;
+
+
 
 
 
