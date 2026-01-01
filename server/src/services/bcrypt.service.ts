@@ -1,8 +1,9 @@
+import { Service } from "../decorators";
 import { BcryptServiceInterface } from "../interfaces/bcrypt-service.interface";
 import * as bcrypt from "bcrypt";
 
 
- 
+@Service()
 export class BcryptService implements BcryptServiceInterface{
 
 
