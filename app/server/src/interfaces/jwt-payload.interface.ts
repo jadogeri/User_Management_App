@@ -6,7 +6,7 @@ export interface JwtPayloadInterface extends BaseJwtPayload {
     username:string;
     email:string
     id: number,
-    role: Role
+    roles: Role[]
     [key: string]: any;
 
   };

@@ -1,8 +1,11 @@
+import { AuthLoginRequestDTO } from "../dtos/requests/auth-request.dto";
+import { AuthLoginResponseDTO } from "../dtos/responses/auth-response.dto";
+import { ErrorResponse } from "../models/error-response.model";
 
 
 
 export interface AuthControllerInterface {
-  currentUser(): Promise<any>;
+  loginUser(requestBody: AuthLoginRequestDTO, req: Request): Promise<AuthLoginResponseDTO | ErrorResponse>;
   loginUser(): Promise<any>;
   logoutUser(): Promise<any>;
   forgotUser(): Promise<any>;
