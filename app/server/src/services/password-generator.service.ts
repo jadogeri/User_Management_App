@@ -1,11 +1,11 @@
 import { Service } from "../decorators";
-import { BcryptServiceInterface } from "../interfaces/bcrypt-service.interface";
 import * as bcrypt from "bcrypt";
 import {hash} from "bcrypt";
+import { PasswordGeneratorInterface } from "../interfaces/password-generator.interface";
 
 
 @Service()
-export class BcryptService implements BcryptServiceInterface{
+export class PasswordGeneratorService implements PasswordGeneratorInterface{
 
     updateUUID(): void {
         throw new Error("Method not implemented.");
@@ -32,4 +32,4 @@ export class BcryptService implements BcryptServiceInterface{
 
 }    
 
-export default BcryptService;
+export default PasswordGeneratorService;

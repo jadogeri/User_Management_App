@@ -17,6 +17,7 @@ import { UserRole } from "../data/role.data";
 import { UserCreateResponseDTO } from "../dtos/responses/user-response.dto";
 import { EmailServiceInterface } from "../interfaces/email-service.interface";
 import { TokenGeneratorInterface } from "../interfaces/token-generator.interface";
+import { PasswordGeneratorInterface } from "../interfaces/password-generator.interface";
 
 @Service()
 export class UserService implements UserServiceInterface{
@@ -30,6 +31,9 @@ export class UserService implements UserServiceInterface{
     private readonly authService!:  AuthServiceInterface;
     @AutoWired(TYPES.TokenGeneratorInterface)
     private readonly tokenGeneratorService!: TokenGeneratorInterface;
+    @AutoWired(TYPES.PasswordGeneratorInterface)
+    private readonly passwordGeneratorService!: PasswordGeneratorInterface;
+
 
     getOne(): Promise<any> {
         throw new Error("Method not implemented.");
@@ -64,7 +68,7 @@ export class UserService implements UserServiceInterface{
         }
 
             //Hash password
-            const hashedPassword : string = await hash(password, Number.parseInt(process.env.BCRYPT_SALT_ROUNDS as unknown as string));
+            const hashedPassword : string = await this.passwordGeneratorService.generateHashedPassword(password);
             console.log("Hashed Password: ", hashedPassword);
             //update password with hashed password
             userRequest.password = hashedPassword;

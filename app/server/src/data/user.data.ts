@@ -3,7 +3,7 @@ dotenv.config();
 import User from "../entities/user.entity";
 import { AdminRole } from "./role.data";
 import { EnabledStatus } from "./status.data";
-import BcryptService from "../services/bcrypt.service";
+import BcryptService from "../services/password-generator.service";
 
 const bcryptService = new BcryptService();
 

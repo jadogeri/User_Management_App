@@ -23,15 +23,6 @@ export class UserController extends BaseController implements UserControllerInte
   private readonly userService!: UserServiceInterface;
   @AutoWired(TYPES.CredentialValidatorServiceInterface)
   private readonly credentialValidatorService!: CredentialValidatorServiceInterface
-  //@AutoWired(TYPES.UserRepositoryInterface)
-    // private readonly userRepository!:  UserRepositoryInterface;
-    // @AutoWired(TYPES.EmailServiceInterface)
-    // private readonly emailService!:  EmailServiceInterface;
-    // @AutoWired(TYPES.AuthServiceInterface)
-    // private readonly authService!:  AuthServiceInterface;
-    // @AutoWired(TYPES.TokenGeneratorInterface)
-    // private readonly tokenGeneratorService!: TokenGeneratorInterface;
-
 
 /**
    * Creates a new user in the system.
@@ -54,7 +45,6 @@ export class UserController extends BaseController implements UserControllerInte
   })  
   @Post("/")   
   public async createUser( @Body() requestBody: UserCreateRequestDTO): Promise<UserCreateResponseDTO |  ErrorResponse> {
-
 
     const userRequest : UserCreateRequestDTO = requestBody
     // calling validation service

@@ -1,8 +1,8 @@
-import { STATUS_CODES } from "../constants/status-codes.constants";
 import { Response, Request,NextFunction } from "express";
-import { CustomError } from "../exceptions/custom-error.exception";
+import { CustomError } from "../errors/custom-error.exception";
 import { ValidateError } from "tsoa";
-import { HttpError } from "../exceptions/http-error.exception";
+import { HttpError } from "../errors/http-error.exception";
+import { STATUS_CODES } from "../constants/status-codes.constants";
 export const globalErrorHandler = (err : unknown, req : Request, res : Response, next : NextFunction) => {
 
   console.log("calling handler..........................................")
