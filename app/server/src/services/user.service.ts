@@ -19,24 +19,32 @@ import { UserCreateResponseDTO } from "../dtos/responses/user-response.dto";
 @Service()
 export class UserService implements UserServiceInterface{
 
+
     @AutoWired(TYPES.UserRepositoryInterface)
     private readonly userRepository!:  UserRepositoryInterface;
+    @AutoWired(TYPES.EmailServiceInterface)
+    private readonly emailService!:  EmailServiceInterface;
+    @AutoWired(TYPES.AuthServiceInterface)
+    private readonly authService!:  AuthServiceInterface;
+    @AutoWired(TYPES.TokenGeneratorInterface)
+    private readonly tokenGeneratorService!: TokenGeneratorInterface;
 
     getOne(): Promise<any> {
-        return this.userRepository.getOne();
+        throw new Error("Method not implemented.");
     }
     getAll(): Promise<any> {
-        return this.userRepository.getAll();
+        throw new Error("Method not implemented.");
     }
     modify(): Promise<any> {
-        return this.userRepository.modify();
+        throw new Error("Method not implemented.");
     }
     reactivate(): Promise<any> {
-        return this.userRepository.reactivate();
+        throw new Error("Method not implemented.");
     }
-    deactivate( ): Promise<any> {
-        return this.userRepository.deactivate();
+    deactivate(): Promise<any> {
+        throw new Error("Method not implemented.");
     }
+
     public async create(userRequest: UserCreateRequestDTO): Promise<UserCreateResponseDTO | ErrorResponse> {
         console.log("In UserService.register with userRequest:", userRequest);
         try{
