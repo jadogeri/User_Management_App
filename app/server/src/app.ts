@@ -21,6 +21,8 @@ import "./controllers/auth.controller";
 import { helmetOptions } from './configs/helmet.config';
 import { applicationErrorLogger } from './middlewares/application-error-logger.middleware';
 import { customLogger } from './middlewares/custom-logger.middleware';
+import { globalErrorHandler } from './middlewares/global-error-handler.middleware';
+import { noRouteFoundHandler } from './middlewares/no-route-found-handler.middleware';
 // import { globalErrorHandler } from './middlewares/global-error-handler.middleware';
 // import { noRouteFoundHandler } from './middlewares/no-route-found-handler.middleware';
 
@@ -107,8 +109,8 @@ export const buildApp = () : Application  =>{
 app.use(applicationErrorLogger);
 
 
-    // app.use(globalErrorHandler);
-    // app.use(noRouteFoundHandler)
+app.use(globalErrorHandler);
+app.use(noRouteFoundHandler)
 
     return app;
     

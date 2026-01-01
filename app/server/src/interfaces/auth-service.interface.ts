@@ -1,3 +1,4 @@
+import { UserCreateRequestDTO } from "../dtos/requests/user-request.dto";
 
 
 export interface AuthServiceInterface{
@@ -7,6 +8,7 @@ export interface AuthServiceInterface{
   forgot(): Promise<any>;
   reset(): Promise<any>;
   refresh(): Promise<any>;
+
   
 }
 

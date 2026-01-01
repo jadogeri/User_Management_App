@@ -1,8 +1,9 @@
+import { UserCreateRequestDTO } from "../dtos/requests/user-request.dto";
 
 
 
 export interface UserServiceInterface {
-  create(): Promise<any>;
+  create(userRequest: UserCreateRequestDTO): Promise<any>;
   getOne(): Promise<any>;
   getAll(): Promise<any>;
   modify(): Promise<any>;

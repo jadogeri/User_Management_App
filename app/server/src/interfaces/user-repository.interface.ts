@@ -2,11 +2,15 @@ import { Repository } from "typeorm/repository/Repository";
 import User from "../entities/user.entity";
 
 export interface CustomUserRepositoryMethodsInterface {
-  getOne(): Promise<any>;
-  getAll(): Promise<any>;
-  modify(): Promise<any>;
-  reactivate(): Promise<any>;
-  deactivate( ): Promise<any> ;
+
+  findActiveUsers(): Promise<User[]>;
+
+  findByEmail(email: string): Promise<User | null>;
+  
+  findByUsername(username: string): Promise<User | null>;
+
+  findById(id: number): Promise<User | null> ;
+  
 }
 
 export interface UserRepositoryInterface extends Repository<User>, CustomUserRepositoryMethodsInterface {};

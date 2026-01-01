@@ -1,5 +1,5 @@
 
-export interface BcryptServiceInterface {
+export interface PasswordGeneratorInterface {
   
   updateUUID(): void;
 

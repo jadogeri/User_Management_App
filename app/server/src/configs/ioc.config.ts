@@ -17,13 +17,15 @@ import { UserController } from '../controllers/user.controller';
 
 import { DatabaseServiceInterface } from '../interfaces/database-service.interface';
 import { SQLiteService } from '../services/sqlite.service';
-import { BcryptService } from '../services/bcrypt.service';
-import { BcryptServiceInterface } from '../interfaces/bcrypt-service.interface';
-// import { SQLiteService} from '../services/SQLiteService.service';    
-// import { CredentialValidatorServiceInterface } from '../interfaces/credential-validator-service.interface';
+import PasswordGeneratorService from '../services/password-generator.service';
+import { PasswordGeneratorInterface } from '../interfaces/password-generator.interface';
+ import { CredentialValidatorServiceInterface } from '../interfaces/credential-validator-service.interface';
+import CredentialValidatorService from '../services/credential-validator.service';
 // import CredentialValidatorService from '../services/credential-validator.service';
-// import { EmailServiceInterface } from '../interfaces/email-service.interface';
-// import EmailService from '../services/email.service';
+import { EmailServiceInterface } from '../interfaces/email-service.interface';
+import EmailService from '../services/email.service';
+import { TokenGeneratorInterface } from '../interfaces/token-generator.interface';
+import TokenGeneratorService from '../services/token-generator.service';
 // // import { UserController } from '../controllers/user.controller';
 
 
@@ -46,7 +48,7 @@ iocContainer.load(buildProviderModule());
     iocContainer.bind<DatabaseServiceInterface>(TYPES.DatabaseServiceInterface).to(SQLiteService).inSingletonScope();
     iocContainer.bind<AuthServiceInterface>(TYPES.AuthServiceInterface).to(AuthService).inSingletonScope();
     iocContainer.bind<UserServiceInterface>(TYPES.UserServiceInterface).to(UserService).inSingletonScope();
-    iocContainer.bind<BcryptServiceInterface>(TYPES.BcryptServiceInterface).to(BcryptService).inSingletonScope();
+    iocContainer.bind<PasswordGeneratorInterface>(TYPES.PasswordGeneratorInterface).to(PasswordGeneratorService).inSingletonScope();
 
 
     // 2. Bind the Repository (it will wait for TYPES.DataSource to be available)
@@ -54,9 +56,9 @@ iocContainer.load(buildProviderModule());
     iocContainer.bind<AuthRepositoryInterface>(TYPES.AuthRepositoryInterface).to(AuthRepository).inSingletonScope();
 
 
-    // iocContainer.bind<CredentialValidatorServiceInterface>(TYPES.CredentialValidatorServiceInterface).to(CredentialValidatorService).inSingletonScope();
-    // iocContainer.bind<EmailServiceInterface>(TYPES.EmailServiceInterface).to(EmailService).inSingletonScope();  
-    //iocContainer.bind<TokenGeneratorInterface>(TYPES.TokenGeneratorInterface).to(TokenGeneratorService).inSingletonScope();
+    iocContainer.bind<CredentialValidatorServiceInterface>(TYPES.CredentialValidatorServiceInterface).to(CredentialValidatorService).inSingletonScope();
+    iocContainer.bind<EmailServiceInterface>(TYPES.EmailServiceInterface).to(EmailService).inSingletonScope();  
+    iocContainer.bind<TokenGeneratorInterface>(TYPES.TokenGeneratorInterface).to(TokenGeneratorService).inSingletonScope();
 
 
 // 3. Helper to bind the live DataSource after connection
