@@ -1,5 +1,5 @@
 // src/entities/User.ts
-import { Entity,  Column, PrimaryGeneratedColumn, JoinColumn, ManyToOne } from "typeorm";
+import { Entity,  Column, PrimaryGeneratedColumn, JoinColumn, ManyToOne, ManyToMany, JoinTable } from "typeorm";
 import { Min, IsInt, IsString } from 'class-validator';
 import { Audit } from "../models/audit.model";
 import { UserType } from "../types/user.type";
@@ -33,7 +33,7 @@ export class User extends Audit implements UserType {
   @IsString()
   phone: string;
 
-  @Column({type: "varchar", length: 100, nullable: false })
+  @Column({type: "varchar", length: 100, nullable: false, select: false  })
   @IsString()
   password: string;
 
@@ -52,13 +52,32 @@ export class User extends Audit implements UserType {
   })
   suspension: SuspensionDetails | null;
 
-  @ManyToOne(() => Role)
-  @JoinColumn({ name: 'role_id' })
-  role: Role; // This will hold the Role object when loaded
-
   @ManyToOne(() => Status)
   @JoinColumn({ name: 'status_id' })
   status: Status; // This will hold the Status object when loaded
+
+  // ManyToMany relationship with Role, managed by a join table
+  @ManyToMany(() => Role, role => role.users)
+  @JoinTable({
+    name: 'user_roles', // Custom name for the join table
+    joinColumn: { name: 'user_id', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'role_id', referencedColumnName: 'id' },
+  })
+  roles: Role[];
+
+  // ManyToMany relationship with Group
+  @ManyToMany(() => Group, group => group.users)
+  @JoinTable({
+    name: 'user_groups',
+    joinColumn: { name: 'user_id', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'group_id', referencedColumnName: 'id' },
+  })
+  groups: Group[];
+
+
 }
 
 export default User;
+
+
+
