@@ -15,6 +15,7 @@ import { UserCreateRequestDTO } from "../dtos/requests/user-request.dto";
 import { EnabledStatus } from "../data/status.data";
 import { UserRole } from "../data/role.data";
 import { UserCreateResponseDTO } from "../dtos/responses/user-response.dto";
+import { EmailServiceInterface } from "../interfaces/email-service.interface";
 
 @Service()
 export class UserService implements UserServiceInterface{
