@@ -28,6 +28,7 @@ import { TokenGeneratorInterface } from '../interfaces/token-generator.interface
 import TokenGeneratorService from '../services/token-generator.service';
 import { CookieStorageInterface } from '../interfaces/cookie-storage.interface';
 import CookieStorageService from '../services/cookie-storage.service';
+import { TokenValidatorInterface } from '../interfaces/token-validator.interface';
 // // import { UserController } from '../controllers/user.controller';
 
 
@@ -61,6 +62,7 @@ iocContainer.load(buildProviderModule());
     iocContainer.bind<CredentialValidatorServiceInterface>(TYPES.CredentialValidatorServiceInterface).to(CredentialValidatorService).inSingletonScope();
     iocContainer.bind<EmailServiceInterface>(TYPES.EmailServiceInterface).to(EmailService).inSingletonScope();  
     iocContainer.bind<TokenGeneratorInterface>(TYPES.TokenGeneratorInterface).to(TokenGeneratorService).inSingletonScope();
+    iocContainer.bind<TokenValidatorInterface>(TYPES.TokenValidatorInterface).to(TokenValidatorService).inSingletonScope();
     iocContainer.bind<CookieStorageInterface>(TYPES.CookieStorageInterface).to(CookieStorageService).inSingletonScope();
 
 

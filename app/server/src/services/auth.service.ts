@@ -76,7 +76,7 @@ export class AuthService implements AuthServiceInterface{
                 savedAuth.refreshToken = refreshToken;
                 await this.authRepository.save(savedAuth);
             }
-            const userResponse : AuthLoginResponseDTO = { accessToken: accessToken };
+            const userResponse : AuthLoginResponseDTO = { accessToken: accessToken, refreshToken: refreshToken };
             return userResponse;
         }else{ 
             // handle incorrect password by incrementing failed login

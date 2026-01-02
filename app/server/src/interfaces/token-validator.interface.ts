@@ -1,8 +1,8 @@
-// Helper function to generate tokens
-import { JwtPayloadInterface } from "./jwt-payload.interface";
+import { JwtPayload } from "jwt-decode";
 
 export interface TokenValidatorInterface{
     
-  validate(payload: JwtPayloadInterface): any;
+  verifyAccessToken(token: string): any;
+  verifyRefreshToken(token: string): string | JwtPayload | undefined; 
 
 }
