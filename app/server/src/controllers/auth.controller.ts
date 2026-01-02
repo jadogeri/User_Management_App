@@ -13,8 +13,8 @@ import { ErrorResponse } from "../models/error-response.model";
 import { authMiddleware } from "../middlewares/authorization.middleware";
 import { CredentialValidatorServiceInterface } from "../interfaces/credential-validator-service.interface";
 import { ValidationResponse } from "../models/validation-response.model";
-import { errorBroadcaster } from "../utils/error-broadcaster";
 import { BadRequestError } from "../errors/bad-request.error";
+
 
 
 @Route("auths")
@@ -39,8 +39,7 @@ export class AuthController extends BaseController implements AuthControllerInte
   public async currentUser(): Promise<any> {
     return {message: "Current user endpoint" };
   }
-
-  //@Middleware(authMiddleware("",["USER_READ"]))
+  @Middleware(authMiddleware("",["USER_READ", "USER_WRITE"]))
   @Post("/login")
   public async loginUser(@Body() userRequest: AuthLoginRequestDTO, @Request() req: ExpressRequest): Promise<AuthLoginResponseDTO | ErrorResponse> {
 

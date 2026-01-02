@@ -586,6 +586,7 @@ export function RegisterRoutes(app: Router) {
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         const argsAuthController_refreshToken: Record<string, TsoaRoute.ParameterSchema> = {
                 userRequest: {"in":"body","name":"userRequest","required":true,"ref":"AuthRefreshTokenRequestDTO"},
+                req: {"in":"request","name":"req","required":true,"dataType":"object"},
         };
         app.post('/auths/refresh',
             ...(fetchMiddlewares<RequestHandler>(AuthController)),
