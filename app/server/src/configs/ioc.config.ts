@@ -26,6 +26,8 @@ import { EmailServiceInterface } from '../interfaces/email-service.interface';
 import EmailService from '../services/email.service';
 import { TokenGeneratorInterface } from '../interfaces/token-generator.interface';
 import TokenGeneratorService from '../services/token-generator.service';
+import { CookieStorageInterface } from '../interfaces/cookie-storage.interface';
+import CookieStorageService from '../services/cookie-storage.service';
 // // import { UserController } from '../controllers/user.controller';
 
 
@@ -59,6 +61,7 @@ iocContainer.load(buildProviderModule());
     iocContainer.bind<CredentialValidatorServiceInterface>(TYPES.CredentialValidatorServiceInterface).to(CredentialValidatorService).inSingletonScope();
     iocContainer.bind<EmailServiceInterface>(TYPES.EmailServiceInterface).to(EmailService).inSingletonScope();  
     iocContainer.bind<TokenGeneratorInterface>(TYPES.TokenGeneratorInterface).to(TokenGeneratorService).inSingletonScope();
+    iocContainer.bind<CookieStorageInterface>(TYPES.CookieStorageInterface).to(CookieStorageService).inSingletonScope();
 
 
 // 3. Helper to bind the live DataSource after connection

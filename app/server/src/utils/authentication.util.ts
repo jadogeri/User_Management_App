@@ -7,7 +7,7 @@ import { JwtPayloadInterface } from '../interfaces/jwt-payload.interface';
 import { Role } from '../entities/role.entity';
 import User from '../entities/user.entity';
 import { AppDataSource } from '../configs/typeOrm.config';
-import { HttpError } from '../errors/http-error.exception';
+import { HttpError } from '../errors/http.error';
 
 // Define the shape of your user object/JWT payload
 export interface UserPayload {

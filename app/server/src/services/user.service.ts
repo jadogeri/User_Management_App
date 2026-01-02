@@ -18,6 +18,8 @@ import { UserCreateResponseDTO } from "../dtos/responses/user-response.dto";
 import { EmailServiceInterface } from "../interfaces/email-service.interface";
 import { TokenGeneratorInterface } from "../interfaces/token-generator.interface";
 import { PasswordGeneratorInterface } from "../interfaces/password-generator.interface";
+import { ConflictError } from "../errors/conflict.error";
+import { InternalServerError } from "../errors/internal-server.error";
 
 @Service()
 export class UserService implements UserServiceInterface{
@@ -54,19 +56,16 @@ export class UserService implements UserServiceInterface{
     public async create(userRequest: UserCreateRequestDTO): Promise<UserCreateResponseDTO | ErrorResponse> {
         console.log("In UserService.register with userRequest:", userRequest);
         try{
+            const { username, email, password } = userRequest;
+            const userByEmailAvailable  = await this.userRepository.findByEmail(email);
+            if (userByEmailAvailable) {
+                throw new ConflictError("Email already taken!");
+            }
 
-        const { username, email, password } = userRequest;
-        const userByEmailAvailable  = await this.userRepository.findByEmail(email);
-
-        if (userByEmailAvailable) {
-            return new ErrorResponse(409, "Email already taken!");
-        }
-
-        const userByUsernameAvailable  = await this.userRepository.findByUsername(username);
-        if (userByUsernameAvailable) {
-            return new ErrorResponse(409,"Username already taken!");
-        }
-
+            const userByUsernameAvailable  = await this.userRepository.findByUsername(username);
+            if (userByUsernameAvailable) {
+                throw new ConflictError("Username already taken!");
+            }
             //Hash password
             const hashedPassword : string = await this.passwordGeneratorService.generateHashedPassword(password);
             console.log("Hashed Password: ", hashedPassword);
@@ -79,12 +78,9 @@ export class UserService implements UserServiceInterface{
             newUser.isEnabled = true;
             newUser.status = EnabledStatus
             newUser.roles = [UserRole]; //default role assignment can be handled here
-            //set default role and status
-            //save user to database
             
             const createdUser : User = await this.userRepository.save(newUser);
             console.log("Created User: ", createdUser);
-            //prepare response object
             
             const userResponse : UserCreateResponseDTO ={
                 username: createdUser.username,
@@ -110,12 +106,8 @@ export class UserService implements UserServiceInterface{
             return userResponse;
         }catch(e: unknown){
             console.log("error in service layer ", e)
-            return new ErrorResponse(500,"mongo error!");
-
-
+            throw new InternalServerError("internal error in user service !");
         }
     }
-
-
     
 }

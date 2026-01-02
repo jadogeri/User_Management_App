@@ -53,13 +53,11 @@ export class UserController extends BaseController implements UserControllerInte
       console.log("validation failed in controller", validation.getErrorResponse()?.getMessage());
       const errorResponse : ErrorResponse = validation.getErrorResponse() as ErrorResponse;
       return errorResponse;
-      //errorBroadcaster(res,errorResponse.getCode(), errorResponse.getMessage())
     }   
     //calling user service
     const userResponse : ErrorResponse | UserCreateResponseDTO = await this.userService.create(userRequest);    
 
     return userResponse;
-
 
   }
 
@@ -70,7 +68,7 @@ export class UserController extends BaseController implements UserControllerInte
 
   }  
 
-   @Security("jwt",["USER_CREATE"])
+   @Security("jwt",["USERS_CREATE"])
   // @Middleware(loggerMiddleware)
   @Get("/get-all")
   public async getAllUsers(): Promise<any> {

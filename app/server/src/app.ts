@@ -40,7 +40,7 @@ export const buildApp = () : Application  =>{
     // Enable pre-flight requests for all routes (necessary when using specific headers/methods)
     //app.options('*', cors(corsOptions) as any); 
     const morganFormat = process?.env?.NODE_ENV === 'production' ? 'combined' : 'dev';
-    app.use(morgan(morganFormat));// Logging middleware     
+    //app.use(morgan(morganFormat));// Logging middleware     
     // Create a write stream (in append mode)
     console.log("__dirname:", __dirname);   
     const accessLogStream = fs.createWriteStream(path.join(__dirname, 'logs', 'access.log'), { flags: 'a' });
@@ -102,7 +102,7 @@ export const buildApp = () : Application  =>{
 //     )
 // }))
 
-app.use(applicationErrorLogger);
+//app.use(applicationErrorLogger);
 
 app.use(globalErrorHandler);
 app.use(noRouteFoundHandler)

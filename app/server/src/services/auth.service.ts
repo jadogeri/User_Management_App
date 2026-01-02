@@ -1,6 +1,5 @@
 import { AutoWired, Service } from "../decorators";
 import { ErrorResponse } from "../models/error-response.model";
-import {hash} from "bcrypt";
 import * as bcrypt from "bcrypt";
 import { TYPES } from "../types/binding.type";
 import { Recipient } from "../types/recipient.type";
@@ -15,6 +14,13 @@ import { AuthLoginResponseDTO } from "../dtos/responses/auth-response.dto";
 import { JwtPayloadInterface } from "../interfaces/jwt-payload.interface";
 import { EmailServiceInterface } from "../interfaces/email-service.interface";
 import { TokenGeneratorInterface } from "../interfaces/token-generator.interface";
+import { CookieStorageInterface } from "../interfaces/cookie-storage.interface";
+import { cookieNameGenerator } from "../utils/cookie-name-generator.util";
+import { payloadGenerator } from "../utils/payload-generator.util";
+import { errorResponseGenerator } from "../utils/error-response-generator.util";
+import { UnAuthorizedError } from "../errors/unauthorized.error";
+import { LockedAccountError } from "../errors/locked-account.error";
+import { InternalServerError } from "../errors/internal-server.error";
 
 @Service()
 export class AuthService implements AuthServiceInterface{
@@ -27,102 +33,75 @@ export class AuthService implements AuthServiceInterface{
     private readonly emailService!:  EmailServiceInterface;
     @AutoWired(TYPES.TokenGeneratorInterface)
     private readonly tokenGeneratorService!: TokenGeneratorInterface;
+    @AutoWired(TYPES.CookieStorageInterface)
+    private readonly cookieStorageService!: CookieStorageInterface; 
  
 
     public async login(userRequest: AuthLoginRequestDTO, req: Request): Promise<AuthLoginResponseDTO | ErrorResponse > {
         const { email, password } = userRequest;
+        console.log("In login service with email: ", email);    
+        console.log("In login service with password: ", password);
 
         const user  = await this.userRepository.findByEmail(email);
+        console.log("user from repository: ", user);    
         if(user === null){
             return new ErrorResponse(400,"email does not exist");
-        }else{
-            if(user.isEnabled === false){  
-                const errorResponse = new ErrorResponse(423,"Account is locked, use forget account to access acount");
-                errorResponse.setEmail(user.email);
-                errorResponse.setUsername(user.username);
-                return errorResponse;    
+        }
+        if(user.isEnabled === false){  
+ 
+            throw new LockedAccountError("Account is locked, use forget account to access acount: " + user.email);
+        }
+
+        if (user &&  await bcrypt.compare(password,user.password)) {
+
+            const payload: JwtPayloadInterface = payloadGenerator(user);          
+            
+            const accessToken : string = this.tokenGeneratorService.generateAccessToken(payload);
+            const refreshToken : string = this.tokenGeneratorService.generateRefreshToken(payload);
+                // Access the response object via req.res
+            console.log("res path is " + req.path);
+            this.cookieStorageService.clearItem(req, cookieNameGenerator(user.id));
+            this.cookieStorageService.setItem(req, cookieNameGenerator(user.id), refreshToken);
+                                
+            const savedAuth : Auth | null = await this.authRepository.findByUserId(user.id);
+            if(savedAuth instanceof Auth === false || savedAuth === null){
+                //create new auth record
+                const newAuth = new Auth();
+                newAuth.user = user;
+                newAuth.refreshToken = refreshToken;
+                
+                this.authRepository.save(newAuth);
+            }else{
+                //update existing auth record
+                savedAuth.refreshToken = refreshToken;
+                await this.authRepository.save(savedAuth);
             }
-            console.log("Found user for login: ", user);
-            //compare password with hashedpassword 
-            console.log(" compare password with hashedpassword :v",password, user.password)
-            if (user &&  await bcrypt.compare(password,user.password)) {
-
-                let payload : JwtPayloadInterface = {
-                    user: {
-                        username: user.username, email: user.email, id: user.id, roles: user.roles
-                    },
-                    scopes: [] as string[] | undefined,
-                }
-                console.log("payload to be signed = ", payload);
-
-                const accessToken : string = this.tokenGeneratorService.generateAccessToken(payload);
-                const refreshToken : string = this.tokenGeneratorService.generateRefreshToken(payload);
-                    // Access the response object via req.res
-                    const res = req.res;
-                    console.log("res path is " + req.path);
-                    if (res) {
-                        res.clearCookie('refreshToken', {
-                            path: req.path, // CRITICAL: Must match the path used when the cookie was set
-                            httpOnly: true,
-                            secure: process.env.NODE_ENV === 'production',
-                            sameSite: 'strict',
-                            // Note: Do not include maxAge here
-                        }).cookie('refreshToken', refreshToken, {
-                            httpOnly: true,
-                            secure: process.env.NODE_ENV === 'production',
-                            sameSite: 'lax', // CSRF protection
-                            maxAge: 7 * 24 * 60 * 60 * 1000 // 7 Days
-                        });
-                    }       
-                                 
-                const savedAuth : Auth | null = await this.authRepository.findByUserId(user.id);
-                if(savedAuth instanceof Auth === false || savedAuth === null){
-                    //create new auth record
-                    const newAuth = new Auth();
-                    newAuth.user = user;
-                    newAuth.refreshToken = refreshToken;
-                    
-                    this.authRepository.save(newAuth);
-                }else{
-                    //update existing auth record
-                    savedAuth.refreshToken = refreshToken;
-
-                    await this.authRepository.save(savedAuth);
-
-                }
             const userResponse : AuthLoginResponseDTO = { accessToken: accessToken };
             return userResponse;
-            }else{ 
-                // handle incorrect password by incrementing failed login
-                user.failedLogins = user.failedLogins  + 1      
-                if(user.failedLogins > 3){
+        }else{ 
+            // handle incorrect password by incrementing failed login
+            user.failedLogins = user.failedLogins  + 1      
+            if(user.failedLogins > 3){
 
-                    user.isEnabled = false;
-                    user.status = LockedStatus;
-                    user.updatedAt = new Date();
-                    await this.userRepository.update(user.id, user)
-                    //SEND EMAIL
-                    if(process.env.NODE_ENV !== "test"){
-
-                        let recipient : Recipient= {username : user.username, email: user.email}  
-                        this.emailService.sendEmail("locked-account",recipient ); 
-                    }
-
-                        // RETURN RESPONSE TO CONTROLLER
-                        const errorResponse = new ErrorResponse(400,"Account is locked because of too many failed login attempts. Use /forgt route to access acount");
-                        errorResponse.setEmail(user.email);
-                        errorResponse.setUsername(user.username);
-                        return errorResponse;
-
-                    }else{
-                        await this.userRepository.update(user.id, user)    
-                    }      
-                    return new ErrorResponse(400, "email or password is incorrect");
-
+                user.isEnabled = false;
+                user.status = LockedStatus;
+                user.updatedAt = new Date();
+                await this.userRepository.save(user)
+                //SEND EMAIL
+                if(process.env.NODE_ENV !== "test"){
+                    let recipient : Recipient= {username : user.username, email: user.email}  
+                    this.emailService.sendEmail("locked-account",recipient ); 
                 }
 
-        }
-       
+                // RETURN RESPONSE TO CONTROLLER
+                const errorResponse = errorResponseGenerator(400,"Account is locked because of too many failed login attempts. Use /forgt route to access acount", user);
+                return errorResponse;
+
+            }else{
+                await this.userRepository.save(user)    
+            }      
+            throw new UnAuthorizedError("email or password is incorrect");
+        }              
     }
     logout(): Promise<any> {
         throw new Error("Method not implemented.");
@@ -134,7 +113,7 @@ export class AuthService implements AuthServiceInterface{
         throw new Error("Method not implemented.");
     }
     refresh(): Promise<any> {
-        throw new Error("Method not implemented.");
+        throw new InternalServerError("Method not implemented.");
     }
 
         

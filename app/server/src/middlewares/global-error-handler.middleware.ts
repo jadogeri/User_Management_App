@@ -1,11 +1,9 @@
 import { Response, Request,NextFunction } from "express";
-import { CustomError } from "../errors/custom-error.exception";
 import { ValidateError } from "tsoa";
-import { HttpError } from "../errors/http-error.exception";
-import { STATUS_CODES } from "../constants/status-codes.constants";
+import { HttpError } from "../errors/http.error";
+import { ApiError } from "../errors/api.error";
 export const globalErrorHandler = (err : unknown, req : Request, res : Response, next : NextFunction) => {
 
-  console.log("calling handler..........................................")
   console.error(err); 
   if (err instanceof ValidateError) {
     console.warn(`Caught Validation Error for ${req.path}:`, err.fields);
@@ -19,66 +17,18 @@ export const globalErrorHandler = (err : unknown, req : Request, res : Response,
       message: err.message,
     });
   }
-  //CustomError is sublcass of Error
-  if (err instanceof CustomError) {
-  const statusCode = err.statusCode ? err.statusCode : 500;
-  console.log("status codes: ", statusCode )
-  switch (statusCode) {
-    case STATUS_CODES.VALIDATION_ERROR:
-      res.status(statusCode).json({
-        title: "Bad Request",
+  if (err instanceof ApiError) {
+    return res.status(err.statusCode).json({
+        title: err.title,
         message: err.message,
+        statusCode: err.statusCode,
         stackTrace: err.stack,
-      });
-      break;
-    case STATUS_CODES.NOT_FOUND:
-      res.status(statusCode).json({
-        title: "Not Found",
-        message: err.message,
-        stackTrace: err.stack,
-      });
-      break;
-    case STATUS_CODES.UNAUTHORIZED:
-      res.status(statusCode).json({
-        title: "Unauthorized",
-        message: err.message,
-        stackTrace: err.stack,
-      });
-      break;
-    case STATUS_CODES.FORBIDDEN:
-      res.status(statusCode).json({
-        title: "Forbidden",
-        message: err.message,
-        stackTrace: err.stack,
-      });
-      break;
-    case STATUS_CODES.SERVER_ERROR:
-      res.status(statusCode).json({
-        title: "Server Error",
-        message: err.message,
-        stackTrace: err.stack,
-      });
-      break;
-    case STATUS_CODES.CONFLICT:
-      res.status(statusCode).json({
-        title: "Conflict",
-        message: err.message,
-        stackTrace: err.stack,
-      });
-      break;
-    case STATUS_CODES.LOCKED_ACCOUNT:
-      res.status(statusCode).json({
-        title: "Locked account",
-        message: err.message,
-        stackTrace: err.stack,
-      });
-      break;
-    default:
-   res.status(500).json({
-      message: "Internal Server Error",
-    })
-      break;
-  }
-  }
+      
+    });
+  }  
+  // Generic internal server error
+  return res.status(500).json({
+    message: 'An internal server error occurred',
+  });
 
 }

@@ -3,7 +3,7 @@ import { Request, Response, NextFunction } from 'express';
 import User from '../entities/user.entity';
 import { AppDataSource } from '../configs/typeOrm.config';
 import { StatusEnum } from '../types/status.type';
-import { HttpError } from '../errors/http-error.exception';
+import { HttpError } from '../errors/http.error';
 import { AuthLoginRequestDTO } from '../dtos/requests/auth-request.dto';
 
 export const checkAccountStatus = async (req: Request, res: Response, next: NextFunction) => {

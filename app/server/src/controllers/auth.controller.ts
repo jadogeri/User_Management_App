@@ -1,7 +1,7 @@
 
 import { Request, Controller as BaseController, Body, Delete, Get, Post, Put, Route, Tags, Response, Path, Example, SuccessResponse, Res, TsoaResponse, Security} from "tsoa";
 import { AutoWired, Controller, Middleware } from "../decorators";
-import { Request as ExpressRequest } from "express";
+import { Request as ExpressRequest,Response as ExpressResponse } from "express";
 
 import { TYPES } from "../types/binding.type";
 import { AuthControllerInterface } from "../interfaces/auth-controller.interface";
@@ -11,6 +11,9 @@ import { AuthLoginRequestDTO } from "../dtos/requests/auth-request.dto";
 import { AuthLoginResponseDTO } from "../dtos/responses/auth-response.dto";
 import { ErrorResponse } from "../models/error-response.model";
 import { authMiddleware } from "../middlewares/authorization.middleware";
+import { CredentialValidatorServiceInterface } from "../interfaces/credential-validator-service.interface";
+import { ValidationResponse } from "../models/validation-response.model";
+import { errorBroadcaster } from "../utils/error-broadcaster";
 
 
 @Route("auths")
@@ -20,6 +23,8 @@ export class AuthController extends BaseController implements AuthControllerInte
 
   @AutoWired(TYPES.AuthServiceInterface)
   private readonly authService!: AuthServiceInterface;
+  @AutoWired(TYPES.CredentialValidatorServiceInterface)
+  private readonly credentialValidatorService!: CredentialValidatorServiceInterface;
 
 
     /**
@@ -34,10 +39,24 @@ export class AuthController extends BaseController implements AuthControllerInte
     return {message: "Current user endpoint" };
   }
 
-  @Middleware(authMiddleware("",["USERS_READ"]))
+  //@Middleware(authMiddleware("",["USER_READ"]))
   @Post("/login")
   public async loginUser(@Body() userRequest: AuthLoginRequestDTO, @Request() req: ExpressRequest): Promise<AuthLoginResponseDTO | ErrorResponse> {
-    return this.authService.login(userRequest, req);
+
+    console.log("In login controller with request: ", userRequest); 
+    // calling validation service
+    const validation : ValidationResponse = this.credentialValidatorService.validateLogin(userRequest);
+    if(!validation.isValid()){
+      const errorResponse : ErrorResponse = validation.getErrorResponse() as ErrorResponse;
+      return errorResponse;
+    }
+    //calling service
+    const userResponse : ErrorResponse | AuthLoginResponseDTO = await this.authService.login(userRequest, req);  
+    
+    if(userResponse instanceof ErrorResponse){
+      return userResponse;
+    }
+    return userResponse;
   }
   
   @Post("/logout")

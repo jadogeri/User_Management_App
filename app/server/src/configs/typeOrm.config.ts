@@ -15,7 +15,7 @@ const options: DataSourceOptions & SeederOptions = {
   type: "better-sqlite3",
   database: "user-management-app.sqlite", // Name of the SQLite database file
   synchronize: process.env.NODE_ENV === env, // Automatically creates database schema in development. Use migrations in production.
-  logging: true, // Set to true to log generated SQL queries to the console
+  //logging: true, // Set to true to log generated SQL queries to the console
   entities: [User, Role, Status, Auth, Permission], // List your entity classes or use a glob pattern
   migrations: ["src/migrations/**/*.ts"],
   subscribers: [],

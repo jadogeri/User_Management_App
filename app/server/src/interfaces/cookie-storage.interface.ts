@@ -1,10 +1,10 @@
 // Helper function to generate tokens
-import { Response } from "express";
+import { Request, Response } from "express";
 
 export interface CookieStorageInterface{
     
-  setItem( res: Response, cookieName: string, refreshToken: string): string;
-  clearItem(res: Response, cookieName: string): string
+  setItem( res: Request, cookieName: string, refreshToken: string): Response<any>;
+  clearItem(res: Request, cookieName: string): Response<any>;
 
 }
 

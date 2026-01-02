@@ -2,7 +2,7 @@
 import {Request} from 'express';
 import User from '../entities/user.entity';
 import { AppDataSource } from '../configs/typeOrm.config';
-import { HttpError } from '../errors/http-error.exception';
+import { HttpError } from '../errors/http.error';
 import { AuthLoginRequestDTO } from '../dtos/requests/auth-request.dto';
 
 // Define the shape of your user object/JWT payload
@@ -28,8 +28,6 @@ export async function expressAuthorization(
     console.log("email: ",email," passowrd: ", password )
     if(!email || !password)
       throw new HttpError(400, "Missing email or password");
-
-
     try {
       
 
@@ -39,15 +37,15 @@ export async function expressAuthorization(
 
         // : Verify against TypeORM database for real-time security
         const userRepository = AppDataSource.getRepository(User); 
-        const user = await userRepository.findOne({
-          where: { email: email },
-          relations: {
-              status: true,
-              roles: {
-                  permissions: true // This drills down into the Role -> Permission link
-              }
-          }
-      });
+        const user = await userRepository.findOne({where:{ email: email },            
+           relations: {
+                status: true,
+                roles: {
+                    permissions: true // This drills down into the Role -> Permission link
+                }
+            }});
+
+
         console.log("user in database: ", user)
         if (!user) {
           throw new HttpError(403, "User not found");
@@ -75,6 +73,7 @@ export async function expressAuthorization(
           }
           console.log("has permission: ", hasPermission)
         }
+        console.log("payload to return: ", request.payload); 
       return Promise.resolve(request.payload);
     } else {
       console.log("Token verification failed.");
