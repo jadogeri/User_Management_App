@@ -10,7 +10,7 @@ import { AuthRepositoryInterface } from "../interfaces/auth-repository.interface
 import { UserRepositoryInterface } from "../interfaces/user-repository.interface";
 import { LockedStatus } from "../data/status.data";
 import { AuthLoginRequestDTO } from "../dtos/requests/auth-request.dto";
-import { AuthLoginResponseDTO } from "../dtos/responses/auth-response.dto";
+import { AuthLoginResponseDTO, AuthRefreshTokenResponseDTO } from "../dtos/responses/auth-response.dto";
 import { JwtPayloadInterface } from "../interfaces/jwt-payload.interface";
 import { EmailServiceInterface } from "../interfaces/email-service.interface";
 import { TokenGeneratorInterface } from "../interfaces/token-generator.interface";
@@ -112,8 +112,21 @@ export class AuthService implements AuthServiceInterface{
     reset(): Promise<any> {
         throw new Error("Method not implemented.");
     }
-    refresh(): Promise<any> {
-        throw new InternalServerError("Method not implemented.");
+    async refresh(refreshToken: string): Promise<any> {
+        const savedAuth = await this.authRepository.findByRefreshToken(refreshToken);
+        if(!savedAuth){
+            throw new UnAuthorizedError("Invalid refresh token");
+        }
+        //generate new tokens
+        const user = savedAuth.user;
+        const payload: JwtPayloadInterface = payloadGenerator(user);
+        const newAccessToken : string = this.tokenGeneratorService.generateAccessToken(payload);
+        const newRefreshToken : string = this.tokenGeneratorService.generateRefreshToken(payload);
+        //update auth record
+        savedAuth.refreshToken = newRefreshToken;
+        await this.authRepository.save(savedAuth);
+        const userResponse : AuthRefreshTokenResponseDTO = { accessToken: newAccessToken, refreshToken: newRefreshToken };
+        return userResponse;
     }
 
         
