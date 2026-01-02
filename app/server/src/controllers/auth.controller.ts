@@ -7,13 +7,14 @@ import { TYPES } from "../types/binding.type";
 import { AuthControllerInterface } from "../interfaces/auth-controller.interface";
 import { AuthServiceInterface } from "../interfaces/auth-service.interface";
 import loginLimitterMiddleware from "../middlewares/login-limitter.middleware";
-import { AuthLoginRequestDTO } from "../dtos/requests/auth-request.dto";
+import { AuthLoginRequestDTO, AuthRefreshTokenRequestDTO } from "../dtos/requests/auth-request.dto";
 import { AuthLoginResponseDTO } from "../dtos/responses/auth-response.dto";
 import { ErrorResponse } from "../models/error-response.model";
 import { authMiddleware } from "../middlewares/authorization.middleware";
 import { CredentialValidatorServiceInterface } from "../interfaces/credential-validator-service.interface";
 import { ValidationResponse } from "../models/validation-response.model";
 import { errorBroadcaster } from "../utils/error-broadcaster";
+import { BadRequestError } from "../errors/bad-request.error";
 
 
 @Route("auths")
@@ -80,7 +81,13 @@ export class AuthController extends BaseController implements AuthControllerInte
    */
 
    @Post("/refresh")
-  public async refreshToken(): Promise<any> {
+  public async refreshToken(@Body() userRequest: AuthRefreshTokenRequestDTO): Promise<any> {
+    const { refreshToken } = userRequest;
+    console.log("In refresh token controller with refreshToken: ", refreshToken); 
+    if(!refreshToken || refreshToken.trim() === ""){ 
+      throw new BadRequestError("Refresh token is required");
+    }
+    
     return this.authService.refresh();
   }
 
