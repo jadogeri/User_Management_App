@@ -20,7 +20,9 @@ import { payloadGenerator } from "../utils/payload-generator.util";
 import { errorResponseGenerator } from "../utils/error-response-generator.util";
 import { UnAuthorizedError } from "../errors/unauthorized.error";
 import { LockedAccountError } from "../errors/locked-account.error";
-import { InternalServerError } from "../errors/internal-server.error";
+import { TokenValidatorInterface } from "../interfaces/token-validator.interface";
+import { TokenExpiredError, JsonWebTokenError } from "jsonwebtoken";
+import { ForbiddenError } from "../errors/forbidden.error";
 
 @Service()
 export class AuthService implements AuthServiceInterface{
@@ -33,6 +35,8 @@ export class AuthService implements AuthServiceInterface{
     private readonly emailService!:  EmailServiceInterface;
     @AutoWired(TYPES.TokenGeneratorInterface)
     private readonly tokenGeneratorService!: TokenGeneratorInterface;
+    @AutoWired(TYPES.TokenValidatorInterface)
+    private readonly tokenValidatorService!: TokenValidatorInterface;
     @AutoWired(TYPES.CookieStorageInterface)
     private readonly cookieStorageService!: CookieStorageInterface; 
  
@@ -112,13 +116,28 @@ export class AuthService implements AuthServiceInterface{
     reset(): Promise<any> {
         throw new Error("Method not implemented.");
     }
-    async refresh(refreshToken: string): Promise<any> {
+    async refresh(refreshToken: string, req: Request): Promise<any> {
+        //validate refresh token
+        const result = this.tokenValidatorService.verifyRefreshToken(refreshToken);
+
+        if (!(result instanceof TokenExpiredError) && result instanceof JsonWebTokenError) { 
+            console.log("Refresh token verification failed: ", result.message);
+            throw new UnAuthorizedError("Invalid refresh token: " + result.message);
+        }      
+        
+        //find auth using refresh token
         const savedAuth = await this.authRepository.findByRefreshToken(refreshToken);
+        console.log("savedAuth from refresh token: ", savedAuth);   
         if(!savedAuth){
-            throw new UnAuthorizedError("Invalid refresh token");
+            throw new UnAuthorizedError("Invalid refresh token: no matching auth record found." );
         }
+        if(savedAuth && result instanceof TokenExpiredError){
+            await this.authRepository.remove(savedAuth);
+            throw new ForbiddenError("Refresh token is no longer valid, user must log in to obtain a new token:" + result.message);        }
+
         //generate new tokens
         const user = savedAuth.user;
+        console.log("user from savedAuth: ", user);
         const payload: JwtPayloadInterface = payloadGenerator(user);
         const newAccessToken : string = this.tokenGeneratorService.generateAccessToken(payload);
         const newRefreshToken : string = this.tokenGeneratorService.generateRefreshToken(payload);
@@ -127,8 +146,7 @@ export class AuthService implements AuthServiceInterface{
         await this.authRepository.save(savedAuth);
         const userResponse : AuthRefreshTokenResponseDTO = { accessToken: newAccessToken, refreshToken: newRefreshToken };
         return userResponse;
-    }
 
-        
+    }        
 
 }

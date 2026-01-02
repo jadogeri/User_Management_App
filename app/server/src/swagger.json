@@ -214,11 +214,17 @@
 			"AuthLoginResponseDTO": {
 				"description": "Represents a user login response dto object.",
 				"properties": {
+					"refreshToken": {
+						"type": "string",
+						"description": "The JWT refresh token.",
+						"example": "some-refresh-token"
+					},
 					"accessToken": {
 						"type": "string"
 					}
 				},
 				"required": [
+					"refreshToken",
 					"accessToken"
 				],
 				"type": "object",
@@ -242,6 +248,21 @@
 				"required": [
 					"password",
 					"email"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AuthRefreshTokenRequestDTO": {
+				"description": "Represents an auth refresh token request dto object.",
+				"properties": {
+					"refreshToken": {
+						"type": "string",
+						"description": "The JWT refresh token.",
+						"example": "some-refresh-token"
+					}
+				},
+				"required": [
+					"refreshToken"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -376,7 +397,7 @@
 				"security": [
 					{
 						"jwt": [
-							"USER_CREATE"
+							"USERS_CREATE"
 						]
 					}
 				],
@@ -645,7 +666,17 @@
 					"Auth"
 				],
 				"security": [],
-				"parameters": []
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/AuthRefreshTokenRequestDTO"
+							}
+						}
+					}
+				}
 			}
 		},
 		"/auths": {

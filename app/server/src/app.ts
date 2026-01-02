@@ -28,7 +28,7 @@ export const buildApp = () : Application  =>{
 
     const app: Application = express();
 
-    app.use(customLogger);
+    //app.use(customLogger);
     //middlewares
     app.use(express.json())
     app.use(cookieParser());
@@ -46,7 +46,7 @@ export const buildApp = () : Application  =>{
     const accessLogStream = fs.createWriteStream(path.join(__dirname, 'logs', 'access.log'), { flags: 'a' });
 
     // Setup the logger to use the 'combined' format and stream to the file
-    app.use(morgan('combined', { stream: accessLogStream }))  
+    //app.use(morgan('combined', { stream: accessLogStream }))  
 
     // Rate Limiting Middleware
     // Global rate limiter configuration
@@ -60,9 +60,9 @@ export const buildApp = () : Application  =>{
     });
 
     // Apply the rate limiting middleware to all requests
-    app.use(apiLimiter);
+    //app.use(apiLimiter);
     // Security Middleware
-    app.use(helmet(helmetOptions));
+    //app.use(helmet(helmetOptions));
     
     RegisterRoutes(app);
     

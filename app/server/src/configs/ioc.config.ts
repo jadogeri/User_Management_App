@@ -29,6 +29,7 @@ import TokenGeneratorService from '../services/token-generator.service';
 import { CookieStorageInterface } from '../interfaces/cookie-storage.interface';
 import CookieStorageService from '../services/cookie-storage.service';
 import { TokenValidatorInterface } from '../interfaces/token-validator.interface';
+import TokenValidatorService from '../services/token-validator.service';
 // // import { UserController } from '../controllers/user.controller';
 
 

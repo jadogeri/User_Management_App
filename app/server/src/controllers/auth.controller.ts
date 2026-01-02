@@ -81,14 +81,14 @@ export class AuthController extends BaseController implements AuthControllerInte
    */
 
    @Post("/refresh")
-  public async refreshToken(@Body() userRequest: AuthRefreshTokenRequestDTO): Promise<any> {
+  public async refreshToken(@Body() userRequest: AuthRefreshTokenRequestDTO, @Request() req: ExpressRequest): Promise<any> {
     const { refreshToken } = userRequest;
     console.log("In refresh token controller with refreshToken: ", refreshToken); 
     if(!refreshToken || refreshToken.trim() === ""){ 
       throw new BadRequestError("Refresh token is required");
     }
 
-    return this.authService.refresh(refreshToken);
+    return this.authService.refresh(refreshToken, req);
   }
 
   

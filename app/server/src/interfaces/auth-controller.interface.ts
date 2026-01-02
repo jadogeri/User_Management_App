@@ -8,5 +8,5 @@ export interface AuthControllerInterface {
   logoutUser(): Promise<any>;
   forgotUser(): Promise<any>;
   resetUser(): Promise<any>;
-  refreshToken(userRequest: AuthRefreshTokenRequestDTO): Promise<any> ;
+  refreshToken(userRequest: AuthRefreshTokenRequestDTO, req: Request): Promise<any> ;
 };
