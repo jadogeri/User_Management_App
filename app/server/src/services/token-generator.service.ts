@@ -2,7 +2,7 @@ import { Service } from "../decorators";
 import { JwtPayloadInterface } from "../interfaces/jwt-payload.interface";
 import { TokenGeneratorInterface } from "../interfaces/token-generator.interface";
 import * as jwt from 'jsonwebtoken';
-import { SignOptions } from "jsonwebtoken";
+import { JwtPayload, SignOptions } from "jsonwebtoken";
 import { StringValue } from 'ms'; 
 
 
@@ -43,6 +43,17 @@ class TokenGeneratorService implements TokenGeneratorInterface {
 
         return refreshToken;
     }
+
+    verifyRefreshToken = (token: string): string| JwtPayload | undefined => {
+        try {
+            return jwt.verify(token, process.env?.REFRESH_TOKEN_SECRET as jwt.Secret);
+        } catch (err: unknown) {
+            if (err instanceof jwt.JsonWebTokenError) { 
+                console.log("Refresh token verification failed: ", err.message);
+                return undefined;
+            }
+        }
+    };
 }
 
 export default TokenGeneratorService;

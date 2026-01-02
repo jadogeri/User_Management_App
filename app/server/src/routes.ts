@@ -64,6 +64,7 @@ const models: TsoaRoute.Models = {
     "AuthLoginResponseDTO": {
         "dataType": "refObject",
         "properties": {
+            "refreshToken": {"dataType":"string","required":true},
             "accessToken": {"dataType":"string","required":true},
         },
         "additionalProperties": false,
@@ -74,6 +75,14 @@ const models: TsoaRoute.Models = {
         "properties": {
             "password": {"dataType":"string","required":true},
             "email": {"dataType":"string","required":true,"validators":{"pattern":{"errorMsg":"please provide correct email","value":"^(.+)@(.+)$"}}},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "AuthRefreshTokenRequestDTO": {
+        "dataType": "refObject",
+        "properties": {
+            "refreshToken": {"dataType":"string","required":true},
         },
         "additionalProperties": false,
     },
@@ -167,7 +176,7 @@ export function RegisterRoutes(app: Router) {
         const argsUserController_getAllUsers: Record<string, TsoaRoute.ParameterSchema> = {
         };
         app.get('/users/get-all',
-            authenticateMiddleware([{"jwt":["USER_CREATE"]}]),
+            authenticateMiddleware([{"jwt":["USERS_CREATE"]}]),
             ...(fetchMiddlewares<RequestHandler>(UserController)),
             ...(fetchMiddlewares<RequestHandler>(UserController.prototype.getAllUsers)),
 
@@ -576,6 +585,7 @@ export function RegisterRoutes(app: Router) {
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         const argsAuthController_refreshToken: Record<string, TsoaRoute.ParameterSchema> = {
+                userRequest: {"in":"body","name":"userRequest","required":true,"ref":"AuthRefreshTokenRequestDTO"},
         };
         app.post('/auths/refresh',
             ...(fetchMiddlewares<RequestHandler>(AuthController)),

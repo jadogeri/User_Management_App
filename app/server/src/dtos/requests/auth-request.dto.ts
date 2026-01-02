@@ -4,6 +4,7 @@
 // // export interface UserCreationBody extends Pick<UserType, "email" | "name" | "age">{}
 
 import { JwtPayloadInterface } from "../../interfaces/jwt-payload.interface";
+import { AuthType } from "../../types/auth.type";
 import { UserType } from "../../types/user.type";
 
 
@@ -30,9 +31,6 @@ export interface AuthResetPasswordRequestDTO extends Pick<UserType, "email">{
 /**
  * Represents an auth refresh token request dto object.
  */
-export interface AuthRegreshTokenRequestDTO extends Pick<UserType, "email">{
-    oldPassword: string;
-    newPassword: string;
-    confirmNewPassword: string;
-}
+export interface AuthRefreshTokenRequestDTO extends Pick<AuthType, "refreshToken">{}
+
 

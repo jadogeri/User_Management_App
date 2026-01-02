@@ -12,6 +12,7 @@ export const TYPES = {
     AuthServiceInterface: Symbol.for("AuthServiceInterface"),
     DatabaseServiceInterface: Symbol.for("DatabaseServiceInterface"),
     TokenGeneratorInterface: Symbol.for("TokenGeneratorInterface"),
+    TokenValidatorInterface: Symbol.for("TokenValidatorInterface"),
     PasswordGeneratorInterface: Symbol.for("PasswordGeneratorInterface"),
     CookieStorageInterface: Symbol.for("CookieStorageInterface"),
     //repositories

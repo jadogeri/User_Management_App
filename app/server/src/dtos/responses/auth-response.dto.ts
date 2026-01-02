@@ -1,11 +1,12 @@
 
+import { AuthType } from "../../types/auth.type";
 import { UserType } from "../../types/user.type";
 
 
 /**
  * Represents a user login response dto object.
  */
-export interface AuthLoginResponseDTO {
+export interface AuthLoginResponseDTO extends Pick<AuthType, "refreshToken">{
     accessToken: string;
 }
 /**
@@ -23,5 +24,5 @@ export interface AuthResetPasswordResponseDTO extends UserType{}
 /**
  * Represents a user refresh token response dto object.
  */
-export interface AuthRefreshTokenResponseDTO extends UserType{}
+export interface AuthRefreshTokenResponseDTO extends AuthLoginResponseDTO{}
 
