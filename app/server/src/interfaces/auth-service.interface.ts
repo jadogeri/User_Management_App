@@ -10,7 +10,7 @@ export interface AuthServiceInterface{
   logout(): Promise<any>;
   forgot(): Promise<any>;
   reset(): Promise<any>;
-  refresh(): Promise<any>;
+  refresh(refreshToken: string): Promise<any>;
 
   
 }

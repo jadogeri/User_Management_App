@@ -87,8 +87,8 @@ export class AuthController extends BaseController implements AuthControllerInte
     if(!refreshToken || refreshToken.trim() === ""){ 
       throw new BadRequestError("Refresh token is required");
     }
-    
-    return this.authService.refresh();
+
+    return this.authService.refresh(refreshToken);
   }
 
   
