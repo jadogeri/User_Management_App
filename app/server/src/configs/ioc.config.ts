@@ -30,6 +30,8 @@ import { CookieStorageInterface } from '../interfaces/cookie-storage.interface';
 import CookieStorageService from '../services/cookie-storage.service';
 import { TokenValidatorInterface } from '../interfaces/token-validator.interface';
 import TokenValidatorService from '../services/token-validator.service';
+import { AccessControlInterface } from '../interfaces/access-control.interface';
+import AccessControlService from '../services/access-control.service';
 // // import { UserController } from '../controllers/user.controller';
 
 
@@ -65,6 +67,7 @@ iocContainer.load(buildProviderModule());
     iocContainer.bind<TokenGeneratorInterface>(TYPES.TokenGeneratorInterface).to(TokenGeneratorService).inSingletonScope();
     iocContainer.bind<TokenValidatorInterface>(TYPES.TokenValidatorInterface).to(TokenValidatorService).inSingletonScope();
     iocContainer.bind<CookieStorageInterface>(TYPES.CookieStorageInterface).to(CookieStorageService).inSingletonScope();
+    iocContainer.bind<AccessControlInterface>(TYPES.AccessControlInterface).to(AccessControlService).inSingletonScope();
 
 
 // 3. Helper to bind the live DataSource after connection

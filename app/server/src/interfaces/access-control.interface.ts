@@ -6,6 +6,6 @@ export interface AccessControlInterface{
 
   can(action: Action, resource: Resource): boolean ;
   hasRole(role: Role ): boolean ;
-  hasFullAccess(): boolean ;    
-  
+  hasFullAccess(grants: {resource: string, action: string}[]): boolean ;    
+
 };
