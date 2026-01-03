@@ -3,6 +3,7 @@ import { Service } from "../decorators";
 import Role from "../entities/role.entity";
 import { AccessControlInterface } from "../interfaces/access-control.interface";
 import { Action, Resource } from "../types/rbac.type";
+import { RoleNamesEnum } from "../types/role-names.type";
 
 @Service()
 class AccessControlService implements AccessControlInterface{
@@ -13,12 +14,15 @@ class AccessControlService implements AccessControlInterface{
         this.userRoles = roles;
     }
 
-    hasRole(role: Role): boolean {
+    hasRole(role: RoleNamesEnum): boolean {
         for(const userRole of this.userRoles){
-            if(userRole.id === role.id){
+            if(userRole.name === role){
+                console.log("user has role in accwss control: ", role);
                 return true;
             }
         }
+        console.log("user does not have role in access control: ", role);
+
         return false;
     }
     hasFullAccess(grants: {resource: string, action: string}[]): boolean {
@@ -51,10 +55,11 @@ class AccessControlService implements AccessControlInterface{
     }
 
     const grants = this.getGrants();
-    
+
     // Check for super admin/wildcard access
     const hasFullAccess = this.hasFullAccess(grants);
     if (hasFullAccess) {
+        console.log("user has full access line 62 in access control service");
       return true;
     }
 
@@ -64,14 +69,15 @@ class AccessControlService implements AccessControlInterface{
       const actionMatches = grant.action === '*' || grant.action === action;
 
       if (resourceMatches && actionMatches) {
+        console.log(`user has permission for action ${action} on resource ${resource} in access control service`);
         return true;
       }
     }
-
+    
+    console.log(`user does not have permission for action ${action} on resource ${resource} in access control service`);
     return false; // No matching grant found
   
-    }
-    
+    }    
 }
 
 export default AccessControlService;

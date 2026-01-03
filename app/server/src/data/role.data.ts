@@ -1,14 +1,13 @@
 import { Role } from "../entities/role.entity";
 import { RoleDescriptionsEnum } from "../types/role-description.type";
 import { RoleNamesEnum } from "../types/role-names.type";
-import {    
-    userCreatePermission, userReadPermission, usersReadPermission,userReactivatePermission,
-    userUpdatePermission, userDeactivatePermission,userDeletePermission,
-    allPermissions,
-    authReadPermission,
-    authCreatePermission
-} from "../data/permission.data";
+import { permissions } from "./permission.data";
 
+const [
+  allPermissions,  userReadPermission, usersReadPermission, userCreatePermission, userUpdatePermission,
+  userDeletePermission,  userAllPermission,
+  authReadPermission, authUpdatePermission, authCreatePermission, authDeletePermission, authAllPermissions,
+] = permissions;
 const AdminRole = new Role();
 const UserRole = new Role();
 const ViewerRole = new Role();
@@ -28,13 +27,13 @@ EditorRole.description = RoleDescriptionsEnum.EDITOR;
 
 //Assigning Permissions
 AdminRole.permissions = [    
-    allPermissions, userCreatePermission, userReadPermission, usersReadPermission, userUpdatePermission,
-    userDeletePermission, userDeactivatePermission, userReactivatePermission
+    allPermissions, userCreatePermission, userReadPermission, userUpdatePermission,
+    userDeletePermission, 
               
 ]
 UserRole.permissions = [
-    userCreatePermission, userReadPermission, userUpdatePermission, userDeactivatePermission,
-    userReactivatePermission, authReadPermission, authReadPermission, authReadPermission,
+    userCreatePermission, userReadPermission, userUpdatePermission, 
+    authReadPermission, 
     authCreatePermission
 ]
 
@@ -42,7 +41,7 @@ EditorRole.permissions = [
     userCreatePermission, userReadPermission, userUpdatePermission
 ]
 ViewerRole.permissions = [
-    userCreatePermission, userReadPermission, usersReadPermission
+    userCreatePermission, userReadPermission
 ]
 
 

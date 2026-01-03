@@ -44,6 +44,7 @@ export const buildApp = () : Application  =>{
     // Create a write stream (in append mode)
     console.log("__dirname:", __dirname);   
     const accessLogStream = fs.createWriteStream(path.join(__dirname, 'logs', 'access.log'), { flags: 'a' });
+    
 
     // Setup the logger to use the 'combined' format and stream to the file
     //app.use(morgan('combined', { stream: accessLogStream }))  

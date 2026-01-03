@@ -8,11 +8,11 @@ export const PermissionLibrary: Record<string, { id: number; resource: Resource;
   ["*"]: { id: 1, resource: Resource.ALL, action: Action.ALL, description: "Full access to all resources." },
   ['USER_CREATE']: { id: 2, resource: Resource.USER, action: Action.CREATE, description: "Create new user." },
   ['USER_READ']: { id: 3, resource: Resource.USER, action: Action.READ, description: "Read own data." },
-  ['USERS_READ']: { id: 4, resource: Resource.USER, action: Action.READ, description: "Read all users." },
+  ['USERS_READ']: { id: 4, resource: Resource.USER, action: Action.ALL, description: "Read all users." },
   ['USER_UPDATE']: { id: 5, resource: Resource.USER, action: Action.UPDATE, description: "Update own data." },
   ['USER_DELETE']: { id: 6, resource: Resource.USER, action: Action.DELETE, description: "Delete own record." },
-  ['USER_DEACTIVATE']: { id: 7, resource: Resource.USER, action: Action.MANAGE, description: "Deactivate own data." },
-  ['USER_REACTIVATE']: { id: 8, resource: Resource.USER, action: Action.MANAGE, description: "Reactivate own data." },
+  // ['USER_DEACTIVATE']: { id: 7, resource: Resource.USER, action: Action.MANAGE, description: "Deactivate own data." },
+  // ['USER_REACTIVATE']: { id: 8, resource: Resource.USER, action: Action.MANAGE, description: "Reactivate own data." },
   ['USER_ALL']: { id: 9, resource: Resource.USER, action: Action.ALL, description: "Full access to user resource." },
   ['AUTH_READ']: { id: 10, resource: Resource.AUTH, action: Action.READ, description: "Read own auth data." },
   ['AUTH_UPDATE']: { id: 11, resource: Resource.AUTH, action: Action.UPDATE, description: "Update own auth data." },
@@ -57,17 +57,17 @@ userDeletePermission.description = PermissionLibrary["USER_DELETE"].description
 userDeletePermission.resource = PermissionLibrary["USER_DELETE"].resource
 userDeletePermission.action = PermissionLibrary["USER_DELETE"].action
 
-const userDeactivatePermission = new Permission();
-userDeactivatePermission.id = PermissionLibrary["USER_DEACTIVATE"].id
-userDeactivatePermission.description = PermissionLibrary["USER_DEACTIVATE"].description
-userDeactivatePermission.resource = PermissionLibrary["USER_DEACTIVATE"].resource
-userDeactivatePermission.action = PermissionLibrary["USER_DEACTIVATE"].action
+// const userDeactivatePermission = new Permission();
+// userDeactivatePermission.id = PermissionLibrary["USER_DEACTIVATE"].id
+// userDeactivatePermission.description = PermissionLibrary["USER_DEACTIVATE"].description
+// userDeactivatePermission.resource = PermissionLibrary["USER_DEACTIVATE"].resource
+// userDeactivatePermission.action = PermissionLibrary["USER_DEACTIVATE"].action
 
-const userReactivatePermission = new Permission();
-userReactivatePermission.id = PermissionLibrary["USER_REACTIVATE"].id
-userReactivatePermission.description = PermissionLibrary["USER_REACTIVATE"].description
-userReactivatePermission.resource = PermissionLibrary["USER_REACTIVATE"].resource
-userReactivatePermission.action = PermissionLibrary["USER_REACTIVATE"].action
+// const userReactivatePermission = new Permission();
+// userReactivatePermission.id = PermissionLibrary["USER_REACTIVATE"].id
+// userReactivatePermission.description = PermissionLibrary["USER_REACTIVATE"].description
+// userReactivatePermission.resource = PermissionLibrary["USER_REACTIVATE"].resource
+// userReactivatePermission.action = PermissionLibrary["USER_REACTIVATE"].action
 
 const userAllPermission = new Permission();
 userAllPermission.id = PermissionLibrary["USER_ALL"].id
@@ -104,9 +104,9 @@ authAllPermissions.id = PermissionLibrary["AUTH_ALL"].id
 authAllPermissions.description = PermissionLibrary["AUTH_ALL"].description
 authAllPermissions.resource = PermissionLibrary["AUTH_ALL"].resource
 authAllPermissions.action = PermissionLibrary["AUTH_ALL"].action
-export {
+export const permissions = [
   allPermissions,  userReadPermission, usersReadPermission, userCreatePermission, userUpdatePermission,
-  userDeletePermission, userDeactivatePermission, userReactivatePermission, userAllPermission,
+  userDeletePermission,  userAllPermission,
   authReadPermission, authUpdatePermission, authCreatePermission, authDeletePermission, authAllPermissions,
 
-}
+]

@@ -1,11 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany , Index } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany , Index, Unique } from 'typeorm';
 import Role from './role.entity';
 import { IsEnum } from 'class-validator';
 import { PermissionType } from '../types/permission.type';
 import { Action, RBACPermission, Resource } from '../types/rbac.type';
 
 @Entity()
-@Index(["action", "resource"], { unique: true }) 
+@Unique(["action", "resource"])
 export class Permission implements PermissionType{
   @PrimaryGeneratedColumn()
   id: number;
