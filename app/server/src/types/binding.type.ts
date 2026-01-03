@@ -1,3 +1,5 @@
+import AccessControlService from "../services/access-control.service";
+
 // Define Symbols for DI binding (best practice in Inversify)
 export const TYPES = {
 
@@ -15,6 +17,7 @@ export const TYPES = {
     TokenValidatorInterface: Symbol.for("TokenValidatorInterface"),
     PasswordGeneratorInterface: Symbol.for("PasswordGeneratorInterface"),
     CookieStorageInterface: Symbol.for("CookieStorageInterface"),
+    AccessControlInterface: Symbol.for("AccessControlInterface"),
     //repositories
 
     UserRepositoryInterface: Symbol.for("UserRepositoryInterface"),

@@ -20,6 +20,10 @@ import { TokenGeneratorInterface } from "../interfaces/token-generator.interface
 import { PasswordGeneratorInterface } from "../interfaces/password-generator.interface";
 import { ConflictError } from "../errors/conflict.error";
 import { InternalServerError } from "../errors/internal-server.error";
+import { Repository } from "typeorm";
+import { Role } from "../entities/role.entity";
+import { AppDataSource } from "../configs/typeOrm.config";
+import { RoleNamesEnum } from "../types/role-names.type";
 
 @Service()
 export class UserService implements UserServiceInterface{
@@ -78,21 +82,41 @@ export class UserService implements UserServiceInterface{
             newUser.isEnabled = true;
             newUser.status = EnabledStatus
             newUser.roles = [UserRole]; //default role assignment can be handled here
+
+            // 🏁 Get the repo from the passed dataSource
+            const roleRepository = AppDataSource.getRepository(Role);                
+            const existingRole = await roleRepository.findOne({
+                where: { name: RoleNamesEnum.USER },
+                relations: ['permissions'] 
+            });
+
+            if (!existingRole) {
+                throw new InternalServerError("Default role not found in the database.");
+            }
+
+
+            const createdUser : User = this.userRepository.create({
+                ...newUser,
+                roles: [existingRole], // Assign the existing entity
+            });
+
+            const savedUser : User = await this.userRepository.save(newUser);
+
+
             
-            const createdUser : User = await this.userRepository.save(newUser);
-            console.log("Created User: ", createdUser);
+            console.log("Saved User: ", savedUser);
             
             const userResponse : UserCreateResponseDTO ={
-                username: createdUser.username,
-                email: createdUser.email,
-                phone: createdUser.phone,
-                failedLogins: createdUser.failedLogins,
-                isEnabled: createdUser.isEnabled,
-                id: createdUser.id,
-                createdAt: createdUser.createdAt,
-                updatedAt: createdUser.updatedAt,
-                age: createdUser.age,
-                fullname: createdUser.fullname
+                username: savedUser.username,
+                email: savedUser.email,
+                phone: savedUser.phone,
+                failedLogins: savedUser.failedLogins,
+                isEnabled: savedUser.isEnabled,
+                id: savedUser.id,
+                createdAt: savedUser.createdAt,
+                updatedAt: savedUser.updatedAt,
+                age: savedUser.age,
+                fullname: savedUser.fullname
             }
             // If in production environment send email
             // SEND EMAIL
