@@ -8,6 +8,8 @@ import { Role } from '../entities/role.entity';
 import User from '../entities/user.entity';
 import { AppDataSource } from '../configs/typeOrm.config';
 import { HttpError } from '../errors/http.error';
+import { RBACPermission } from '../types/rbac.type';
+import { RoleNamesEnum } from '../types/role-names.type';
 
 // Define the shape of your user object/JWT payload
 export interface UserPayload {
@@ -21,7 +23,7 @@ export interface UserPayload {
 export async function expressAuthentication(
   request: Request,
   securityName: string,
-  scopes?: string[]
+  scopes?: RBACPermission[] | RoleNamesEnum[]
 ): Promise<any> {
 
   if (securityName === 'jwt') {
@@ -39,7 +41,6 @@ export async function expressAuthentication(
       throw new HttpError(401,"token has expired");
     }
 
-
     try {
 
       const decoded =  jwt.verify(token, process.env.JSON_WEB_TOKEN_SECRET as jwt.Secret)
@@ -52,7 +53,7 @@ export async function expressAuthentication(
       request.payload = decodedPayload;
     if (decodedPayload) {
        // : Check role directly from token payload
-        const userRole : Role = decodedPayload.user.role; // e.g., 'admin', 'editor', 'user'
+        const userRoles : Role[] = decodedPayload.user.roles; // e.g., 'admin', 'editor', 'user'
 
         // : Verify against TypeORM database for real-time security
         const userRepository = AppDataSource.getRepository(User); 
@@ -70,12 +71,8 @@ export async function expressAuthentication(
       console.log("Checking scopes:", scopes);
         if (scopes && scopes.length > 0) {
           let hasPermission = false;
-          for (let role of user.roles) {
-            if (role.hasRequiredPermission(scopes)) {
-              hasPermission = true;
-              break;
-            }
-          }
+
+
           if(!hasPermission){
             throw new HttpError(403, "JWT does not contain sufficient permissions");
           }

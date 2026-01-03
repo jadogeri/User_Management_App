@@ -1,5 +1,5 @@
 import Role from "../entities/role.entity";
-import { PermissionNamesEnum } from "./permission-names.type";
+import { Action, Resource } from "./rbac.type";
 
 export type PermissionType =  {
     /**
@@ -7,11 +7,6 @@ export type PermissionType =  {
    * @example "1"
    */
   id: number
-  /**
-   * The permissions's  name.
-   * @example "READ_USER"
-   */
-  name: PermissionNamesEnum
   /**
    * The permission's description.
    * @example "user can featch data"
@@ -22,5 +17,15 @@ export type PermissionType =  {
    * @example Role
    */
   roles: Role[];
+  /**
+   * The resource the permission applies to.
+   * @example "user"
+   */
+  resource: Resource
+  /**
+   * The action the permission allows.
+   * @example "read"
+   */
+  action: Action
 
 }

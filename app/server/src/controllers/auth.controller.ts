@@ -10,7 +10,7 @@ import loginLimitterMiddleware from "../middlewares/login-limitter.middleware";
 import { AuthLoginRequestDTO, AuthRefreshTokenRequestDTO } from "../dtos/requests/auth-request.dto";
 import { AuthLoginResponseDTO } from "../dtos/responses/auth-response.dto";
 import { ErrorResponse } from "../models/error-response.model";
-import { authMiddleware } from "../middlewares/authorization.middleware";
+import { loginUserMiddleware } from "../middlewares/login-user.middleware";
 import { CredentialValidatorServiceInterface } from "../interfaces/credential-validator-service.interface";
 import { ValidationResponse } from "../models/validation-response.model";
 import { BadRequestError } from "../errors/bad-request.error";
@@ -39,7 +39,7 @@ export class AuthController extends BaseController implements AuthControllerInte
   public async currentUser(): Promise<any> {
     return {message: "Current user endpoint" };
   }
-  @Middleware(authMiddleware("",["USER_READ", "USER_WRITE"]))
+  @Middleware(loginUserMiddleware("",["user:read"]))
   @Post("/login")
   public async loginUser(@Body() userRequest: AuthLoginRequestDTO, @Request() req: ExpressRequest): Promise<AuthLoginResponseDTO | ErrorResponse> {
 

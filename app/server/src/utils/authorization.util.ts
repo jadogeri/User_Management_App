@@ -4,6 +4,8 @@ import User from '../entities/user.entity';
 import { AppDataSource } from '../configs/typeOrm.config';
 import { HttpError } from '../errors/http.error';
 import { AuthLoginRequestDTO } from '../dtos/requests/auth-request.dto';
+import { RoleNamesEnum } from '../types/role-names.type';
+import { RBACPermission } from '../types/rbac.type';
 
 // Define the shape of your user object/JWT payload
 export interface UserPayload {
@@ -17,7 +19,7 @@ export interface UserPayload {
 export async function expressAuthorization(
   request: Request,
   securityName: string,
-  scopes?: string[]
+  scopes?: RBACPermission[] | RoleNamesEnum[]
 ): Promise<any> {
 
   if (request) {

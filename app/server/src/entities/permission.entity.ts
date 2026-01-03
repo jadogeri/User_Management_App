@@ -1,26 +1,41 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany , Index } from 'typeorm';
 import Role from './role.entity';
-import { PermissionNamesEnum } from '../types/permission-names.type';
 import { IsEnum } from 'class-validator';
 import { PermissionType } from '../types/permission.type';
+import { Action, RBACPermission, Resource } from '../types/rbac.type';
 
 @Entity()
+@Index(["action", "resource"], { unique: true }) 
 export class Permission implements PermissionType{
   @PrimaryGeneratedColumn()
   id: number;
-
-  @Column({
-    type: 'simple-enum',  
-    enum: PermissionNamesEnum,  
-    unique: true,
-    //length: 20,
-  })
-  @IsEnum(PermissionNamesEnum, { message: 'name must be a valid enum value (DELETE_USER, READ_USER).' })
-  name: PermissionNamesEnum;
 
   @Column({ nullable: true })
   description: string;
 
   @ManyToMany(() => Role, (role) => role.permissions)
   roles: Role[];
+  
+  @Column({
+    type: "simple-enum",
+    nullable: false,
+    enum: Resource,
+    default: Resource.ALL,
+  })
+  @IsEnum(Resource, { message: 'resource must be a valid enum value (user, product, order, system, *).' })
+  resource: Resource;
+
+  @Column({
+    type: "simple-enum",
+    nullable: false,
+    enum: Action,
+    default: Action.READ,
+  })
+  @IsEnum(Action, { message: 'action must be a valid enum value (create, read, update, delete, manage, *).' })
+  action: Action;
+
+  rbacPermission(): RBACPermission {
+    return `${this.resource}:${this.action}`;
+  }
 }
+

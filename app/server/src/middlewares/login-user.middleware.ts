@@ -1,7 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import { expressAuthorization } from '../utils/authorization.util';
+import { RBACPermission } from '../types/rbac.type';
 
-export const authMiddleware = (securityName: string, scopes?: string[]) => {
+export const loginUserMiddleware = (securityName: string, scopes?: RBACPermission[]) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
         

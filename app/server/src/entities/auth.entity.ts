@@ -9,6 +9,7 @@ import { Entity, PrimaryGeneratedColumn, OneToOne, Column, JoinColumn } from "ty
 import User from "./user.entity";
 import { AuthType } from "../types/auth.type";
 import { Audit } from "../models/audit.model";
+
 @Entity()
 export class Auth extends Audit implements AuthType {
     @PrimaryGeneratedColumn()
@@ -20,6 +21,5 @@ export class Auth extends Audit implements AuthType {
     @OneToOne(()=> User, { onDelete: 'CASCADE', cascade: true })
     @JoinColumn() 
     user: User;
-
 }
 

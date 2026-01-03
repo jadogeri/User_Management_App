@@ -6,6 +6,7 @@ import { UserType } from "../types/user.type";
 import Role from "./role.entity";
 import Status from "./status.entity";
 import { SuspensionDetails } from "../types/suspension-details.type";
+import { RBACPermission } from "../types/rbac.type";
 
 @Entity()
 export class User extends Audit implements UserType {
@@ -68,17 +69,16 @@ export class User extends Audit implements UserType {
   })
   roles: Role[];
 
-  getPermissionNames(): Array<string> {
+  getPermissionNames(): Array<RBACPermission> {
 
-    const uniquePermissions: Set<string> = new Set();
+    const uniquePermissions: Set<RBACPermission> = new Set();
 
     for (let role of this.roles) {
       for(let permission of role.permissions)
-        uniquePermissions.add(permission.name)
+        uniquePermissions.add(permission.rbacPermission());
     }   
     console.log("unique permissions: ", uniquePermissions);
-    const permissionList: string[] = [...uniquePermissions];
-
+    const permissionList: RBACPermission[] = [...uniquePermissions];
 
     return permissionList;
   }

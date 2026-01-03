@@ -1,1 +1,0 @@
-export type Resource = 'user' | 'product' | 'order' | 'system';

@@ -3,7 +3,10 @@ import { RoleDescriptionsEnum } from "../types/role-description.type";
 import { RoleNamesEnum } from "../types/role-names.type";
 import {    
     userCreatePermission, userReadPermission, usersReadPermission,userReactivatePermission,
-    userUpdatePermission, userDeactivatePermission,userDeletePermission
+    userUpdatePermission, userDeactivatePermission,userDeletePermission,
+    allPermissions,
+    authReadPermission,
+    authCreatePermission
 } from "../data/permission.data";
 
 const AdminRole = new Role();
@@ -24,14 +27,15 @@ EditorRole.name = RoleNamesEnum.EDITOR;
 EditorRole.description = RoleDescriptionsEnum.EDITOR;
 
 //Assigning Permissions
-AdminRole.permissions = [
-    userCreatePermission, userReadPermission, usersReadPermission, userUpdatePermission,
+AdminRole.permissions = [    
+    allPermissions, userCreatePermission, userReadPermission, usersReadPermission, userUpdatePermission,
     userDeletePermission, userDeactivatePermission, userReactivatePermission
               
 ]
 UserRole.permissions = [
     userCreatePermission, userReadPermission, userUpdatePermission, userDeactivatePermission,
-    userReactivatePermission
+    userReactivatePermission, authReadPermission, authReadPermission, authReadPermission,
+    authCreatePermission
 ]
 
 EditorRole.permissions = [
