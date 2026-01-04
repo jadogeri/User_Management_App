@@ -35,6 +35,7 @@ export class AuthController extends BaseController implements AuthControllerInte
    * @returns The newly created user.
    */
   @SuccessResponse("201", "Created")
+  @Security("jwt", ["user:read"])
   @Get("/current")
   public async currentUser(): Promise<any> {
     return {message: "Current user endpoint" };

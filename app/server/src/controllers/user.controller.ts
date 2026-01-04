@@ -61,6 +61,13 @@ export class UserController extends BaseController implements UserControllerInte
 
   }
 
+  @SuccessResponse("201", "Created")
+  @Security("jwt", ["user:read"])
+  @Get("/current")
+  public async currentUser(): Promise<any> {
+    return {message: "Current user endpoint" };
+  }
+
   @Get("/get-one")
   @Middleware(loginLimitterMiddleware)
   public async getSingleUser(): Promise<any> {
