@@ -86,11 +86,11 @@ class AccessControlService implements AccessControlInterface{
         return isSuspended;
     }
     isAccountDisabled(user: User): boolean {
-        const isDisabled : boolean = user?.status.name === StatusEnum.DISABLED;
+        const isDisabled : boolean = user?.status.name === StatusEnum.DISABLED || user.isEnabled === false;
         return isDisabled;
     }
     isAccountLocked(user: User): boolean {
-        const isLocked : boolean = user?.status.name === StatusEnum.LOCKED;
+        const isLocked : boolean = user?.status.name === StatusEnum.LOCKED || user.isEnabled === false;
         return isLocked;
     }
 }

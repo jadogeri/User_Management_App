@@ -53,14 +53,20 @@ export async function expressAuthorization(
         }
         accessControl.setUserRoles(user.roles);
         console.log("user roles: ", user.roles)
-        // if (user.status?.name != 'ACTIVE') {
-        //   throw new HttpError(403, "User is not active");
-        // }
-  
+        if(accessControl.isAccountDisabled(user)){
+          throw new UnAuthorizedError("User account is disabled");
+        }
+        if(accessControl.isAccountSuspended(user)){
+          throw new UnAuthorizedError("User account is suspended");
+        }
+        if(accessControl.isAccountLocked(user)){
+          throw new UnAuthorizedError("User account is locked");
+        }
+
         
         console.log("Checking scopes:", scopes);
         console.log("get user permissions from permission class: ", user.getPermissionNames())
-        const permissions = user.getPermissionNames();
+
         //if user has full access, grant all permissions
         if(accessControl.hasFullAccess(accessControl.getGrants())){
           console.log("user has full access");
