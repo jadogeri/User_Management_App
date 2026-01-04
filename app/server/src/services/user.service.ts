@@ -14,7 +14,7 @@ import { UserRepositoryInterface } from "../interfaces/user-repository.interface
 import { UserCreateRequestDTO } from "../dtos/requests/user-request.dto";
 import { EnabledStatus } from "../data/status.data";
 import { UserRole } from "../data/role.data";
-import { UserCreateResponseDTO } from "../dtos/responses/user-response.dto";
+import { UserCreateResponseDTO, UserReadResponseDTO } from "../dtos/responses/user-response.dto";
 import { EmailServiceInterface } from "../interfaces/email-service.interface";
 import { TokenGeneratorInterface } from "../interfaces/token-generator.interface";
 import { PasswordGeneratorInterface } from "../interfaces/password-generator.interface";
@@ -43,8 +43,24 @@ export class UserService implements UserServiceInterface{
     private readonly passwordGeneratorService!: PasswordGeneratorInterface;
 
 
-    getOne(): Promise<any> {
-        throw new Error("Method not implemented.");
+    async getOne(userId: number): Promise<any> {
+        const user = await this.userRepository.findById(userId);
+        if(!user){
+            throw new ResourceNotFoundError(`User with ID ${userId} not found.`);
+        }
+        const userResponse : UserReadResponseDTO ={
+            username: user.username,
+            email: user.email,
+            phone: user.phone,
+            failedLogins: user.failedLogins,
+            isEnabled: user.isEnabled,
+            id: user.id,
+            createdAt: user.createdAt,
+            updatedAt: user.updatedAt,
+            age: user.age,
+            fullname: user.fullname
+        }
+        return userResponse;
     }
     getAll(): Promise<any> {
         throw new Error("Method not implemented.");

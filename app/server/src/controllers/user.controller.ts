@@ -148,9 +148,11 @@ export class UserController extends BaseController implements UserControllerInte
     failedLogins: 0,
     isEnabled: false
   })  
+  @SuccessResponse("200", "OK")
+  @Security("jwt", ["user:read"])
   @Get("{userId}")
-  @Middleware(loginLimitterMiddleware)
-  public async getSingleUser(@Path() userId: number): Promise<any>{
+  //@Middleware(loginLimitterMiddleware)
+  public async getSingleUser(@Path() userId: number): Promise<UserReadResponseDTO | ErrorResponse> {
     if(!userId ){
       throw new BadRequestError("User ID is required");
     }
