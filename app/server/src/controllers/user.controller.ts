@@ -1,7 +1,7 @@
 
 import { Request, Controller as BaseController, Body, Delete, Get, Post, Put, Route, Tags, Response, Path, Example, SuccessResponse, Res, TsoaResponse, Security} from "tsoa";
 import { AutoWired, Controller, Middleware } from "../decorators";
-
+import { Request as ExpressRequest,Response as ExpressResponse } from "express";
 import { TYPES } from "../types/binding.type";
 import loginLimitterMiddleware from "../middlewares/login-limitter.middleware";
 import { UserControllerInterface } from "../interfaces/user-controller.interface";
@@ -12,6 +12,8 @@ import { UserCreateRequestDTO } from "../dtos/requests/user-request.dto";
 import { ErrorResponse } from "../models/error-response.model";
 import { ValidationResponse } from "../models/validation-response.model";
 import { CredentialValidatorServiceInterface } from "../interfaces/credential-validator-service.interface";
+import { J } from "@faker-js/faker/dist/airline-DF6RqYmq";
+import { JwtPayloadInterface } from "../interfaces/jwt-payload.interface";
 
 
 @Route("users")
@@ -61,11 +63,20 @@ export class UserController extends BaseController implements UserControllerInte
 
   }
 
+
+    /**
+   * Creates a new user in the system.
+   * @summary Create a new user
+   * @param requestBody The user details for creation.
+   * @returns The newly created user.
+   */
   @SuccessResponse("201", "Created")
   @Security("jwt", ["user:read"])
   @Get("/current")
-  public async currentUser(): Promise<any> {
-    return {message: "Current user endpoint" };
+  public async currentUser(@Request() req: ExpressRequest): Promise<JwtPayloadInterface> {
+    const payload : JwtPayloadInterface= req.payload;
+    console.log("Current user payload: ", payload);
+    return payload;
   }
 
   @Get("/get-one")

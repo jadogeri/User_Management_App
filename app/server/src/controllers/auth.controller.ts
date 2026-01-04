@@ -28,18 +28,6 @@ export class AuthController extends BaseController implements AuthControllerInte
   private readonly credentialValidatorService!: CredentialValidatorServiceInterface;
 
 
-    /**
-   * Creates a new user in the system.
-   * @summary Create a new user
-   * @param requestBody The user details for creation.
-   * @returns The newly created user.
-   */
-  @SuccessResponse("201", "Created")
-  @Security("jwt", ["user:read"])
-  @Get("/current")
-  public async currentUser(): Promise<any> {
-    return {message: "Current user endpoint" };
-  }
   @Middleware(loginUserMiddleware("",["user:read"]))
   @Post("/login")
   public async loginUser(@Body() userRequest: AuthLoginRequestDTO, @Request() req: ExpressRequest): Promise<AuthLoginResponseDTO | ErrorResponse> {

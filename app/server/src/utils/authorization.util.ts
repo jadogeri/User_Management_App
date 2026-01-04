@@ -11,14 +11,6 @@ import { isRoleName } from './isRoleName.util';
 import { isRBACPermission } from './isRBACPermission.util';
 import { UnAuthorizedError } from '../errors/unauthorized.error';
 
-// Define the shape of your user object/JWT payload
-export interface UserPayload {
-    user: {
-        username: string , email: string , id: number ,
-    },
-    scopes:  string[] | undefined
-
-}
 
 export async function expressAuthorization(
   request: Request,
@@ -98,30 +90,6 @@ export async function expressAuthorization(
 
           }
 
-
-
-
-
-
-
-
-          
-
-          /*
-          let hasPermission = false;
-          for (let scope of scopes) {
-            console.log("all scope in oartray", scope);
-            console.log("scopes provided ;", scopes)
-            if (permissions.includes(scope)) {
-              hasPermission = true;
-              break;
-            }
-          }
-          if(!hasPermission){
-            throw new HttpError(403, "JWT does not contain sufficient permissions");
-          }
-          console.log("has permission: ", hasPermission)
-          */
         }
         console.log("payload to return: ", request.payload); 
       return Promise.resolve(request.payload);
