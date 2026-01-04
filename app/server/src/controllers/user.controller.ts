@@ -150,15 +150,14 @@ export class UserController extends BaseController implements UserControllerInte
   })  
   @Get("{userId}")
   @Middleware(loginLimitterMiddleware)
-  public async getSingleUser(@Path() userId: UserReadParamRequestDTO): Promise<any>{
+  public async getSingleUser(@Path() userId: number): Promise<any>{
     if(!userId ){
       throw new BadRequestError("User ID is required");
     }
     if(!Number.isInteger(userId)){
       throw new BadRequestError(`User ID '${userId as any}' is not a valid integer`);
     }
-
-    return this.userService.getOne();
+    return this.userService.getOne(userId);
 
   }  
 
