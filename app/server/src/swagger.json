@@ -211,6 +211,355 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"RoleNamesEnum": {
+				"enum": [
+					"ADMIN",
+					"USER",
+					"VIEWER",
+					"EDITOR"
+				],
+				"type": "string"
+			},
+			"Role": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"name": {
+						"$ref": "#/components/schemas/RoleNamesEnum"
+					},
+					"description": {
+						"type": "string"
+					},
+					"permissions": {
+						"items": {
+							"$ref": "#/components/schemas/Permission"
+						},
+						"type": "array"
+					},
+					"users": {
+						"items": {
+							"$ref": "#/components/schemas/User"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"id",
+					"name",
+					"description",
+					"permissions",
+					"users"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Resource": {
+				"enum": [
+					"user",
+					"auth",
+					"product",
+					"order",
+					"project",
+					"invoice",
+					"document",
+					"system",
+					"*"
+				],
+				"type": "string"
+			},
+			"Action": {
+				"enum": [
+					"create",
+					"read",
+					"update",
+					"delete",
+					"manage",
+					"*"
+				],
+				"type": "string"
+			},
+			"Permission": {
+				"properties": {
+					"action": {
+						"$ref": "#/components/schemas/Action",
+						"description": "The action the permission allows."
+					},
+					"resource": {
+						"$ref": "#/components/schemas/Resource",
+						"description": "The resource the permission applies to."
+					},
+					"roles": {
+						"items": {
+							"$ref": "#/components/schemas/Role"
+						},
+						"type": "array",
+						"description": "The user's list of roles."
+					},
+					"description": {
+						"type": "string",
+						"description": "The permission's description."
+					},
+					"id": {
+						"type": "number",
+						"format": "double",
+						"description": "The permission's identifier."
+					}
+				},
+				"required": [
+					"action",
+					"resource",
+					"roles",
+					"description",
+					"id"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"SuspensionDetails": {
+				"properties": {
+					"suspendedBy": {
+						"type": "number",
+						"format": "double"
+					},
+					"suspendedAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"reason": {
+						"type": "string"
+					},
+					"isSuspended": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"suspendedBy",
+					"suspendedAt",
+					"reason",
+					"isSuspended"
+				],
+				"type": "object"
+			},
+			"StatusEnum": {
+				"enum": [
+					"ENABLED",
+					"LOCKED",
+					"DISABLED"
+				],
+				"type": "string"
+			},
+			"User": {
+				"properties": {
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time",
+						"description": "The date and time when the auth was last updated."
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time",
+						"description": "The date and time when the auth was created."
+					},
+					"id": {
+						"type": "number",
+						"format": "double",
+						"description": "The user's identifier."
+					},
+					"fullname": {
+						"type": "string",
+						"description": "The user's full name."
+					},
+					"username": {
+						"type": "string",
+						"description": "The user's username."
+					},
+					"email": {
+						"type": "string",
+						"description": "The user's email."
+					},
+					"age": {
+						"type": "number",
+						"format": "double",
+						"description": "The user's age."
+					},
+					"phone": {
+						"type": "string",
+						"description": "The user's phone number."
+					},
+					"password": {
+						"type": "string",
+						"description": "The user's password."
+					},
+					"failedLogins": {
+						"type": "number",
+						"format": "double",
+						"description": "The user's failed login attempts."
+					},
+					"isEnabled": {
+						"type": "boolean",
+						"description": "The user's account status."
+					},
+					"suspension": {
+						"allOf": [
+							{
+								"$ref": "#/components/schemas/SuspensionDetails"
+							}
+						],
+						"nullable": true
+					},
+					"status": {
+						"$ref": "#/components/schemas/Status"
+					},
+					"roles": {
+						"items": {
+							"$ref": "#/components/schemas/Role"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"updatedAt",
+					"createdAt",
+					"id",
+					"fullname",
+					"username",
+					"email",
+					"age",
+					"phone",
+					"password",
+					"failedLogins",
+					"isEnabled",
+					"suspension",
+					"status",
+					"roles"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Status": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"name": {
+						"$ref": "#/components/schemas/StatusEnum"
+					},
+					"users": {
+						"items": {
+							"$ref": "#/components/schemas/User"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"id",
+					"name",
+					"users"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AuditType": {
+				"properties": {
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time",
+						"description": "The date and time when the auth was last updated.",
+						"example": "2024-01-01T13:00:00.000Z"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time",
+						"description": "The date and time when the auth was created.",
+						"example": "2024-01-01T12:00:00.000Z"
+					}
+				},
+				"required": [
+					"updatedAt",
+					"createdAt"
+				],
+				"type": "object"
+			},
+			"JwtPayloadInterface": {
+				"properties": {
+					"iss": {
+						"type": "string"
+					},
+					"sub": {
+						"type": "string"
+					},
+					"aud": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"items": {
+									"type": "string"
+								},
+								"type": "array"
+							}
+						]
+					},
+					"exp": {
+						"type": "number",
+						"format": "double"
+					},
+					"nbf": {
+						"type": "number",
+						"format": "double"
+					},
+					"iat": {
+						"type": "number",
+						"format": "double"
+					},
+					"jti": {
+						"type": "string"
+					},
+					"user": {
+						"properties": {
+							"roles": {
+								"items": {
+									"$ref": "#/components/schemas/Role"
+								},
+								"type": "array"
+							},
+							"id": {
+								"type": "number",
+								"format": "double"
+							},
+							"email": {
+								"type": "string"
+							},
+							"username": {
+								"type": "string"
+							}
+						},
+						"additionalProperties": {},
+						"required": [
+							"roles",
+							"id",
+							"email",
+							"username"
+						],
+						"type": "object"
+					},
+					"scopes": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"user"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"AuthLoginResponseDTO": {
 				"description": "Represents a user login response dto object.",
 				"properties": {
@@ -358,6 +707,77 @@
 				}
 			}
 		},
+		"/users/current": {
+			"get": {
+				"operationId": "CurrentUser",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/JwtPayloadInterface"
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"user": {
+												"username": "John1Doe",
+												"email": "JohnDoe@gmail.com",
+												"id": 2,
+												"roles": [
+													{
+														"id": 2,
+														"users": [],
+														"name": "USER",
+														"description": "Regular User: Standard access; can use application features but has limited administrative capabilities.",
+														"permissions": [
+															{
+																"id": 2,
+																"description": "Create new user.",
+																"resource": "user",
+																"action": "create",
+																"roles": []
+															},
+															{
+																"id": 3,
+																"description": "Read own data.",
+																"resource": "user",
+																"action": "read",
+																"roles": []
+															}
+														]
+													}
+												]
+											},
+											"scopes": [
+												"user:create",
+												"user:read"
+											],
+											"iat": 1767492049,
+											"exp": 1767492109
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"description": "Gets current user credentials by access token.",
+				"summary": "Gets authorized user jwt payload",
+				"tags": [
+					"User"
+				],
+				"security": [
+					{
+						"jwt": [
+							"user:read"
+						]
+					}
+				],
+				"parameters": []
+			}
+		},
 		"/users/get-one": {
 			"get": {
 				"operationId": "GetSingleUser",
@@ -397,7 +817,7 @@
 				"security": [
 					{
 						"jwt": [
-							"USERS_CREATE"
+							""
 						]
 					}
 				],
@@ -521,28 +941,6 @@
 				},
 				"tags": [
 					"User"
-				],
-				"security": [],
-				"parameters": []
-			}
-		},
-		"/auths/current": {
-			"get": {
-				"operationId": "CurrentUser",
-				"responses": {
-					"201": {
-						"description": "Created",
-						"content": {
-							"application/json": {
-								"schema": {}
-							}
-						}
-					}
-				},
-				"description": "Creates a new user in the system.",
-				"summary": "Create a new user",
-				"tags": [
-					"Auth"
 				],
 				"security": [],
 				"parameters": []

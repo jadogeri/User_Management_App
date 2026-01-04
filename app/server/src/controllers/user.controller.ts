@@ -7,13 +7,14 @@ import loginLimitterMiddleware from "../middlewares/login-limitter.middleware";
 import { UserControllerInterface } from "../interfaces/user-controller.interface";
 import { UserServiceInterface } from "../interfaces/user-service.interface";
 import { logger } from "../configs/logger.config";
-import { UserCreateResponseDTO } from "../dtos/responses/user-response.dto";
+import { UserCreateResponseDTO, UserCurrentResponseDTO } from "../dtos/responses/user-response.dto";
 import { UserCreateRequestDTO } from "../dtos/requests/user-request.dto";
 import { ErrorResponse } from "../models/error-response.model";
 import { ValidationResponse } from "../models/validation-response.model";
 import { CredentialValidatorServiceInterface } from "../interfaces/credential-validator-service.interface";
-import { J } from "@faker-js/faker/dist/airline-DF6RqYmq";
 import { JwtPayloadInterface } from "../interfaces/jwt-payload.interface";
+import { RoleNamesEnum } from "../types/role-names.type";
+import { Action, Resource } from "../types/rbac.type";
 
 
 @Route("users")
@@ -63,19 +64,56 @@ export class UserController extends BaseController implements UserControllerInte
 
   }
 
-
     /**
-   * Creates a new user in the system.
-   * @summary Create a new user
-   * @param requestBody The user details for creation.
-   * @returns The newly created user.
+   * Gets current user credentials by access token.
+   * @summary Gets authorized user jwt payload
+   * @returns The current user's JWT payload.
    */
-  @SuccessResponse("201", "Created")
+  @SuccessResponse("200", "OK")
   @Security("jwt", ["user:read"])
+  @Example<UserCurrentResponseDTO>({
+  user: {
+    username: "John1Doe",
+    email: "JohnDoe@gmail.com",
+    id: 2,
+    roles: [
+      {
+        id: 2,
+        users:[],
+        name: RoleNamesEnum.USER,
+        description: "Regular User: Standard access; can use application features but has limited administrative capabilities.",
+        permissions: [
+          {
+            id: 2,
+            description: "Create new user.",
+            resource: Resource.USER,
+            action: Action.CREATE,
+            roles:[],
+            rbacPermission:() => 'user:create',
+          },
+          {
+            id: 3,
+            description: "Read own data.",
+            resource : Resource.USER,
+            action: Action.READ,
+            roles:[],
+            rbacPermission:() => 'user:read', 
+          }
+        ]
+      }
+    ]
+  },
+  "scopes": [
+    "user:create",
+    "user:read",
+  ],
+  "iat": 1767492049,
+  "exp": 1767492109
+}) 
   @Get("/current")
   public async currentUser(@Request() req: ExpressRequest): Promise<JwtPayloadInterface> {
     const payload : JwtPayloadInterface= req.payload;
-    console.log("Current user payload: ", payload);
+    console.log("Current user payload in controller: ", payload);
     return payload;
   }
 
@@ -86,7 +124,7 @@ export class UserController extends BaseController implements UserControllerInte
 
   }  
 
-   @Security("jwt",["USERS_CREATE"])
+   @Security("jwt",[""])
   // @Middleware(loggerMiddleware)
   @Get("/get-all")
   public async getAllUsers(): Promise<any> {

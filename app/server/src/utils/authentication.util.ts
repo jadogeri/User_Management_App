@@ -53,6 +53,7 @@ export async function expressAuthentication(
     console.log("decodedPayload = ", decodedPayload);
     try {
       const { user : decodedUser } = decodedPayload;
+      console.log("decoded user from payload: ", decodedUser);  
       //verify scopes/roles if provided
       if (decodedUser) {
         // : Check role directly from token payload
@@ -88,6 +89,7 @@ export async function expressAuthentication(
         //if user has full access, grant all permissions
         if(accessControl.hasFullAccess(accessControl.getGrants())){
           console.log("user has full access");
+          request.payload = decodedPayload;
           return Promise.resolve(request.payload);        
         }
         if (scopes && scopes.length > 0) {
@@ -115,6 +117,7 @@ export async function expressAuthentication(
 
         }  
         //attached verified user to request payload
+        request.payload = decodedPayload;
         return Promise.resolve(request.payload);
       }
       console.log("Insufficient permissions to access this resource: no user in token payload");
