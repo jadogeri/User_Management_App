@@ -41,7 +41,10 @@ export class UserRepository extends BaseRepository<User> implements UserReposito
 
 
     async findById(id: number): Promise<User | null> {
-        return this.findOne({ where: { id: id } });
+        return this.findOne({
+            where: { id: id },
+            relations: ["roles", "roles.permissions"], // Specify nested relations
+        });    
     }
 }
 

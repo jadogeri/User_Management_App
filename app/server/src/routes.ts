@@ -210,6 +210,23 @@ const models: TsoaRoute.Models = {
         "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "UserReadResponseDTO": {
+        "dataType": "refObject",
+        "properties": {
+            "createdAt": {"dataType":"datetime","required":true},
+            "updatedAt": {"dataType":"datetime","required":true},
+            "id": {"dataType":"double","required":true},
+            "fullname": {"dataType":"string","required":true},
+            "username": {"dataType":"string","required":true},
+            "email": {"dataType":"string","required":true,"validators":{"pattern":{"errorMsg":"please provide correct email","value":"^(.+)@(.+)$"}}},
+            "age": {"dataType":"integer","required":true,"validators":{"isInt":{"errorMsg":"we would kindly ask you to provide a number here"},"minimum":{"errorMsg":"minimum age is 0","value":0}}},
+            "phone": {"dataType":"string","required":true},
+            "failedLogins": {"dataType":"double","required":true},
+            "isEnabled": {"dataType":"boolean","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "AuthLoginResponseDTO": {
         "dataType": "refObject",
         "properties": {
@@ -325,8 +342,10 @@ export function RegisterRoutes(app: Router) {
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         const argsUserController_getSingleUser: Record<string, TsoaRoute.ParameterSchema> = {
+                userId: {"in":"path","name":"userId","required":true,"dataType":"double"},
         };
-        app.get('/users/get-one',
+        app.get('/users/:userId',
+            authenticateMiddleware([{"jwt":["user:read"]}]),
             ...(fetchMiddlewares<RequestHandler>(UserController)),
             ...(fetchMiddlewares<RequestHandler>(UserController.prototype.getSingleUser)),
 
@@ -351,7 +370,7 @@ export function RegisterRoutes(app: Router) {
                 response,
                 next,
                 validatedArgs,
-                successStatus: undefined,
+                successStatus: 200,
               });
             } catch (err) {
                 return next(err);

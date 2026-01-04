@@ -672,6 +672,82 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"UserReadResponseDTO": {
+				"description": "Represents a user read account response dto object.",
+				"properties": {
+					"createdAt": {
+						"type": "string",
+						"format": "date-time",
+						"description": "The date and time when the auth was created.",
+						"example": "2024-01-01T12:00:00.000Z"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time",
+						"description": "The date and time when the auth was last updated.",
+						"example": "2024-01-01T13:00:00.000Z"
+					},
+					"id": {
+						"type": "number",
+						"format": "double",
+						"description": "The user's identifier.",
+						"example": "1"
+					},
+					"fullname": {
+						"type": "string",
+						"description": "The user's full name.",
+						"example": "John Doe"
+					},
+					"username": {
+						"type": "string",
+						"description": "The user's username.",
+						"example": "John1Doe"
+					},
+					"email": {
+						"type": "string",
+						"description": "The user's email.",
+						"example": "JohnDoe@gmail.com",
+						"pattern": "^(.+)@(.+)$"
+					},
+					"age": {
+						"type": "integer",
+						"format": "int32",
+						"description": "The user's age.",
+						"example": 21,
+						"minimum": 0
+					},
+					"phone": {
+						"type": "string",
+						"description": "The user's phone number.",
+						"example": "123-456-7890"
+					},
+					"failedLogins": {
+						"type": "number",
+						"format": "double",
+						"description": "The user's failed login attempts.",
+						"example": 0
+					},
+					"isEnabled": {
+						"type": "boolean",
+						"description": "The user's account status.",
+						"example": true
+					}
+				},
+				"required": [
+					"createdAt",
+					"updatedAt",
+					"id",
+					"fullname",
+					"username",
+					"email",
+					"age",
+					"phone",
+					"failedLogins",
+					"isEnabled"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"AuthLoginResponseDTO": {
 				"description": "Represents a user login response dto object.",
 				"properties": {
@@ -930,24 +1006,69 @@
 				"parameters": []
 			}
 		},
-		"/users/get-one": {
+		"/users/{userId}": {
 			"get": {
 				"operationId": "GetSingleUser",
 				"responses": {
 					"200": {
-						"description": "Ok",
+						"description": "OK",
 						"content": {
 							"application/json": {
-								"schema": {}
+								"schema": {
+									"anyOf": [
+										{
+											"$ref": "#/components/schemas/UserReadResponseDTO"
+										},
+										{
+											"$ref": "#/components/schemas/ErrorResponse"
+										}
+									]
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"id": 1,
+											"username": "john1doe",
+											"fullname": "John Doe",
+											"email": "johndoe@tsoa.com",
+											"phone": "123-456-7890",
+											"age": 21,
+											"createdAt": "2023-01-01T10:00:00.000Z",
+											"updatedAt": "2023-01-01T11:30:00.000Z",
+											"failedLogins": 0,
+											"isEnabled": false
+										}
+									}
+								}
 							}
 						}
 					}
 				},
+				"description": "Retrieves the details of an existing user.\r\nSupply the unique user ID and receive corresponding user details.",
+				"summary": "Gets a single user.",
 				"tags": [
 					"User"
 				],
-				"security": [],
-				"parameters": []
+				"security": [
+					{
+						"jwt": [
+							"user:read"
+						]
+					}
+				],
+				"parameters": [
+					{
+						"description": "The user's identifier",
+						"in": "path",
+						"name": "userId",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						},
+						"example": 1
+					}
+				]
 			}
 		},
 		"/users/get-all": {
