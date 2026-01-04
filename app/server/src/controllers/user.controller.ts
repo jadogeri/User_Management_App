@@ -8,7 +8,7 @@ import { UserControllerInterface } from "../interfaces/user-controller.interface
 import { UserServiceInterface } from "../interfaces/user-service.interface";
 import { logger } from "../configs/logger.config";
 import { UserCreateResponseDTO, UserCurrentResponseDTO, UserReadResponseDTO } from "../dtos/responses/user-response.dto";
-import { UserCreateRequestDTO, UserReadParamRequestDTO } from "../dtos/requests/user-request.dto";
+import { UserCreateRequestDTO } from "../dtos/requests/user-request.dto";
 import { ErrorResponse } from "../models/error-response.model";
 import { ValidationResponse } from "../models/validation-response.model";
 import { CredentialValidatorServiceInterface } from "../interfaces/credential-validator-service.interface";
