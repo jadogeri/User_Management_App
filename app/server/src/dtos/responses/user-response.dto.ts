@@ -23,6 +23,10 @@ export interface UserCurrentResponseDTO {
  */
 export interface UserCreateResponseDTO extends Omit<UserType, 'password'>{}
 /**
+ * Represents a user read account response dto object.
+ */
+export interface UserReadResponseDTO extends Omit<UserType, 'password'>{}
+/**
  * Represents a user delete account response dto object.
  */
 export interface UserDeleteResponseDTO extends UserType{}

@@ -24,6 +24,8 @@ import { Repository } from "typeorm";
 import { Role } from "../entities/role.entity";
 import { AppDataSource } from "../configs/typeOrm.config";
 import { RoleNamesEnum } from "../types/role-names.type";
+import { Resource } from "../types/rbac.type";
+import { ResourceNotFoundError } from "../errors/resource-not-found.error";
 
 @Service()
 export class UserService implements UserServiceInterface{
@@ -91,7 +93,7 @@ export class UserService implements UserServiceInterface{
             });
 
             if (!existingRole) {
-                throw new InternalServerError("Default role not found in the database.");
+                throw new ResourceNotFoundError("Default role not found in the database.");
             }
 
 

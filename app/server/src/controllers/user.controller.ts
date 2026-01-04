@@ -1,5 +1,5 @@
 
-import { Request, Controller as BaseController, Body, Delete, Get, Post, Put, Route, Tags, Response, Path, Example, SuccessResponse, Res, TsoaResponse, Security} from "tsoa";
+import { Request, Controller as BaseController, Body, Delete, Get, Post, Put, Route, Tags, Response, Path, Example, SuccessResponse, Res, TsoaResponse, Security, NoSecurity} from "tsoa";
 import { AutoWired, Controller, Middleware } from "../decorators";
 import { Request as ExpressRequest,Response as ExpressResponse } from "express";
 import { TYPES } from "../types/binding.type";
@@ -7,14 +7,18 @@ import loginLimitterMiddleware from "../middlewares/login-limitter.middleware";
 import { UserControllerInterface } from "../interfaces/user-controller.interface";
 import { UserServiceInterface } from "../interfaces/user-service.interface";
 import { logger } from "../configs/logger.config";
-import { UserCreateResponseDTO, UserCurrentResponseDTO } from "../dtos/responses/user-response.dto";
-import { UserCreateRequestDTO } from "../dtos/requests/user-request.dto";
+import { UserCreateResponseDTO, UserCurrentResponseDTO, UserReadResponseDTO } from "../dtos/responses/user-response.dto";
+import { UserCreateRequestDTO, UserReadParamRequestDTO } from "../dtos/requests/user-request.dto";
 import { ErrorResponse } from "../models/error-response.model";
 import { ValidationResponse } from "../models/validation-response.model";
 import { CredentialValidatorServiceInterface } from "../interfaces/credential-validator-service.interface";
 import { JwtPayloadInterface } from "../interfaces/jwt-payload.interface";
 import { RoleNamesEnum } from "../types/role-names.type";
 import { Action, Resource } from "../types/rbac.type";
+import { ResourceNotFoundError } from "../errors/resource-not-found.error";
+import { ConflictError } from "../errors/conflict.error";
+import { InternalServerError } from "../errors/internal-server.error";
+import { BadRequestError } from "../errors/bad-request.error";
 
 
 @Route("users")
@@ -33,7 +37,13 @@ export class UserController extends BaseController implements UserControllerInte
    * @param requestBody The user details for creation.
    * @returns The newly created user.
    */
+  @NoSecurity()
   @SuccessResponse("201", "Created")
+  @Response<ErrorResponse>("404", "Not Found")
+  @Response<ConflictError>("409", "Conflict")
+  @Response<InternalServerError>("500", "Internal Server Error")
+  @Response<ResourceNotFoundError>("404", "Resource Not Found")
+  @Response<BadRequestError>("400", "Bad Request")
   @Example<UserCreateResponseDTO>({
     id: 1,
     username: "john1doe",
@@ -55,6 +65,7 @@ export class UserController extends BaseController implements UserControllerInte
     if(!validation.isValid()){
       console.log("validation failed in controller", validation.getErrorResponse()?.getMessage());
       const errorResponse : ErrorResponse = validation.getErrorResponse() as ErrorResponse;
+      this.setStatus(errorResponse.getCode());
       return errorResponse;
     }   
     //calling user service
@@ -117,9 +128,36 @@ export class UserController extends BaseController implements UserControllerInte
     return payload;
   }
 
-  @Get("/get-one")
+  /**
+   * Retrieves the details of an existing user.
+   * Supply the unique user ID and receive corresponding user details.
+   * @param userId The user's identifier
+   * @example userId 1
+   * @summary Gets a single user.
+   * @returns The requested user.
+   */
+  @Example<UserReadResponseDTO>({
+   id: 1,
+    username: "john1doe",
+    fullname: "John Doe",
+    email: "johndoe@tsoa.com",
+    phone: "123-456-7890",
+    age: 21,
+    createdAt: new Date("2023-01-01T10:00:00Z"),
+    updatedAt: new Date("2023-01-01T11:30:00Z"),
+    failedLogins: 0,
+    isEnabled: false
+  })  
+  @Get("{userId}")
   @Middleware(loginLimitterMiddleware)
-  public async getSingleUser(): Promise<any> {
+  public async getSingleUser(@Path() userId: UserReadParamRequestDTO): Promise<any>{
+    if(!userId ){
+      throw new BadRequestError("User ID is required");
+    }
+    if(!Number.isInteger(userId)){
+      throw new BadRequestError(`User ID '${userId as any}' is not a valid integer`);
+    }
+
     return this.userService.getOne();
 
   }  
@@ -173,3 +211,18 @@ export class UserController extends BaseController implements UserControllerInte
 
 
 
+/**
+ * 
+ * 
+{
+
+    if(!mongoose.isObjectIdOrHexString(userId)){
+      this.setStatus(400);      
+      return {message: `id '${userId}' is not valid`}
+    }
+
+    const mongoId = new mongoose.Types.ObjectId(userId)
+    return await this.userService.getOne(mongoId);
+  }
+
+ */
