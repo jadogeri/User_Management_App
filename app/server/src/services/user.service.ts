@@ -83,7 +83,6 @@ export class UserService implements UserServiceInterface{
             newUser.failedLogins = 0;
             newUser.isEnabled = true;
             newUser.status = EnabledStatus
-            newUser.roles = [UserRole]; //default role assignment can be handled here
 
             // 🏁 Get the repo from the passed dataSource
             const roleRepository = AppDataSource.getRepository(Role);                
@@ -102,7 +101,7 @@ export class UserService implements UserServiceInterface{
                 roles: [existingRole], // Assign the existing entity
             });
 
-            const savedUser : User = await this.userRepository.save(newUser);
+            const savedUser : User = await this.userRepository.save(createdUser);
 
 
             
