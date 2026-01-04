@@ -1,6 +1,14 @@
 import { Action, RBACPermission, Resource } from "../types/rbac.type";
 
-// Type guard for Fruit
+/**
+ * Checks if the given string is a valid RBAC permission in the format "resource:action".
+ * Validates both the resource and action against predefined enums.
+ * 
+ * @param val - The permission string to validate.
+ * @returns True if the permission is valid, otherwise false.
+ * 
+ * @throws None
+ */
 export function isRBACPermission(val: string): val is RBACPermission {
   const [res, act] = val.split(':');
   
