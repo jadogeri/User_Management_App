@@ -11,14 +11,6 @@ import { isRoleName } from './isRoleName.util';
 import { isRBACPermission } from './isRBACPermission.util';
 import { UnAuthorizedError } from '../errors/unauthorized.error';
 
-// Define the shape of your user object/JWT payload
-export interface UserPayload {
-    user: {
-        username: string , email: string , id: number ,
-    },
-    scopes:  string[] | undefined
-
-}
 
 export async function expressAuthorization(
   request: Request,
@@ -61,14 +53,20 @@ export async function expressAuthorization(
         }
         accessControl.setUserRoles(user.roles);
         console.log("user roles: ", user.roles)
-        // if (user.status?.name != 'ACTIVE') {
-        //   throw new HttpError(403, "User is not active");
-        // }
-  
+        if(accessControl.isAccountDisabled(user)){
+          throw new UnAuthorizedError("User account is disabled");
+        }
+        if(accessControl.isAccountSuspended(user)){
+          throw new UnAuthorizedError("User account is suspended");
+        }
+        if(accessControl.isAccountLocked(user)){
+          throw new UnAuthorizedError("User account is locked");
+        }
+
         
         console.log("Checking scopes:", scopes);
         console.log("get user permissions from permission class: ", user.getPermissionNames())
-        const permissions = user.getPermissionNames();
+
         //if user has full access, grant all permissions
         if(accessControl.hasFullAccess(accessControl.getGrants())){
           console.log("user has full access");
@@ -98,30 +96,6 @@ export async function expressAuthorization(
 
           }
 
-
-
-
-
-
-
-
-          
-
-          /*
-          let hasPermission = false;
-          for (let scope of scopes) {
-            console.log("all scope in oartray", scope);
-            console.log("scopes provided ;", scopes)
-            if (permissions.includes(scope)) {
-              hasPermission = true;
-              break;
-            }
-          }
-          if(!hasPermission){
-            throw new HttpError(403, "JWT does not contain sufficient permissions");
-          }
-          console.log("has permission: ", hasPermission)
-          */
         }
         console.log("payload to return: ", request.payload); 
       return Promise.resolve(request.payload);

@@ -1,9 +1,11 @@
 
 import { Service } from "../decorators";
 import Role from "../entities/role.entity";
+import User from "../entities/user.entity";
 import { AccessControlInterface } from "../interfaces/access-control.interface";
 import { Action, Resource } from "../types/rbac.type";
 import { RoleNamesEnum } from "../types/role-names.type";
+import { StatusEnum } from "../types/status.type";
 
 @Service()
 class AccessControlService implements AccessControlInterface{
@@ -78,6 +80,19 @@ class AccessControlService implements AccessControlInterface{
     return false; // No matching grant found
   
     }    
+
+    isAccountSuspended(user: User): boolean {
+        const isSuspended : boolean = user?.suspension !== null;
+        return isSuspended;
+    }
+    isAccountDisabled(user: User): boolean {
+        const isDisabled : boolean = user?.status.name === StatusEnum.DISABLED || user.isEnabled === false;
+        return isDisabled;
+    }
+    isAccountLocked(user: User): boolean {
+        const isLocked : boolean = user?.status.name === StatusEnum.LOCKED || user.isEnabled === false;
+        return isLocked;
+    }
 }
 
 export default AccessControlService;

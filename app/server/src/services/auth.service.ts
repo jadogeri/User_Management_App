@@ -133,7 +133,8 @@ export class AuthService implements AuthServiceInterface{
         }
         if(savedAuth && result instanceof TokenExpiredError){
             await this.authRepository.remove(savedAuth);
-            throw new ForbiddenError("Refresh token is no longer valid, user must log in to obtain a new token:" + result.message);        }
+            throw new ForbiddenError("Refresh token is no longer valid, user must log in to obtain a new token:" + result.message);   
+        }
 
         //generate new tokens
         const user = savedAuth.user;
