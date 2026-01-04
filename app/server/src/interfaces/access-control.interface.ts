@@ -12,8 +12,8 @@ export interface AccessControlInterface{
   getGrants(): {resource: string, action: string}[] ;
   setUserRoles(roles: Role[]): void ;    
   isAccountSuspended(user: User): boolean ; 
-  isAccountDeactivated(user: User): boolean ;
   isAccountLocked(user: User): boolean ;
+  isAccountDisabled(user: User): boolean;
 
 };
 
