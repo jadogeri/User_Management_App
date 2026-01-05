@@ -14,6 +14,7 @@
         "scopes": {
           "ADMIN": "Admin privileges",
           "USER": "User privileges"
+
         }
       }    
 
@@ -40,6 +41,10 @@
       {
         "name": "Auth",
         "description": "Operations related to authentication, including login, logout, and token management."
+      },
+      {
+        "name": "Profile",
+        "description": "Operations related to user profiles, including retrieval and updates."
       }
     ],
       "servers": [

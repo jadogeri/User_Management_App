@@ -5,34 +5,39 @@ export type ProfileType = AuditType & {
    * The profile's identifier.
    * @example "1"
    */
-id: number
+  id: number
   /**
-   * The profile's full name.
-   * @example "John Doe"
+   * The profile's first name.
+   * @example "John"
    */
-  fullname?: string
+  firstName?: string
   /**
-   * The user's username.
+   * The profile's last name.
+   * @example "Doe"
+   */
+  lastName?: string
+  /**
+   * The user's display name.
    * @example "John1Doe"
    */
-  username: string
-
+  displayName: string
   /**
    * The user's age.
    * @isInt we would kindly ask you to provide a number here
    * @minimum 0 minimum age is 0
    * @example 21
    */
-  age: number;
+  age?: number;
 
-    /**
-   * The user's failed login attempts.
-   * @example 0
+/**
+   * The profile's avatar URL.
+   * @example "https://example.com/avatar.jpg"
    */
-  failedLogins: number;
-    /**
-   * The user's account status.
-   * @example true
+  avatarUrl?: string;
+  /**
+   * The profile's biography.
+   * @example "Loves hiking and outdoor adventures."
    */
-  isEnabled: boolean;
+  bio?: string;
 }
+

@@ -30,7 +30,6 @@ const generateRootUser = async () => {
     root.status = EnabledStatus;
     root.createdAt = new Date();
     root.updatedAt = new Date();
-    root.age = 30;
     return root;
 }
 

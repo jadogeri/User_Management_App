@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class InitialSchemaSetup1767427896068 implements MigrationInterface {
-    name = 'InitialSchemaSetup1767427896068'
+export class InitialSchemaSetup1767578244685 implements MigrationInterface {
+    name = 'InitialSchemaSetup1767578244685'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`
@@ -20,7 +20,6 @@ export class InitialSchemaSetup1767427896068 implements MigrationInterface {
                 "fullname" varchar(40) NOT NULL,
                 "username" varchar(40) NOT NULL,
                 "email" varchar NOT NULL,
-                "age" integer NOT NULL DEFAULT (0),
                 "phone" varchar(15),
                 "password" varchar(100) NOT NULL,
                 "failedLogins" integer NOT NULL DEFAULT (0),
@@ -54,9 +53,6 @@ export class InitialSchemaSetup1767427896068 implements MigrationInterface {
             )
         `);
         await queryRunner.query(`
-            CREATE UNIQUE INDEX "IDX_b7f40c3248fc7ad7c35151e2d1" ON "permission" ("action", "resource")
-        `);
-        await queryRunner.query(`
             CREATE TABLE "role" (
                 "id" integer PRIMARY KEY AUTOINCREMENT NOT NULL,
                 "name" varchar CHECK("name" IN ('ADMIN', 'USER', 'VIEWER', 'EDITOR')) NOT NULL DEFAULT ('USER'),
@@ -75,6 +71,23 @@ export class InitialSchemaSetup1767427896068 implements MigrationInterface {
                 "userId" integer,
                 CONSTRAINT "UQ_5fb5d6abb950a839551fe3c5de9" UNIQUE ("refreshToken"),
                 CONSTRAINT "REL_373ead146f110f04dad6084815" UNIQUE ("userId")
+            )
+        `);
+        await queryRunner.query(`
+            CREATE TABLE "profile" (
+                "createdAt" datetime NOT NULL DEFAULT (datetime('now')),
+                "updatedAt" datetime NOT NULL DEFAULT (datetime('now')),
+                "id" integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+                "firstName" varchar(40),
+                "lastName" varchar(40),
+                "displayName" varchar(40),
+                "bio" varchar(100),
+                "avatarUrl" varchar(100),
+                "age" integer NOT NULL DEFAULT (0),
+                "userId" integer,
+                CONSTRAINT "UQ_479d02ec9ef94c6d7e920e34875" UNIQUE ("displayName"),
+                CONSTRAINT "UQ_d3df8418e774a2706511cbdcc21" UNIQUE ("avatarUrl"),
+                CONSTRAINT "REL_a24972ebd73b106250713dcddd" UNIQUE ("userId")
             )
         `);
         await queryRunner.query(`
@@ -111,7 +124,6 @@ export class InitialSchemaSetup1767427896068 implements MigrationInterface {
                 "fullname" varchar(40) NOT NULL,
                 "username" varchar(40) NOT NULL,
                 "email" varchar NOT NULL,
-                "age" integer NOT NULL DEFAULT (0),
                 "phone" varchar(15),
                 "password" varchar(100) NOT NULL,
                 "failedLogins" integer NOT NULL DEFAULT (0),
@@ -130,7 +142,6 @@ export class InitialSchemaSetup1767427896068 implements MigrationInterface {
                     "fullname",
                     "username",
                     "email",
-                    "age",
                     "phone",
                     "password",
                     "failedLogins",
@@ -144,7 +155,6 @@ export class InitialSchemaSetup1767427896068 implements MigrationInterface {
                 "fullname",
                 "username",
                 "email",
-                "age",
                 "phone",
                 "password",
                 "failedLogins",
@@ -193,6 +203,56 @@ export class InitialSchemaSetup1767427896068 implements MigrationInterface {
         await queryRunner.query(`
             ALTER TABLE "temporary_auth"
                 RENAME TO "auth"
+        `);
+        await queryRunner.query(`
+            CREATE TABLE "temporary_profile" (
+                "createdAt" datetime NOT NULL DEFAULT (datetime('now')),
+                "updatedAt" datetime NOT NULL DEFAULT (datetime('now')),
+                "id" integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+                "firstName" varchar(40),
+                "lastName" varchar(40),
+                "displayName" varchar(40),
+                "bio" varchar(100),
+                "avatarUrl" varchar(100),
+                "age" integer NOT NULL DEFAULT (0),
+                "userId" integer,
+                CONSTRAINT "UQ_479d02ec9ef94c6d7e920e34875" UNIQUE ("displayName"),
+                CONSTRAINT "UQ_d3df8418e774a2706511cbdcc21" UNIQUE ("avatarUrl"),
+                CONSTRAINT "REL_a24972ebd73b106250713dcddd" UNIQUE ("userId"),
+                CONSTRAINT "FK_a24972ebd73b106250713dcddd9" FOREIGN KEY ("userId") REFERENCES "user" ("id") ON DELETE CASCADE ON UPDATE NO ACTION
+            )
+        `);
+        await queryRunner.query(`
+            INSERT INTO "temporary_profile"(
+                    "createdAt",
+                    "updatedAt",
+                    "id",
+                    "firstName",
+                    "lastName",
+                    "displayName",
+                    "bio",
+                    "avatarUrl",
+                    "age",
+                    "userId"
+                )
+            SELECT "createdAt",
+                "updatedAt",
+                "id",
+                "firstName",
+                "lastName",
+                "displayName",
+                "bio",
+                "avatarUrl",
+                "age",
+                "userId"
+            FROM "profile"
+        `);
+        await queryRunner.query(`
+            DROP TABLE "profile"
+        `);
+        await queryRunner.query(`
+            ALTER TABLE "temporary_profile"
+                RENAME TO "profile"
         `);
         await queryRunner.query(`
             DROP INDEX "IDX_87b8888186ca9769c960e92687"
@@ -330,6 +390,55 @@ export class InitialSchemaSetup1767427896068 implements MigrationInterface {
             CREATE INDEX "IDX_87b8888186ca9769c960e92687" ON "user_roles" ("user_id")
         `);
         await queryRunner.query(`
+            ALTER TABLE "profile"
+                RENAME TO "temporary_profile"
+        `);
+        await queryRunner.query(`
+            CREATE TABLE "profile" (
+                "createdAt" datetime NOT NULL DEFAULT (datetime('now')),
+                "updatedAt" datetime NOT NULL DEFAULT (datetime('now')),
+                "id" integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+                "firstName" varchar(40),
+                "lastName" varchar(40),
+                "displayName" varchar(40),
+                "bio" varchar(100),
+                "avatarUrl" varchar(100),
+                "age" integer NOT NULL DEFAULT (0),
+                "userId" integer,
+                CONSTRAINT "UQ_479d02ec9ef94c6d7e920e34875" UNIQUE ("displayName"),
+                CONSTRAINT "UQ_d3df8418e774a2706511cbdcc21" UNIQUE ("avatarUrl"),
+                CONSTRAINT "REL_a24972ebd73b106250713dcddd" UNIQUE ("userId")
+            )
+        `);
+        await queryRunner.query(`
+            INSERT INTO "profile"(
+                    "createdAt",
+                    "updatedAt",
+                    "id",
+                    "firstName",
+                    "lastName",
+                    "displayName",
+                    "bio",
+                    "avatarUrl",
+                    "age",
+                    "userId"
+                )
+            SELECT "createdAt",
+                "updatedAt",
+                "id",
+                "firstName",
+                "lastName",
+                "displayName",
+                "bio",
+                "avatarUrl",
+                "age",
+                "userId"
+            FROM "temporary_profile"
+        `);
+        await queryRunner.query(`
+            DROP TABLE "temporary_profile"
+        `);
+        await queryRunner.query(`
             ALTER TABLE "auth"
                 RENAME TO "temporary_auth"
         `);
@@ -374,7 +483,6 @@ export class InitialSchemaSetup1767427896068 implements MigrationInterface {
                 "fullname" varchar(40) NOT NULL,
                 "username" varchar(40) NOT NULL,
                 "email" varchar NOT NULL,
-                "age" integer NOT NULL DEFAULT (0),
                 "phone" varchar(15),
                 "password" varchar(100) NOT NULL,
                 "failedLogins" integer NOT NULL DEFAULT (0),
@@ -392,7 +500,6 @@ export class InitialSchemaSetup1767427896068 implements MigrationInterface {
                     "fullname",
                     "username",
                     "email",
-                    "age",
                     "phone",
                     "password",
                     "failedLogins",
@@ -406,7 +513,6 @@ export class InitialSchemaSetup1767427896068 implements MigrationInterface {
                 "fullname",
                 "username",
                 "email",
-                "age",
                 "phone",
                 "password",
                 "failedLogins",
@@ -437,13 +543,13 @@ export class InitialSchemaSetup1767427896068 implements MigrationInterface {
             DROP TABLE "user_roles"
         `);
         await queryRunner.query(`
+            DROP TABLE "profile"
+        `);
+        await queryRunner.query(`
             DROP TABLE "auth"
         `);
         await queryRunner.query(`
             DROP TABLE "role"
-        `);
-        await queryRunner.query(`
-            DROP INDEX "IDX_b7f40c3248fc7ad7c35151e2d1"
         `);
         await queryRunner.query(`
             DROP TABLE "permission"

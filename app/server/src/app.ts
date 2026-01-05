@@ -17,6 +17,8 @@ import { transports, format } from 'winston';
 // importing controllers to ensure they are registered
 import "./controllers/user.controller";
 import "./controllers/auth.controller";
+import "./controllers/profile.controller";
+
 
 import { helmetOptions } from './configs/helmet.config';
 import { applicationErrorLogger } from './middlewares/application-error-logger.middleware';
