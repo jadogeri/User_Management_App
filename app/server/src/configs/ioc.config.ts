@@ -37,6 +37,7 @@ import { ProfileRepository } from '../repositories/profile.repository';
 import Profile from '../entities/profile.entity';
 import { ProfileService } from '../services/profile.service';
 import { ProfileServiceInterface } from '../interfaces/profile-service.interface';
+import { ProfileController } from '../controllers/profile.controller';
 // // import { UserController } from '../controllers/user.controller';
 
 

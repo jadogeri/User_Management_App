@@ -12,9 +12,6 @@ import { UserCreateRequestDTO } from "../dtos/requests/user-request.dto";
 import { ErrorResponse } from "../models/error-response.model";
 import { ValidationResponse } from "../models/validation-response.model";
 import { CredentialValidatorServiceInterface } from "../interfaces/credential-validator-service.interface";
-import { JwtPayloadInterface } from "../interfaces/jwt-payload.interface";
-import { RoleNamesEnum } from "../types/role-names.type";
-import { Action, Resource } from "../types/rbac.type";
 import { ResourceNotFoundError } from "../errors/resource-not-found.error";
 import { ConflictError } from "../errors/conflict.error";
 import { InternalServerError } from "../errors/internal-server.error";
@@ -157,20 +154,3 @@ export class UserController extends BaseController implements UserControllerInte
   }
 }
 
-
-
-/**
- * 
- * 
-{
-
-    if(!mongoose.isObjectIdOrHexString(userId)){
-      this.setStatus(400);      
-      return {message: `id '${userId}' is not valid`}
-    }
-
-    const mongoId = new mongoose.Types.ObjectId(userId)
-    return await this.userService.getOne(mongoId);
-  }
-
- */
