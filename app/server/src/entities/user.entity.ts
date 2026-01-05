@@ -67,7 +67,6 @@ export class User extends Audit implements UserType {
 
   // A user can have multiple contacts (one-to-many)
   @OneToMany(() => Contact, (contact) => contact.user, { cascade: true })
-  @Column({  default: [] })
   contacts: Contact[];
 
   getPermissionNames(): Array<RBACPermission> {

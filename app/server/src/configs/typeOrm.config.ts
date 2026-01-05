@@ -8,6 +8,7 @@ import { Auth } from '../entities/auth.entity';
 import { NodeEnvironment } from '../types/node-environment.type';
 import { Permission } from '../entities/permission.entity';
 import Profile from '../entities/profile.entity';
+import { Contact } from '../entities/contact.entity';
 
 const env : NodeEnvironment = process.env.NODE_ENV || 'development';
 console.log(`Current Environment: ${env}`);
@@ -17,7 +18,7 @@ const options: DataSourceOptions & SeederOptions = {
   database: "user-management-app.sqlite", // Name of the SQLite database file
   synchronize: process.env.NODE_ENV === env, // Automatically creates database schema in development. Use migrations in production.
   //logging: true, // Set to true to log generated SQL queries to the console
-  entities: [User, Role, Status, Auth, Permission, Profile], // List your entity classes or use a glob pattern
+  entities: [User, Role, Status, Auth, Permission, Profile, Contact], // List your entity classes or use a glob pattern
   migrations: ["src/migrations/**/*.ts"],
   subscribers: [],
   // These belong to SeederOptions

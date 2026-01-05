@@ -21,7 +21,6 @@ import PasswordGeneratorService from '../services/password-generator.service';
 import { PasswordGeneratorInterface } from '../interfaces/password-generator.interface';
  import { CredentialValidatorServiceInterface } from '../interfaces/credential-validator-service.interface';
 import CredentialValidatorService from '../services/credential-validator.service';
-// import CredentialValidatorService from '../services/credential-validator.service';
 import { EmailServiceInterface } from '../interfaces/email-service.interface';
 import EmailService from '../services/email.service';
 import { TokenGeneratorInterface } from '../interfaces/token-generator.interface';
@@ -34,10 +33,15 @@ import { AccessControlInterface } from '../interfaces/access-control.interface';
 import AccessControlService from '../services/access-control.service';
 import { ProfileRepositoryInterface } from '../interfaces/profile-repository.interface';
 import { ProfileRepository } from '../repositories/profile.repository';
-import Profile from '../entities/profile.entity';
 import { ProfileService } from '../services/profile.service';
 import { ProfileServiceInterface } from '../interfaces/profile-service.interface';
 import { ProfileController } from '../controllers/profile.controller';
+import { ContactController } from '../controllers/contact.controller';
+import { ContactControllerInterface } from '../interfaces/contact-controller.interface';
+import { ContactService } from '../services/contact.service';
+import { ContactServiceInterface } from '../interfaces/contact-service.interface';
+import { ContactRepositoryInterface } from '../interfaces/contact-repository.interface';
+import { ContactRepository } from '../repositories/contact.repository';
 // // import { UserController } from '../controllers/user.controller';
 
 
@@ -55,6 +59,7 @@ iocContainer.load(buildProviderModule());
     iocContainer.bind<UserController>(UserController).toSelf();
     iocContainer.bind<AuthController>(AuthController).toSelf();
     iocContainer.bind<ProfileController>(ProfileController).toSelf();
+    iocContainer.bind<ContactControllerInterface>(ContactController).toSelf();
 
 
     // 1. Bind the service that manages the connection
@@ -62,6 +67,7 @@ iocContainer.load(buildProviderModule());
     iocContainer.bind<DatabaseServiceInterface>(TYPES.DatabaseServiceInterface).to(SQLiteService).inSingletonScope();
     iocContainer.bind<AuthServiceInterface>(TYPES.AuthServiceInterface).to(AuthService).inSingletonScope();
     iocContainer.bind<UserServiceInterface>(TYPES.UserServiceInterface).to(UserService).inSingletonScope();
+    iocContainer.bind<ContactServiceInterface>(TYPES.ContactServiceInterface).to(ContactService).inSingletonScope();
     iocContainer.bind<ProfileServiceInterface>(TYPES.ProfileServiceInterface).to(ProfileService).inSingletonScope();
     iocContainer.bind<PasswordGeneratorInterface>(TYPES.PasswordGeneratorInterface).to(PasswordGeneratorService).inSingletonScope();
 
@@ -70,6 +76,7 @@ iocContainer.load(buildProviderModule());
     iocContainer.bind<UserRepositoryInterface>(TYPES.UserRepositoryInterface).to(UserRepository).inSingletonScope();
     iocContainer.bind<AuthRepositoryInterface>(TYPES.AuthRepositoryInterface).to(AuthRepository).inSingletonScope();
     iocContainer.bind<ProfileRepositoryInterface>(TYPES.ProfileRepositoryInterface).to(ProfileRepository).inSingletonScope();
+    iocContainer.bind<ContactRepositoryInterface>(TYPES.ContactRepositoryInterface).to(ContactRepository).inSingletonScope();
 
 
     iocContainer.bind<CredentialValidatorServiceInterface>(TYPES.CredentialValidatorServiceInterface).to(CredentialValidatorService).inSingletonScope();
