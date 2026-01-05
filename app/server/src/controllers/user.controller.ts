@@ -7,7 +7,7 @@ import loginLimitterMiddleware from "../middlewares/login-limitter.middleware";
 import { UserControllerInterface } from "../interfaces/user-controller.interface";
 import { UserServiceInterface } from "../interfaces/user-service.interface";
 import { logger } from "../configs/logger.config";
-import { UserCreateResponseDTO, UserCurrentResponseDTO, UserReadResponseDTO } from "../dtos/responses/user-response.dto";
+import { UserCreateResponseDTO, UserReadResponseDTO } from "../dtos/responses/user-response.dto";
 import { UserCreateRequestDTO } from "../dtos/requests/user-request.dto";
 import { ErrorResponse } from "../models/error-response.model";
 import { ValidationResponse } from "../models/validation-response.model";
@@ -73,59 +73,6 @@ export class UserController extends BaseController implements UserControllerInte
 
     return userResponse;
 
-  }
-
-    /**
-   * Gets current user credentials by access token.
-   * @summary Gets authorized user jwt payload
-   * @returns The current user's JWT payload.
-   */
-  @SuccessResponse("200", "OK")
-  @Security("jwt", ["user:read"])
-  @Example<UserCurrentResponseDTO>({
-  user: {
-    username: "John1Doe",
-    email: "JohnDoe@gmail.com",
-    id: 2,
-    roles: [
-      {
-        id: 2,
-        users:[],
-        name: RoleNamesEnum.USER,
-        description: "Regular User: Standard access; can use application features but has limited administrative capabilities.",
-        permissions: [
-          {
-            id: 2,
-            description: "Create new user.",
-            resource: Resource.USER,
-            action: Action.CREATE,
-            roles:[],
-            rbacPermission:() => 'user:create',
-          },
-          {
-            id: 3,
-            description: "Read own data.",
-            resource : Resource.USER,
-            action: Action.READ,
-            roles:[],
-            rbacPermission:() => 'user:read', 
-          }
-        ]
-      }
-    ]
-  },
-  "scopes": [
-    "user:create",
-    "user:read",
-  ],
-  "iat": 1767492049,
-  "exp": 1767492109
-}) 
-  @Get("/current")
-  public async currentUser(@Request() req: ExpressRequest): Promise<JwtPayloadInterface> {
-    const payload : JwtPayloadInterface= req.payload;
-    console.log("Current user payload in controller: ", payload);
-    return payload;
   }
 
   /**

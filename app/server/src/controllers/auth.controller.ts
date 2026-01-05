@@ -8,12 +8,15 @@ import { AuthControllerInterface } from "../interfaces/auth-controller.interface
 import { AuthServiceInterface } from "../interfaces/auth-service.interface";
 import loginLimitterMiddleware from "../middlewares/login-limitter.middleware";
 import { AuthLoginRequestDTO, AuthRefreshTokenRequestDTO } from "../dtos/requests/auth-request.dto";
-import { AuthLoginResponseDTO } from "../dtos/responses/auth-response.dto";
+import { AuthCurrentResponseDTO, AuthLoginResponseDTO } from "../dtos/responses/auth-response.dto";
 import { ErrorResponse } from "../models/error-response.model";
 import { loginUserMiddleware } from "../middlewares/login-user.middleware";
 import { CredentialValidatorServiceInterface } from "../interfaces/credential-validator-service.interface";
 import { ValidationResponse } from "../models/validation-response.model";
 import { BadRequestError } from "../errors/bad-request.error";
+import { JwtPayloadInterface } from "../interfaces/jwt-payload.interface";
+import { Resource, Action } from "../types/rbac.type";
+import { RoleNamesEnum } from "../types/role-names.type";
 
 
 
@@ -80,6 +83,58 @@ export class AuthController extends BaseController implements AuthControllerInte
   }
 
   
+      /**
+     * Gets current user credentials by access token.
+     * @summary Gets authorized user jwt payload
+     * @returns The current user's JWT payload.
+     */
+    @SuccessResponse("200", "OK")
+    @Security("jwt", ["user:read"])
+    @Example<AuthCurrentResponseDTO>({
+    user: {
+      username: "John1Doe",
+      email: "JohnDoe@gmail.com",
+      id: 2,
+      roles: [
+        {
+          id: 2,
+          users:[],
+          name: RoleNamesEnum.USER,
+          description: "Regular User: Standard access; can use application features but has limited administrative capabilities.",
+          permissions: [
+            {
+              id: 2,
+              description: "Create new user.",
+              resource: Resource.USER,
+              action: Action.CREATE,
+              roles:[],
+              rbacPermission:() => 'user:create',
+            },
+            {
+              id: 3,
+              description: "Read own data.",
+              resource : Resource.USER,
+              action: Action.READ,
+              roles:[],
+              rbacPermission:() => 'user:read', 
+            }
+          ]
+        }
+      ]
+    },
+    "scopes": [
+      "user:create",
+      "user:read",
+    ],
+    "iat": 1767492049,
+    "exp": 1767492109
+  }) 
+    @Get("/current")
+    public async currentUser(@Request() req: ExpressRequest): Promise<JwtPayloadInterface> {
+      const payload : JwtPayloadInterface= req.payload;
+      console.log("Current user payload in controller: ", payload);
+      return payload;
+    }
   @Get("/")
   public async getUsers(
     // TSOA's @Request() decorator injects the Express request object

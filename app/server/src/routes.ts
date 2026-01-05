@@ -109,6 +109,49 @@ const models: TsoaRoute.Models = {
         "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "UserReadResponseDTO": {
+        "dataType": "refObject",
+        "properties": {
+            "createdAt": {"dataType":"datetime","required":true},
+            "updatedAt": {"dataType":"datetime","required":true},
+            "id": {"dataType":"double","required":true},
+            "fullname": {"dataType":"string","required":true},
+            "username": {"dataType":"string","required":true},
+            "email": {"dataType":"string","required":true,"validators":{"pattern":{"errorMsg":"please provide correct email","value":"^(.+)@(.+)$"}}},
+            "age": {"dataType":"integer","required":true,"validators":{"isInt":{"errorMsg":"we would kindly ask you to provide a number here"},"minimum":{"errorMsg":"minimum age is 0","value":0}}},
+            "phone": {"dataType":"string","required":true},
+            "failedLogins": {"dataType":"double","required":true},
+            "isEnabled": {"dataType":"boolean","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "AuthLoginResponseDTO": {
+        "dataType": "refObject",
+        "properties": {
+            "refreshToken": {"dataType":"string","required":true},
+            "accessToken": {"dataType":"string","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "AuthLoginRequestDTO": {
+        "dataType": "refObject",
+        "properties": {
+            "password": {"dataType":"string","required":true},
+            "email": {"dataType":"string","required":true,"validators":{"pattern":{"errorMsg":"please provide correct email","value":"^(.+)@(.+)$"}}},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "AuthRefreshTokenRequestDTO": {
+        "dataType": "refObject",
+        "properties": {
+            "refreshToken": {"dataType":"string","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "RoleNamesEnum": {
         "dataType": "refEnum",
         "enums": ["ADMIN","USER","VIEWER","EDITOR"],
@@ -210,49 +253,6 @@ const models: TsoaRoute.Models = {
         "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "UserReadResponseDTO": {
-        "dataType": "refObject",
-        "properties": {
-            "createdAt": {"dataType":"datetime","required":true},
-            "updatedAt": {"dataType":"datetime","required":true},
-            "id": {"dataType":"double","required":true},
-            "fullname": {"dataType":"string","required":true},
-            "username": {"dataType":"string","required":true},
-            "email": {"dataType":"string","required":true,"validators":{"pattern":{"errorMsg":"please provide correct email","value":"^(.+)@(.+)$"}}},
-            "age": {"dataType":"integer","required":true,"validators":{"isInt":{"errorMsg":"we would kindly ask you to provide a number here"},"minimum":{"errorMsg":"minimum age is 0","value":0}}},
-            "phone": {"dataType":"string","required":true},
-            "failedLogins": {"dataType":"double","required":true},
-            "isEnabled": {"dataType":"boolean","required":true},
-        },
-        "additionalProperties": false,
-    },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "AuthLoginResponseDTO": {
-        "dataType": "refObject",
-        "properties": {
-            "refreshToken": {"dataType":"string","required":true},
-            "accessToken": {"dataType":"string","required":true},
-        },
-        "additionalProperties": false,
-    },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "AuthLoginRequestDTO": {
-        "dataType": "refObject",
-        "properties": {
-            "password": {"dataType":"string","required":true},
-            "email": {"dataType":"string","required":true,"validators":{"pattern":{"errorMsg":"please provide correct email","value":"^(.+)@(.+)$"}}},
-        },
-        "additionalProperties": false,
-    },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "AuthRefreshTokenRequestDTO": {
-        "dataType": "refObject",
-        "properties": {
-            "refreshToken": {"dataType":"string","required":true},
-        },
-        "additionalProperties": false,
-    },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 };
 const templateService = new ExpressTemplateService(models, {"noImplicitAdditionalProperties":"throw-on-extras","bodyCoercion":true});
 
@@ -299,42 +299,6 @@ export function RegisterRoutes(app: Router) {
                 next,
                 validatedArgs,
                 successStatus: 201,
-              });
-            } catch (err) {
-                return next(err);
-            }
-        });
-        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        const argsUserController_currentUser: Record<string, TsoaRoute.ParameterSchema> = {
-                req: {"in":"request","name":"req","required":true,"dataType":"object"},
-        };
-        app.get('/users/current',
-            authenticateMiddleware([{"jwt":["user:read"]}]),
-            ...(fetchMiddlewares<RequestHandler>(UserController)),
-            ...(fetchMiddlewares<RequestHandler>(UserController.prototype.currentUser)),
-
-            async function UserController_currentUser(request: ExRequest, response: ExResponse, next: any) {
-
-            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-
-            let validatedArgs: any[] = [];
-            try {
-                validatedArgs = templateService.getValidatedArgs({ args: argsUserController_currentUser, request, response });
-
-                const container: IocContainer = typeof iocContainer === 'function' ? (iocContainer as IocContainerFactory)(request) : iocContainer;
-
-                const controller: any = await container.get<UserController>(UserController);
-                if (typeof controller['setStatus'] === 'function') {
-                controller.setStatus(undefined);
-                }
-
-              await templateService.apiHandler({
-                methodName: 'currentUser',
-                controller,
-                response,
-                next,
-                validatedArgs,
-                successStatus: 200,
               });
             } catch (err) {
                 return next(err);
@@ -784,6 +748,42 @@ export function RegisterRoutes(app: Router) {
                 next,
                 validatedArgs,
                 successStatus: undefined,
+              });
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        const argsAuthController_currentUser: Record<string, TsoaRoute.ParameterSchema> = {
+                req: {"in":"request","name":"req","required":true,"dataType":"object"},
+        };
+        app.get('/auths/current',
+            authenticateMiddleware([{"jwt":["user:read"]}]),
+            ...(fetchMiddlewares<RequestHandler>(AuthController)),
+            ...(fetchMiddlewares<RequestHandler>(AuthController.prototype.currentUser)),
+
+            async function AuthController_currentUser(request: ExRequest, response: ExResponse, next: any) {
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = templateService.getValidatedArgs({ args: argsAuthController_currentUser, request, response });
+
+                const container: IocContainer = typeof iocContainer === 'function' ? (iocContainer as IocContainerFactory)(request) : iocContainer;
+
+                const controller: any = await container.get<AuthController>(AuthController);
+                if (typeof controller['setStatus'] === 'function') {
+                controller.setStatus(undefined);
+                }
+
+              await templateService.apiHandler({
+                methodName: 'currentUser',
+                controller,
+                response,
+                next,
+                validatedArgs,
+                successStatus: 200,
               });
             } catch (err) {
                 return next(err);

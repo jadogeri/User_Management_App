@@ -1,7 +1,24 @@
 
+import { Role } from "../../entities/role.entity";
 import { AuthType } from "../../types/auth.type";
+import { RBACPermission } from "../../types/rbac.type";
 import { UserType } from "../../types/user.type";
 
+
+/**
+ * Represents a user current response dto object.
+ */
+export interface AuthCurrentResponseDTO {
+  user  : {
+    username: string;
+    email: string;
+    id: number;
+    roles: Role[]
+  },
+  scopes: RBACPermission[],
+  iat: number,
+  exp: number
+}
 
 /**
  * Represents a user login response dto object.

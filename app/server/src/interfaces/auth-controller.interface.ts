@@ -2,6 +2,7 @@ import { AuthLoginRequestDTO, AuthRefreshTokenRequestDTO } from "../dtos/request
 import { AuthLoginResponseDTO } from "../dtos/responses/auth-response.dto";
 import { ErrorResponse } from "../models/error-response.model";
 import { Request } from "express";
+import { JwtPayloadInterface } from "./jwt-payload.interface";
 
 export interface AuthControllerInterface {
   loginUser(requestBody: AuthLoginRequestDTO, req: Request): Promise<AuthLoginResponseDTO | ErrorResponse>;
@@ -9,4 +10,6 @@ export interface AuthControllerInterface {
   forgotUser(): Promise<any>;
   resetUser(): Promise<any>;
   refreshToken(userRequest: AuthRefreshTokenRequestDTO, req: Request): Promise<any> ;
+  currentUser(req: Request): Promise<JwtPayloadInterface> ;
+
 };

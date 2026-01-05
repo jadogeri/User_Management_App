@@ -323,6 +323,138 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"UserReadResponseDTO": {
+				"description": "Represents a user read account response dto object.",
+				"properties": {
+					"createdAt": {
+						"type": "string",
+						"format": "date-time",
+						"description": "The date and time when the auth was created.",
+						"example": "2024-01-01T12:00:00.000Z"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time",
+						"description": "The date and time when the auth was last updated.",
+						"example": "2024-01-01T13:00:00.000Z"
+					},
+					"id": {
+						"type": "number",
+						"format": "double",
+						"description": "The user's identifier.",
+						"example": "1"
+					},
+					"fullname": {
+						"type": "string",
+						"description": "The user's full name.",
+						"example": "John Doe"
+					},
+					"username": {
+						"type": "string",
+						"description": "The user's username.",
+						"example": "John1Doe"
+					},
+					"email": {
+						"type": "string",
+						"description": "The user's email.",
+						"example": "JohnDoe@gmail.com",
+						"pattern": "^(.+)@(.+)$"
+					},
+					"age": {
+						"type": "integer",
+						"format": "int32",
+						"description": "The user's age.",
+						"example": 21,
+						"minimum": 0
+					},
+					"phone": {
+						"type": "string",
+						"description": "The user's phone number.",
+						"example": "123-456-7890"
+					},
+					"failedLogins": {
+						"type": "number",
+						"format": "double",
+						"description": "The user's failed login attempts.",
+						"example": 0
+					},
+					"isEnabled": {
+						"type": "boolean",
+						"description": "The user's account status.",
+						"example": true
+					}
+				},
+				"required": [
+					"createdAt",
+					"updatedAt",
+					"id",
+					"fullname",
+					"username",
+					"email",
+					"age",
+					"phone",
+					"failedLogins",
+					"isEnabled"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AuthLoginResponseDTO": {
+				"description": "Represents a user login response dto object.",
+				"properties": {
+					"refreshToken": {
+						"type": "string",
+						"description": "The JWT refresh token.",
+						"example": "some-refresh-token"
+					},
+					"accessToken": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"refreshToken",
+					"accessToken"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AuthLoginRequestDTO": {
+				"description": "Represents a user login request dto object.",
+				"properties": {
+					"password": {
+						"type": "string",
+						"description": "The user's password.",
+						"example": "SecurePassword123!"
+					},
+					"email": {
+						"type": "string",
+						"description": "The user's email.",
+						"example": "JohnDoe@gmail.com",
+						"pattern": "^(.+)@(.+)$"
+					}
+				},
+				"required": [
+					"password",
+					"email"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AuthRefreshTokenRequestDTO": {
+				"description": "Represents an auth refresh token request dto object.",
+				"properties": {
+					"refreshToken": {
+						"type": "string",
+						"description": "The JWT refresh token.",
+						"example": "some-refresh-token"
+					}
+				},
+				"required": [
+					"refreshToken"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"RoleNamesEnum": {
 				"enum": [
 					"ADMIN",
@@ -671,138 +803,6 @@
 				],
 				"type": "object",
 				"additionalProperties": false
-			},
-			"UserReadResponseDTO": {
-				"description": "Represents a user read account response dto object.",
-				"properties": {
-					"createdAt": {
-						"type": "string",
-						"format": "date-time",
-						"description": "The date and time when the auth was created.",
-						"example": "2024-01-01T12:00:00.000Z"
-					},
-					"updatedAt": {
-						"type": "string",
-						"format": "date-time",
-						"description": "The date and time when the auth was last updated.",
-						"example": "2024-01-01T13:00:00.000Z"
-					},
-					"id": {
-						"type": "number",
-						"format": "double",
-						"description": "The user's identifier.",
-						"example": "1"
-					},
-					"fullname": {
-						"type": "string",
-						"description": "The user's full name.",
-						"example": "John Doe"
-					},
-					"username": {
-						"type": "string",
-						"description": "The user's username.",
-						"example": "John1Doe"
-					},
-					"email": {
-						"type": "string",
-						"description": "The user's email.",
-						"example": "JohnDoe@gmail.com",
-						"pattern": "^(.+)@(.+)$"
-					},
-					"age": {
-						"type": "integer",
-						"format": "int32",
-						"description": "The user's age.",
-						"example": 21,
-						"minimum": 0
-					},
-					"phone": {
-						"type": "string",
-						"description": "The user's phone number.",
-						"example": "123-456-7890"
-					},
-					"failedLogins": {
-						"type": "number",
-						"format": "double",
-						"description": "The user's failed login attempts.",
-						"example": 0
-					},
-					"isEnabled": {
-						"type": "boolean",
-						"description": "The user's account status.",
-						"example": true
-					}
-				},
-				"required": [
-					"createdAt",
-					"updatedAt",
-					"id",
-					"fullname",
-					"username",
-					"email",
-					"age",
-					"phone",
-					"failedLogins",
-					"isEnabled"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"AuthLoginResponseDTO": {
-				"description": "Represents a user login response dto object.",
-				"properties": {
-					"refreshToken": {
-						"type": "string",
-						"description": "The JWT refresh token.",
-						"example": "some-refresh-token"
-					},
-					"accessToken": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"refreshToken",
-					"accessToken"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"AuthLoginRequestDTO": {
-				"description": "Represents a user login request dto object.",
-				"properties": {
-					"password": {
-						"type": "string",
-						"description": "The user's password.",
-						"example": "SecurePassword123!"
-					},
-					"email": {
-						"type": "string",
-						"description": "The user's email.",
-						"example": "JohnDoe@gmail.com",
-						"pattern": "^(.+)@(.+)$"
-					}
-				},
-				"required": [
-					"password",
-					"email"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"AuthRefreshTokenRequestDTO": {
-				"description": "Represents an auth refresh token request dto object.",
-				"properties": {
-					"refreshToken": {
-						"type": "string",
-						"description": "The JWT refresh token.",
-						"example": "some-refresh-token"
-					}
-				},
-				"required": [
-					"refreshToken"
-				],
-				"type": "object",
-				"additionalProperties": false
 			}
 		},
 		"securitySchemes": {
@@ -933,77 +933,6 @@
 						}
 					}
 				}
-			}
-		},
-		"/users/current": {
-			"get": {
-				"operationId": "CurrentUser",
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/JwtPayloadInterface"
-								},
-								"examples": {
-									"Example 1": {
-										"value": {
-											"user": {
-												"username": "John1Doe",
-												"email": "JohnDoe@gmail.com",
-												"id": 2,
-												"roles": [
-													{
-														"id": 2,
-														"users": [],
-														"name": "USER",
-														"description": "Regular User: Standard access; can use application features but has limited administrative capabilities.",
-														"permissions": [
-															{
-																"id": 2,
-																"description": "Create new user.",
-																"resource": "user",
-																"action": "create",
-																"roles": []
-															},
-															{
-																"id": 3,
-																"description": "Read own data.",
-																"resource": "user",
-																"action": "read",
-																"roles": []
-															}
-														]
-													}
-												]
-											},
-											"scopes": [
-												"user:create",
-												"user:read"
-											],
-											"iat": 1767492049,
-											"exp": 1767492109
-										}
-									}
-								}
-							}
-						}
-					}
-				},
-				"description": "Gets current user credentials by access token.",
-				"summary": "Gets authorized user jwt payload",
-				"tags": [
-					"User"
-				],
-				"security": [
-					{
-						"jwt": [
-							"user:read"
-						]
-					}
-				],
-				"parameters": []
 			}
 		},
 		"/users/{userId}": {
@@ -1348,6 +1277,77 @@
 						}
 					}
 				}
+			}
+		},
+		"/auths/current": {
+			"get": {
+				"operationId": "CurrentUser",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/JwtPayloadInterface"
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"user": {
+												"username": "John1Doe",
+												"email": "JohnDoe@gmail.com",
+												"id": 2,
+												"roles": [
+													{
+														"id": 2,
+														"users": [],
+														"name": "USER",
+														"description": "Regular User: Standard access; can use application features but has limited administrative capabilities.",
+														"permissions": [
+															{
+																"id": 2,
+																"description": "Create new user.",
+																"resource": "user",
+																"action": "create",
+																"roles": []
+															},
+															{
+																"id": 3,
+																"description": "Read own data.",
+																"resource": "user",
+																"action": "read",
+																"roles": []
+															}
+														]
+													}
+												]
+											},
+											"scopes": [
+												"user:create",
+												"user:read"
+											],
+											"iat": 1767492049,
+											"exp": 1767492109
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"description": "Gets current user credentials by access token.",
+				"summary": "Gets authorized user jwt payload",
+				"tags": [
+					"Auth"
+				],
+				"security": [
+					{
+						"jwt": [
+							"user:read"
+						]
+					}
+				],
+				"parameters": []
 			}
 		},
 		"/auths": {
