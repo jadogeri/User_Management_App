@@ -83,7 +83,6 @@ export class User extends Audit implements UserType {
     return permissionList;
   }
 
-
 }
 
 export default User;

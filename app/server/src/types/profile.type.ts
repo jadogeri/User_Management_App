@@ -17,10 +17,10 @@ export type ProfileType = AuditType & {
    */
   lastName?: string
   /**
-   * The user's username.
+   * The user's display name.
    * @example "John1Doe"
    */
-  username: string
+  displayName: string
   /**
    * The user's age.
    * @isInt we would kindly ask you to provide a number here
