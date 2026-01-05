@@ -26,8 +26,6 @@ id: number
    * The contact's fax number.
    * @example "123-456-7890"
    */
-
   fax?: string;
-
 
 }

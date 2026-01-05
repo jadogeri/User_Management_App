@@ -1,5 +1,4 @@
-import AccessControlService from "../services/access-control.service";
-import { AuthService } from "../services/auth.service";
+
 
 // Define Symbols for DI binding (best practice in Inversify)
 export const TYPES = {
@@ -8,10 +7,12 @@ export const TYPES = {
     UserControllerInterface: Symbol.for("UserControllerInterface"),
     AuthControllerInterface: Symbol.for("AuthControllerInterface"),
     ProfileControllerInterface: Symbol.for("ProfileControllerInterface"),
+    ContactControllerInterface: Symbol.for("ContactControllerInterface"),
 
     //services
     UserServiceInterface: Symbol.for("UserServiceInterface"),
     ProfileServiceInterface: Symbol.for("ProfileServiceInterface"),
+    ContactServiceInterface: Symbol.for("ContactServiceInterface"),
     CredentialValidatorServiceInterface: Symbol.for("CredentialValidatorServiceInterface"),
     EmailServiceInterface: Symbol.for("EmailServiceInterface"),
     AuthServiceInterface: Symbol.for("AuthServiceInterface"),
@@ -26,6 +27,7 @@ export const TYPES = {
     UserRepositoryInterface: Symbol.for("UserRepositoryInterface"),
     AuthRepositoryInterface: Symbol.for("AuthRepositoryInterface"),
     ProfileRepositoryInterface: Symbol.for("ProfileRepositoryInterface"),
+    ContactRepositoryInterface: Symbol.for("ContactRepositoryInterface"),
 
     //classes
     DataSource: Symbol.for("DataSource"),
