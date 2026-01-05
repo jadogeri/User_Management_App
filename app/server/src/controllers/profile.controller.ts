@@ -18,7 +18,7 @@ export class ProfileController extends BaseController implements ProfileControll
   private readonly profileService!: ProfileServiceInterface;
 
   @Post()
-  createProfiile(): Promise<any> {
+  createProfile(): Promise<any> {
     return this.profileService.create();
   }
 

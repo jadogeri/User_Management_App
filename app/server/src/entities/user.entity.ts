@@ -1,12 +1,13 @@
 // src/entities/User.ts
-import { Entity,  Column, PrimaryGeneratedColumn, JoinColumn, ManyToOne, ManyToMany, JoinTable } from "typeorm";
-import { Min, IsInt, IsString } from 'class-validator';
+import { Entity,  Column, PrimaryGeneratedColumn, JoinColumn, ManyToOne, ManyToMany, JoinTable, OneToMany } from "typeorm";
+import { IsInt, IsString } from 'class-validator';
 import { Audit } from "../models/audit.model";
 import { UserType } from "../types/user.type";
 import Role from "./role.entity";
 import Status from "./status.entity";
 import { SuspensionDetails } from "../types/suspension-details.type";
 import { RBACPermission } from "../types/rbac.type";
+import { Contact } from "./contact.entity";
 
 @Entity()
 export class User extends Audit implements UserType {
@@ -63,6 +64,10 @@ export class User extends Audit implements UserType {
     
   })
   roles: Role[];
+
+  // A user can have multiple contacts (one-to-many)
+  @OneToMany(() => Contact, (contact) => contact.user, { cascade: true })
+  contacts: Contact[];
 
   getPermissionNames(): Array<RBACPermission> {
 

@@ -8,6 +8,8 @@ import { UserController } from './controllers/user.controller';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { ProfileController } from './controllers/profile.controller';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+import { ContactController } from './controllers/contact.controller';
+// WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { AuthController } from './controllers/auth.controller';
 import { expressAuthentication } from './utils/authentication.util';
 // @ts-ignore - no great way to install types from subpackage
@@ -216,6 +218,7 @@ const models: TsoaRoute.Models = {
             "suspension": {"dataType":"union","subSchemas":[{"ref":"SuspensionDetails"},{"dataType":"enum","enums":[null]}],"required":true},
             "status": {"ref":"Status","required":true},
             "roles": {"dataType":"array","array":{"dataType":"refObject","ref":"Role"},"required":true},
+            "contacts": {"dataType":"array","array":{"dataType":"refObject","ref":"Contact"},"required":true},
         },
         "additionalProperties": false,
     },
@@ -233,6 +236,21 @@ const models: TsoaRoute.Models = {
     "AuditType": {
         "dataType": "refAlias",
         "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"updatedAt":{"dataType":"datetime","required":true},"createdAt":{"dataType":"datetime","required":true}},"validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "Contact": {
+        "dataType": "refObject",
+        "properties": {
+            "updatedAt": {"dataType":"datetime","required":true},
+            "createdAt": {"dataType":"datetime","required":true},
+            "id": {"dataType":"double","required":true},
+            "fullname": {"dataType":"string","required":true},
+            "email": {"dataType":"string","required":true},
+            "phone": {"dataType":"string","required":true},
+            "fax": {"dataType":"string","required":true},
+            "user": {"ref":"User","required":true},
+        },
+        "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "JwtPayloadInterface": {
@@ -578,19 +596,19 @@ export function RegisterRoutes(app: Router) {
             }
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        const argsProfileController_createProfiile: Record<string, TsoaRoute.ParameterSchema> = {
+        const argsProfileController_createProfile: Record<string, TsoaRoute.ParameterSchema> = {
         };
         app.post('/profiles',
             ...(fetchMiddlewares<RequestHandler>(ProfileController)),
-            ...(fetchMiddlewares<RequestHandler>(ProfileController.prototype.createProfiile)),
+            ...(fetchMiddlewares<RequestHandler>(ProfileController.prototype.createProfile)),
 
-            async function ProfileController_createProfiile(request: ExRequest, response: ExResponse, next: any) {
+            async function ProfileController_createProfile(request: ExRequest, response: ExResponse, next: any) {
 
             // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
             let validatedArgs: any[] = [];
             try {
-                validatedArgs = templateService.getValidatedArgs({ args: argsProfileController_createProfiile, request, response });
+                validatedArgs = templateService.getValidatedArgs({ args: argsProfileController_createProfile, request, response });
 
                 const container: IocContainer = typeof iocContainer === 'function' ? (iocContainer as IocContainerFactory)(request) : iocContainer;
 
@@ -600,7 +618,7 @@ export function RegisterRoutes(app: Router) {
                 }
 
               await templateService.apiHandler({
-                methodName: 'createProfiile',
+                methodName: 'createProfile',
                 controller,
                 response,
                 next,
@@ -737,6 +755,176 @@ export function RegisterRoutes(app: Router) {
 
               await templateService.apiHandler({
                 methodName: 'deleteProfile',
+                controller,
+                response,
+                next,
+                validatedArgs,
+                successStatus: undefined,
+              });
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        const argsContactController_createContact: Record<string, TsoaRoute.ParameterSchema> = {
+        };
+        app.post('/contacts',
+            ...(fetchMiddlewares<RequestHandler>(ContactController)),
+            ...(fetchMiddlewares<RequestHandler>(ContactController.prototype.createContact)),
+
+            async function ContactController_createContact(request: ExRequest, response: ExResponse, next: any) {
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = templateService.getValidatedArgs({ args: argsContactController_createContact, request, response });
+
+                const container: IocContainer = typeof iocContainer === 'function' ? (iocContainer as IocContainerFactory)(request) : iocContainer;
+
+                const controller: any = await container.get<ContactController>(ContactController);
+                if (typeof controller['setStatus'] === 'function') {
+                controller.setStatus(undefined);
+                }
+
+              await templateService.apiHandler({
+                methodName: 'createContact',
+                controller,
+                response,
+                next,
+                validatedArgs,
+                successStatus: undefined,
+              });
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        const argsContactController_getContact: Record<string, TsoaRoute.ParameterSchema> = {
+        };
+        app.get('/contacts',
+            ...(fetchMiddlewares<RequestHandler>(ContactController)),
+            ...(fetchMiddlewares<RequestHandler>(ContactController.prototype.getContact)),
+
+            async function ContactController_getContact(request: ExRequest, response: ExResponse, next: any) {
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = templateService.getValidatedArgs({ args: argsContactController_getContact, request, response });
+
+                const container: IocContainer = typeof iocContainer === 'function' ? (iocContainer as IocContainerFactory)(request) : iocContainer;
+
+                const controller: any = await container.get<ContactController>(ContactController);
+                if (typeof controller['setStatus'] === 'function') {
+                controller.setStatus(undefined);
+                }
+
+              await templateService.apiHandler({
+                methodName: 'getContact',
+                controller,
+                response,
+                next,
+                validatedArgs,
+                successStatus: undefined,
+              });
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        const argsContactController_updateContact: Record<string, TsoaRoute.ParameterSchema> = {
+        };
+        app.patch('/contacts',
+            ...(fetchMiddlewares<RequestHandler>(ContactController)),
+            ...(fetchMiddlewares<RequestHandler>(ContactController.prototype.updateContact)),
+
+            async function ContactController_updateContact(request: ExRequest, response: ExResponse, next: any) {
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = templateService.getValidatedArgs({ args: argsContactController_updateContact, request, response });
+
+                const container: IocContainer = typeof iocContainer === 'function' ? (iocContainer as IocContainerFactory)(request) : iocContainer;
+
+                const controller: any = await container.get<ContactController>(ContactController);
+                if (typeof controller['setStatus'] === 'function') {
+                controller.setStatus(undefined);
+                }
+
+              await templateService.apiHandler({
+                methodName: 'updateContact',
+                controller,
+                response,
+                next,
+                validatedArgs,
+                successStatus: undefined,
+              });
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        const argsContactController_replaceContact: Record<string, TsoaRoute.ParameterSchema> = {
+        };
+        app.put('/contacts',
+            ...(fetchMiddlewares<RequestHandler>(ContactController)),
+            ...(fetchMiddlewares<RequestHandler>(ContactController.prototype.replaceContact)),
+
+            async function ContactController_replaceContact(request: ExRequest, response: ExResponse, next: any) {
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = templateService.getValidatedArgs({ args: argsContactController_replaceContact, request, response });
+
+                const container: IocContainer = typeof iocContainer === 'function' ? (iocContainer as IocContainerFactory)(request) : iocContainer;
+
+                const controller: any = await container.get<ContactController>(ContactController);
+                if (typeof controller['setStatus'] === 'function') {
+                controller.setStatus(undefined);
+                }
+
+              await templateService.apiHandler({
+                methodName: 'replaceContact',
+                controller,
+                response,
+                next,
+                validatedArgs,
+                successStatus: undefined,
+              });
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        const argsContactController_deleteContact: Record<string, TsoaRoute.ParameterSchema> = {
+        };
+        app.delete('/contacts',
+            ...(fetchMiddlewares<RequestHandler>(ContactController)),
+            ...(fetchMiddlewares<RequestHandler>(ContactController.prototype.deleteContact)),
+
+            async function ContactController_deleteContact(request: ExRequest, response: ExResponse, next: any) {
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = templateService.getValidatedArgs({ args: argsContactController_deleteContact, request, response });
+
+                const container: IocContainer = typeof iocContainer === 'function' ? (iocContainer as IocContainerFactory)(request) : iocContainer;
+
+                const controller: any = await container.get<ContactController>(ContactController);
+                if (typeof controller['setStatus'] === 'function') {
+                controller.setStatus(undefined);
+                }
+
+              await templateService.apiHandler({
+                methodName: 'deleteContact',
                 controller,
                 response,
                 next,

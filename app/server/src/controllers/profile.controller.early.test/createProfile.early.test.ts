@@ -47,7 +47,7 @@ describe('ProfileController.createProfiile() createProfiile method', () => {
       };
       jest.mocked(mockProfileService.create).mockResolvedValue(mockResponse as any as never);
 
-      const result = await controller.createProfiile();
+      const result = await controller.createProfile();
 
       expect(result).toEqual(mockResponse as any);
       expect(mockProfileService.create).toHaveBeenCalledTimes(1);
@@ -75,8 +75,8 @@ describe('ProfileController.createProfiile() createProfiile method', () => {
         .mockResolvedValueOnce(mockResponse1 as any as never)
         .mockResolvedValueOnce(mockResponse2 as any as never);
 
-      const result1 = await controller.createProfiile();
-      const result2 = await controller.createProfiile();
+      const result1 = await controller.createProfile();
+      const result2 = await controller.createProfile();
 
       expect(result1).toEqual(mockResponse1 as any);
       expect(result2).toEqual(mockResponse2 as any);
@@ -91,7 +91,7 @@ describe('ProfileController.createProfiile() createProfiile method', () => {
       const error = new Error('Service error');
       jest.mocked(mockProfileService.create).mockRejectedValue(error as never);
 
-      await expect(controller.createProfiile()).rejects.toThrow('Service error');
+      await expect(controller.createProfile()).rejects.toThrow('Service error');
       expect(mockProfileService.create).toHaveBeenCalledTimes(1);
     });
 
@@ -99,7 +99,7 @@ describe('ProfileController.createProfiile() createProfiile method', () => {
       // This test aims to verify that an empty object response is handled gracefully.
       jest.mocked(mockProfileService.create).mockResolvedValue({} as any as never);
 
-      const result = await controller.createProfiile();
+      const result = await controller.createProfile();
 
       expect(result).toEqual({} as any);
       expect(mockProfileService.create).toHaveBeenCalledTimes(1);
@@ -117,7 +117,7 @@ describe('ProfileController.createProfiile() createProfiile method', () => {
       };
       jest.mocked(mockProfileService.create).mockResolvedValue(minimalProfile as any as never);
 
-      const result = await controller.createProfiile();
+      const result = await controller.createProfile();
 
       expect(result).toEqual(minimalProfile as any);
       expect(mockProfileService.create).toHaveBeenCalledTimes(1);
@@ -135,7 +135,7 @@ describe('ProfileController.createProfiile() createProfiile method', () => {
       };
       jest.mocked(mockProfileService.create).mockResolvedValue(largeProfile as any as never);
 
-      const result = await controller.createProfiile();
+      const result = await controller.createProfile();
 
       expect(result).toEqual(largeProfile as any);
       expect(mockProfileService.create).toHaveBeenCalledTimes(1);
@@ -153,7 +153,7 @@ describe('ProfileController.createProfiile() createProfiile method', () => {
       };
       jest.mocked(mockProfileService.create).mockResolvedValue(specialProfile as any as never);
 
-      const result = await controller.createProfiile();
+      const result = await controller.createProfile();
 
       expect(result).toEqual(specialProfile as any);
       expect(mockProfileService.create).toHaveBeenCalledTimes(1);

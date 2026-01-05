@@ -1,6 +1,6 @@
 
 export interface ProfileControllerInterface {
-  createProfiile(): Promise<any> ;
+  createProfile(): Promise<any> ;
   getProfile(): Promise<any>;
   updateProfile(): Promise<any>;
   replaceProfile(): Promise<any>;

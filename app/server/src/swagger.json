@@ -624,6 +624,12 @@
 							"$ref": "#/components/schemas/Role"
 						},
 						"type": "array"
+					},
+					"contacts": {
+						"items": {
+							"$ref": "#/components/schemas/Contact"
+						},
+						"type": "array"
 					}
 				},
 				"required": [
@@ -639,7 +645,8 @@
 					"isEnabled",
 					"suspension",
 					"status",
-					"roles"
+					"roles",
+					"contacts"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -688,6 +695,56 @@
 					"createdAt"
 				],
 				"type": "object"
+			},
+			"Contact": {
+				"properties": {
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time",
+						"description": "The date and time when the auth was last updated."
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time",
+						"description": "The date and time when the auth was created."
+					},
+					"id": {
+						"type": "number",
+						"format": "double",
+						"description": "The contact's identifier."
+					},
+					"fullname": {
+						"type": "string",
+						"description": "The contact's full name."
+					},
+					"email": {
+						"type": "string",
+						"description": "The contact's email."
+					},
+					"phone": {
+						"type": "string",
+						"description": "The contact's phone number."
+					},
+					"fax": {
+						"type": "string",
+						"description": "The contact's fax number."
+					},
+					"user": {
+						"$ref": "#/components/schemas/User"
+					}
+				},
+				"required": [
+					"updatedAt",
+					"createdAt",
+					"id",
+					"fullname",
+					"email",
+					"phone",
+					"fax",
+					"user"
+				],
+				"type": "object",
+				"additionalProperties": false
 			},
 			"JwtPayloadInterface": {
 				"properties": {
@@ -1110,7 +1167,7 @@
 		},
 		"/profiles": {
 			"post": {
-				"operationId": "CreateProfiile",
+				"operationId": "CreateProfile",
 				"responses": {
 					"200": {
 						"description": "Ok",
@@ -1195,6 +1252,98 @@
 				},
 				"tags": [
 					"Profile"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/contacts": {
+			"post": {
+				"operationId": "CreateContact",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Contact"
+				],
+				"security": [],
+				"parameters": []
+			},
+			"get": {
+				"operationId": "GetContact",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Contact"
+				],
+				"security": [],
+				"parameters": []
+			},
+			"patch": {
+				"operationId": "UpdateContact",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Contact"
+				],
+				"security": [],
+				"parameters": []
+			},
+			"put": {
+				"operationId": "ReplaceContact",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Contact"
+				],
+				"security": [],
+				"parameters": []
+			},
+			"delete": {
+				"operationId": "DeleteContact",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Contact"
 				],
 				"security": [],
 				"parameters": []
