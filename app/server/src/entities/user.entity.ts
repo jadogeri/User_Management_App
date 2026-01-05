@@ -25,11 +25,6 @@ export class User extends Audit implements UserType {
   @IsString()
   email: string;
 
-  @Column({type: "integer",default: 0, nullable: false, unsigned: true})
-  @IsInt() // Optional: ensures it's an integer
-  @Min(0, { message: 'Quantity cannot be a negative number' })
-  age: number;
-
   @Column({type: "varchar", length: 15, nullable: true })
   @IsString()
   phone: string;

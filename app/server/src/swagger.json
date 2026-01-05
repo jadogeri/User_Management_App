@@ -43,13 +43,6 @@
 						"example": "JohnDoe@gmail.com",
 						"pattern": "^(.+)@(.+)$"
 					},
-					"age": {
-						"type": "integer",
-						"format": "int32",
-						"description": "The user's age.",
-						"example": 21,
-						"minimum": 0
-					},
 					"phone": {
 						"type": "string",
 						"description": "The user's phone number.",
@@ -74,7 +67,6 @@
 					"fullname",
 					"username",
 					"email",
-					"age",
 					"phone",
 					"failedLogins",
 					"isEnabled"
@@ -119,13 +111,6 @@
 						"example": "JohnDoe@gmail.com",
 						"pattern": "^(.+)@(.+)$"
 					},
-					"age": {
-						"type": "integer",
-						"format": "int32",
-						"description": "The user's age.",
-						"example": 21,
-						"minimum": 0
-					},
 					"phone": {
 						"type": "string",
 						"description": "The user's phone number.",
@@ -150,7 +135,6 @@
 					"fullname",
 					"username",
 					"email",
-					"age",
 					"phone",
 					"failedLogins",
 					"isEnabled"
@@ -299,13 +283,6 @@
 						"example": "JohnDoe@gmail.com",
 						"pattern": "^(.+)@(.+)$"
 					},
-					"age": {
-						"type": "integer",
-						"format": "int32",
-						"description": "The user's age.",
-						"example": 21,
-						"minimum": 0
-					},
 					"phone": {
 						"type": "string",
 						"description": "The user's phone number.",
@@ -317,7 +294,6 @@
 					"fullname",
 					"username",
 					"email",
-					"age",
 					"phone"
 				],
 				"type": "object",
@@ -360,13 +336,6 @@
 						"example": "JohnDoe@gmail.com",
 						"pattern": "^(.+)@(.+)$"
 					},
-					"age": {
-						"type": "integer",
-						"format": "int32",
-						"description": "The user's age.",
-						"example": 21,
-						"minimum": 0
-					},
 					"phone": {
 						"type": "string",
 						"description": "The user's phone number.",
@@ -391,7 +360,6 @@
 					"fullname",
 					"username",
 					"email",
-					"age",
 					"phone",
 					"failedLogins",
 					"isEnabled"
@@ -623,11 +591,6 @@
 						"type": "string",
 						"description": "The user's email."
 					},
-					"age": {
-						"type": "number",
-						"format": "double",
-						"description": "The user's age."
-					},
 					"phone": {
 						"type": "string",
 						"description": "The user's phone number."
@@ -670,7 +633,6 @@
 					"fullname",
 					"username",
 					"email",
-					"age",
 					"phone",
 					"password",
 					"failedLogins",
@@ -862,7 +824,6 @@
 											"fullname": "John Doe",
 											"email": "johndoe@tsoa.com",
 											"phone": "123-456-7890",
-											"age": 21,
 											"createdAt": "2023-01-01T10:00:00.000Z",
 											"updatedAt": "2023-01-01T11:30:00.000Z",
 											"failedLogins": 0,
@@ -961,7 +922,6 @@
 											"fullname": "John Doe",
 											"email": "johndoe@tsoa.com",
 											"phone": "123-456-7890",
-											"age": 21,
 											"createdAt": "2023-01-01T10:00:00.000Z",
 											"updatedAt": "2023-01-01T11:30:00.000Z",
 											"failedLogins": 0,
@@ -1143,6 +1103,98 @@
 				},
 				"tags": [
 					"User"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/profiles": {
+			"post": {
+				"operationId": "CreateProfiile",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Profile"
+				],
+				"security": [],
+				"parameters": []
+			},
+			"get": {
+				"operationId": "GetProfile",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Profile"
+				],
+				"security": [],
+				"parameters": []
+			},
+			"patch": {
+				"operationId": "UpdateProfile",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Profile"
+				],
+				"security": [],
+				"parameters": []
+			},
+			"put": {
+				"operationId": "ReplaceProfile",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Profile"
+				],
+				"security": [],
+				"parameters": []
+			},
+			"delete": {
+				"operationId": "DeleteProfile",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Profile"
 				],
 				"security": [],
 				"parameters": []
@@ -1393,6 +1445,10 @@
 		{
 			"name": "Auth",
 			"description": "Operations related to authentication, including login, logout, and token management."
+		},
+		{
+			"name": "Profile",
+			"description": "Operations related to user profiles, including retrieval and updates."
 		}
 	]
 }

@@ -57,7 +57,6 @@ export class UserService implements UserServiceInterface{
             id: user.id,
             createdAt: user.createdAt,
             updatedAt: user.updatedAt,
-            age: user.age,
             fullname: user.fullname
         }
         return userResponse;
@@ -132,7 +131,6 @@ export class UserService implements UserServiceInterface{
                 id: savedUser.id,
                 createdAt: savedUser.createdAt,
                 updatedAt: savedUser.updatedAt,
-                age: savedUser.age,
                 fullname: savedUser.fullname
             }
             // If in production environment send email

@@ -22,13 +22,6 @@ id: number
    * @example "JohnDoe@gmail.com"
    */
   email: string;
-  /**
-   * The user's age.
-   * @isInt we would kindly ask you to provide a number here
-   * @minimum 0 minimum age is 0
-   * @example 21
-   */
-  age: number;
    /**
    * The user's phone number.
    * @example "123-456-7890"
