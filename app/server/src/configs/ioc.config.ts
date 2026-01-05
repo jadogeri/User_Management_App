@@ -32,6 +32,11 @@ import { TokenValidatorInterface } from '../interfaces/token-validator.interface
 import TokenValidatorService from '../services/token-validator.service';
 import { AccessControlInterface } from '../interfaces/access-control.interface';
 import AccessControlService from '../services/access-control.service';
+import { ProfileRepositoryInterface } from '../interfaces/profile-repository.interface';
+import { ProfileRepository } from '../repositories/profile.repository';
+import Profile from '../entities/profile.entity';
+import { ProfileService } from '../services/profile.service';
+import { ProfileServiceInterface } from '../interfaces/profile-service.interface';
 // // import { UserController } from '../controllers/user.controller';
 
 
@@ -48,18 +53,22 @@ iocContainer.load(buildProviderModule());
   //  0. bind controllers
     iocContainer.bind<UserController>(UserController).toSelf();
     iocContainer.bind<AuthController>(AuthController).toSelf();
+    iocContainer.bind<ProfileController>(ProfileController).toSelf();
+
 
     // 1. Bind the service that manages the connection
     iocContainer.bind<SQLiteService>(SQLiteService).toSelf().inSingletonScope();
     iocContainer.bind<DatabaseServiceInterface>(TYPES.DatabaseServiceInterface).to(SQLiteService).inSingletonScope();
     iocContainer.bind<AuthServiceInterface>(TYPES.AuthServiceInterface).to(AuthService).inSingletonScope();
     iocContainer.bind<UserServiceInterface>(TYPES.UserServiceInterface).to(UserService).inSingletonScope();
+    iocContainer.bind<ProfileServiceInterface>(TYPES.ProfileServiceInterface).to(ProfileService).inSingletonScope();
     iocContainer.bind<PasswordGeneratorInterface>(TYPES.PasswordGeneratorInterface).to(PasswordGeneratorService).inSingletonScope();
 
 
     // 2. Bind the Repository (it will wait for TYPES.DataSource to be available)
     iocContainer.bind<UserRepositoryInterface>(TYPES.UserRepositoryInterface).to(UserRepository).inSingletonScope();
     iocContainer.bind<AuthRepositoryInterface>(TYPES.AuthRepositoryInterface).to(AuthRepository).inSingletonScope();
+    iocContainer.bind<ProfileRepositoryInterface>(TYPES.ProfileRepositoryInterface).to(ProfileRepository).inSingletonScope();
 
 
     iocContainer.bind<CredentialValidatorServiceInterface>(TYPES.CredentialValidatorServiceInterface).to(CredentialValidatorService).inSingletonScope();
