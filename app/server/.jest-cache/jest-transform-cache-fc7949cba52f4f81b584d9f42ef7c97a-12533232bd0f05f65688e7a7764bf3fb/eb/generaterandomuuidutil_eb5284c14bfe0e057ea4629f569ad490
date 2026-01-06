@@ -1,0 +1,24 @@
+922c40f0d9eb3f9ce46fca007e5b6723
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.generateRandomUUID = generateRandomUUID;
+const nanoid_1 = require("nanoid");
+const nanoid_dictionary_1 = require("nanoid-dictionary");
+/**
+   * Generates a random string of specified length using a set of characters
+   * defined in 'nolookalikes'. This can be used for creating unique identifiers.
+   *
+   * @param length - The length of the random string to be generated.
+   * @returns A random string of the specified length.
+   * @throws Will throw an error if the length is less than 1.
+   */
+function generateRandomUUID(length) {
+    if (length < 0) {
+        throw new Error("Invalid length");
+    }
+    // Create a generator using the nolookalikes alphabet
+    const nanoid = (0, nanoid_1.customAlphabet)(nanoid_dictionary_1.nolookalikes, length);
+    const result = nanoid();
+    return result;
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiQzpcXFVzZXJzXFxKb3NlcGhcXERlc2t0b3BcXFNvdXJjZVxcVXNlcl9NYW5hZ2VtZW50X0FwcFxcYXBwXFxzZXJ2ZXJcXHNyY1xcdXRpbHNcXGdlbmVyYXRlLXJhbmRvbS11dWlkLnV0aWwudHMiLCJtYXBwaW5ncyI6Ijs7QUFZQSxnREFVRztBQXRCSCxtQ0FBd0M7QUFDeEMseURBQWlEO0FBR2pEOzs7Ozs7O0tBT0s7QUFDTCxTQUFnQixrQkFBa0IsQ0FBQyxNQUFlO0lBQzlDLElBQUcsTUFBTSxHQUFHLENBQUMsRUFBQyxDQUFDO1FBQ2IsTUFBTSxJQUFJLEtBQUssQ0FBQyxnQkFBZ0IsQ0FBQyxDQUFDO0lBQ3BDLENBQUM7SUFDRCxxREFBcUQ7SUFDckQsTUFBTSxNQUFNLEdBQUcsSUFBQSx1QkFBYyxFQUFDLGdDQUFZLEVBQUUsTUFBTSxDQUFDLENBQUM7SUFFcEQsTUFBTSxNQUFNLEdBQUcsTUFBTSxFQUFFLENBQUM7SUFFeEIsT0FBTyxNQUFNLENBQUM7QUFDaEIsQ0FBQyIsIm5hbWVzIjpbXSwic291cmNlcyI6WyJDOlxcVXNlcnNcXEpvc2VwaFxcRGVza3RvcFxcU291cmNlXFxVc2VyX01hbmFnZW1lbnRfQXBwXFxhcHBcXHNlcnZlclxcc3JjXFx1dGlsc1xcZ2VuZXJhdGUtcmFuZG9tLXV1aWQudXRpbC50cyJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBjdXN0b21BbHBoYWJldCB9IGZyb20gJ25hbm9pZCc7XHJcbmltcG9ydCB7IG5vbG9va2FsaWtlcyB9IGZyb20gJ25hbm9pZC1kaWN0aW9uYXJ5JztcclxuXHJcblxyXG4vKipcclxuICAgKiBHZW5lcmF0ZXMgYSByYW5kb20gc3RyaW5nIG9mIHNwZWNpZmllZCBsZW5ndGggdXNpbmcgYSBzZXQgb2YgY2hhcmFjdGVycyBcclxuICAgKiBkZWZpbmVkIGluICdub2xvb2thbGlrZXMnLiBUaGlzIGNhbiBiZSB1c2VkIGZvciBjcmVhdGluZyB1bmlxdWUgaWRlbnRpZmllcnMuXHJcbiAgICogXHJcbiAgICogQHBhcmFtIGxlbmd0aCAtIFRoZSBsZW5ndGggb2YgdGhlIHJhbmRvbSBzdHJpbmcgdG8gYmUgZ2VuZXJhdGVkLlxyXG4gICAqIEByZXR1cm5zIEEgcmFuZG9tIHN0cmluZyBvZiB0aGUgc3BlY2lmaWVkIGxlbmd0aC5cclxuICAgKiBAdGhyb3dzIFdpbGwgdGhyb3cgYW4gZXJyb3IgaWYgdGhlIGxlbmd0aCBpcyBsZXNzIHRoYW4gMS5cclxuICAgKi9cclxuZXhwb3J0IGZ1bmN0aW9uIGdlbmVyYXRlUmFuZG9tVVVJRChsZW5ndGggOiBudW1iZXIpIHtcclxuICAgIGlmKGxlbmd0aCA8IDApe1xyXG4gICAgICB0aHJvdyBuZXcgRXJyb3IoXCJJbnZhbGlkIGxlbmd0aFwiKTtcclxuICAgIH1cclxuICAgIC8vIENyZWF0ZSBhIGdlbmVyYXRvciB1c2luZyB0aGUgbm9sb29rYWxpa2VzIGFscGhhYmV0XHJcbiAgICBjb25zdCBuYW5vaWQgPSBjdXN0b21BbHBoYWJldChub2xvb2thbGlrZXMsIGxlbmd0aCk7XHJcblxyXG4gICAgY29uc3QgcmVzdWx0ID0gbmFub2lkKCk7XHJcbiAgICBcclxuICAgIHJldHVybiByZXN1bHQ7XHJcbiAgfVxyXG4gIFxyXG4iXSwidmVyc2lvbiI6M30=

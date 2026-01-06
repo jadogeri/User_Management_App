@@ -1,0 +1,50 @@
+d801e61e3e4421bdd117bc849bcc5924
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var _a;
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ContactRepository = void 0;
+const typeorm_1 = require("typeorm");
+const decorators_1 = require("../decorators");
+const inversify_1 = require("inversify");
+const binding_type_1 = require("../types/binding.type");
+const contact_entity_1 = require("../entities/contact.entity");
+let ContactRepository = class ContactRepository extends typeorm_1.Repository {
+    constructor(dataSource) {
+        //console.log("Registered Entities:", dataSource.entityMetadatas.map(m => m.name));
+        super(contact_entity_1.Contact, dataSource.createEntityManager());
+    }
+    getContact() {
+        return { message: "Get contact endpoint from repository" };
+    }
+    createContact() {
+        return { message: "Create contact endpoint from repository" };
+    }
+    updateContact() {
+        return { message: "Update contact endpoint from repository" };
+    }
+    replaceContact() {
+        return { message: "Replace contact endpoint from repository" };
+    }
+    deleteContact() {
+        return { message: "Delete contact endpoint from repository" };
+    }
+};
+exports.ContactRepository = ContactRepository;
+exports.ContactRepository = ContactRepository = __decorate([
+    (0, decorators_1.Repository)(),
+    __param(0, (0, inversify_1.inject)(binding_type_1.TYPES.DataSource)),
+    __metadata("design:paramtypes", [typeof (_a = typeof typeorm_1.DataSource !== "undefined" && typeorm_1.DataSource) === "function" ? _a : Object])
+], ContactRepository);
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiQzpcXFVzZXJzXFxKb3NlcGhcXERlc2t0b3BcXFNvdXJjZVxcVXNlcl9NYW5hZ2VtZW50X0FwcFxcYXBwXFxzZXJ2ZXJcXHNyY1xccmVwb3NpdG9yaWVzXFxjb250YWN0LnJlcG9zaXRvcnkudHMiLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7OztBQUFBLHFDQUFtRTtBQUNuRSw4Q0FBMkM7QUFDM0MseUNBQW1DO0FBQ25DLHdEQUE4QztBQUs5QywrREFBcUQ7QUFHOUMsSUFBTSxpQkFBaUIsR0FBdkIsTUFBTSxpQkFBa0IsU0FBUSxvQkFBdUI7SUFHMUQsWUFBc0MsVUFBc0I7UUFDeEQsbUZBQW1GO1FBQ25GLEtBQUssQ0FBQyx3QkFBTyxFQUFFLFVBQVUsQ0FBQyxtQkFBbUIsRUFBRSxDQUFDLENBQUM7SUFFckQsQ0FBQztJQUNELFVBQVU7UUFDTixPQUFPLEVBQUMsT0FBTyxFQUFFLHNDQUFzQyxFQUFFLENBQUM7SUFDOUQsQ0FBQztJQUNELGFBQWE7UUFDVCxPQUFPLEVBQUMsT0FBTyxFQUFFLHlDQUF5QyxFQUFFLENBQUM7SUFDakUsQ0FBQztJQUNELGFBQWE7UUFDVCxPQUFPLEVBQUMsT0FBTyxFQUFFLHlDQUF5QyxFQUFFLENBQUM7SUFDakUsQ0FBQztJQUNELGNBQWM7UUFDVixPQUFPLEVBQUMsT0FBTyxFQUFFLDBDQUEwQyxFQUFFLENBQUM7SUFDbEUsQ0FBQztJQUNELGFBQWE7UUFDVCxPQUFPLEVBQUMsT0FBTyxFQUFFLHlDQUF5QyxFQUFFLENBQUM7SUFDakUsQ0FBQztDQUVKLENBQUE7QUF4QlksOENBQWlCOzRCQUFqQixpQkFBaUI7SUFEN0IsSUFBQSx1QkFBVSxHQUFFO0lBSUksV0FBQSxJQUFBLGtCQUFNLEVBQUMsb0JBQUssQ0FBQyxVQUFVLENBQUMsQ0FBQTt5REFBYSxvQkFBVSxvQkFBVixvQkFBVTtHQUhuRCxpQkFBaUIsQ0F3QjdCIiwibmFtZXMiOltdLCJzb3VyY2VzIjpbIkM6XFxVc2Vyc1xcSm9zZXBoXFxEZXNrdG9wXFxTb3VyY2VcXFVzZXJfTWFuYWdlbWVudF9BcHBcXGFwcFxcc2VydmVyXFxzcmNcXHJlcG9zaXRvcmllc1xcY29udGFjdC5yZXBvc2l0b3J5LnRzIl0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IERhdGFTb3VyY2UsIFJlcG9zaXRvcnkgYXMgQmFzZVJlcG9zaXRvcnkgfSBmcm9tIFwidHlwZW9ybVwiO1xyXG5pbXBvcnQgeyBSZXBvc2l0b3J5IH0gZnJvbSBcIi4uL2RlY29yYXRvcnNcIjtcclxuaW1wb3J0IHsgaW5qZWN0IH0gZnJvbSBcImludmVyc2lmeVwiO1xyXG5pbXBvcnQgeyBUWVBFUyB9IGZyb20gXCIuLi90eXBlcy9iaW5kaW5nLnR5cGVcIjtcclxuaW1wb3J0IHsgVXNlciB9IGZyb20gXCIuLi9lbnRpdGllcy91c2VyLmVudGl0eVwiO1xyXG5pbXBvcnQgeyBBdXRoIH0gZnJvbSBcIi4uL2VudGl0aWVzL2F1dGguZW50aXR5XCI7XHJcbmltcG9ydCB7IEF1dGhSZXBvc2l0b3J5SW50ZXJmYWNlIH0gZnJvbSBcIi4uL2ludGVyZmFjZXMvYXV0aC1yZXBvc2l0b3J5LmludGVyZmFjZVwiO1xyXG5pbXBvcnQgeyBDb250YWN0UmVwb3NpdG9yeUludGVyZmFjZSB9IGZyb20gXCIuLi9pbnRlcmZhY2VzL2NvbnRhY3QtcmVwb3NpdG9yeS5pbnRlcmZhY2VcIjtcclxuaW1wb3J0IHsgQ29udGFjdCB9IGZyb20gXCIuLi9lbnRpdGllcy9jb250YWN0LmVudGl0eVwiO1xyXG4gICAgXHJcbkBSZXBvc2l0b3J5KClcclxuZXhwb3J0IGNsYXNzIENvbnRhY3RSZXBvc2l0b3J5IGV4dGVuZHMgQmFzZVJlcG9zaXRvcnk8Q29udGFjdD4gaW1wbGVtZW50cyBDb250YWN0UmVwb3NpdG9yeUludGVyZmFjZSB7XHJcbiAgICBcclxuXHJcbiAgICBjb25zdHJ1Y3RvcihAaW5qZWN0KFRZUEVTLkRhdGFTb3VyY2UpIGRhdGFTb3VyY2U6IERhdGFTb3VyY2UpIHtcclxuICAgICAgICAvL2NvbnNvbGUubG9nKFwiUmVnaXN0ZXJlZCBFbnRpdGllczpcIiwgZGF0YVNvdXJjZS5lbnRpdHlNZXRhZGF0YXMubWFwKG0gPT4gbS5uYW1lKSk7XHJcbiAgICAgICAgc3VwZXIoQ29udGFjdCwgZGF0YVNvdXJjZS5jcmVhdGVFbnRpdHlNYW5hZ2VyKCkpO1xyXG4gICAgICAgIFxyXG4gICAgfVxyXG4gICAgZ2V0Q29udGFjdCgpOiBhbnkge1xyXG4gICAgICAgIHJldHVybiB7bWVzc2FnZTogXCJHZXQgY29udGFjdCBlbmRwb2ludCBmcm9tIHJlcG9zaXRvcnlcIiB9O1xyXG4gICAgfVxyXG4gICAgY3JlYXRlQ29udGFjdCgpOiBhbnkge1xyXG4gICAgICAgIHJldHVybiB7bWVzc2FnZTogXCJDcmVhdGUgY29udGFjdCBlbmRwb2ludCBmcm9tIHJlcG9zaXRvcnlcIiB9O1xyXG4gICAgfVxyXG4gICAgdXBkYXRlQ29udGFjdCgpOiBhbnkge1xyXG4gICAgICAgIHJldHVybiB7bWVzc2FnZTogXCJVcGRhdGUgY29udGFjdCBlbmRwb2ludCBmcm9tIHJlcG9zaXRvcnlcIiB9O1xyXG4gICAgfVxyXG4gICAgcmVwbGFjZUNvbnRhY3QoKTogYW55IHtcclxuICAgICAgICByZXR1cm4ge21lc3NhZ2U6IFwiUmVwbGFjZSBjb250YWN0IGVuZHBvaW50IGZyb20gcmVwb3NpdG9yeVwiIH07XHJcbiAgICB9XHJcbiAgICBkZWxldGVDb250YWN0KCk6IGFueSB7XHJcbiAgICAgICAgcmV0dXJuIHttZXNzYWdlOiBcIkRlbGV0ZSBjb250YWN0IGVuZHBvaW50IGZyb20gcmVwb3NpdG9yeVwiIH07XHJcbiAgICB9ICBcclxuICAgIFxyXG59XHJcblxyXG5cclxuIl0sInZlcnNpb24iOjN9

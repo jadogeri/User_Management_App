@@ -1,0 +1,66 @@
+20edfabaf2d60d688b29e44d00e9447d
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.isValidEmail = isValidEmail;
+exports.isValidPassword = isValidPassword;
+exports.isValidUsername = isValidUsername;
+exports.isValidatePhoneNumber = isValidatePhoneNumber;
+/**
+     * Validates the format of an email address.
+     * Checks for the presence of "@" and ensures no consecutive dots exist after it,
+     * then uses a regular expression to validate the overall structure.
+     *
+     * @param email - The email address to validate.
+     * @returns boolean - Returns true if the email is valid, false otherwise.
+     * @throws No exceptions are thrown.
+     */
+function isValidEmail(email) {
+    if (email.includes("@")) {
+        if (email.substring(email.lastIndexOf("@")).includes("..")) {
+            return false;
+        }
+    }
+    // Regular expression for email validation
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    return emailRegex.test(email);
+}
+/**
+ * Validates the format of an password using a regular expression.
+ * Checks for at least one lowercase letter, one uppercase letter, one digit,
+ * one special character from the set [# $ @ ! % & * ?], and ensures the length
+ * is between 6 to 20 characters. Also checks for the presence of "@" and ensuring that there are no consecutive dots following it.
+ *
+ * @param password - The password to validate.
+ * @returns boolean - Returns true if the password is valid, false otherwise.
+ * @throws No exceptions are thrown.
+ */
+function isValidPassword(password) {
+    // Regular expression for password validation
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{6,20}$/;
+    return passwordRegex.test(password);
+}
+/**
+ * Validates the format of an email address using a regular expression.
+ * Checks for the presence of "@" and ensures valid characters and structure.
+ *
+ * @param email - The email address to validate.
+ * @returns boolean - Returns true if the email format is valid, false otherwise.
+ * @throws {TypeError} - Throws if the input is not a string.
+ */
+function isValidUsername(username) {
+    // Define the rules for a valid username
+    const regex = /^[a-zA-Z][a-zA-Z0-9_]{3,16}$/; // Must start with a letter, contain only letters, numbers, and underscores, and be between 3 and 16 characters long
+    // Test the username against the regex
+    return regex.test(username);
+}
+/**
+ * Validates the provided password against defined criteria.
+ * @param password - The password string to be validated.
+ * @returns boolean - Returns true if the password is valid, false otherwise.
+ * @throws No exceptions are thrown.
+ */
+function isValidatePhoneNumber(phone) {
+    const regex = /^\+?\d{1,3}[-.\s]?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}$/;
+    return regex.test(phone);
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiQzpcXFVzZXJzXFxKb3NlcGhcXERlc2t0b3BcXFNvdXJjZVxcVXNlcl9NYW5hZ2VtZW50X0FwcFxcYXBwXFxzZXJ2ZXJcXHNyY1xcdXRpbHNcXGlucHV0LXZhbGlkYXRpb24udXRpbC50cyIsIm1hcHBpbmdzIjoiOztBQW9FVSxvQ0FBWTtBQUFFLDBDQUFlO0FBQUUsMENBQWU7QUFBRSxzREFBcUI7QUFuRS9FOzs7Ozs7OztPQVFPO0FBQ1AsU0FBUyxZQUFZLENBQUMsS0FBYztJQUVoQyxJQUFHLEtBQUssQ0FBQyxRQUFRLENBQUMsR0FBRyxDQUFDLEVBQUMsQ0FBQztRQUN0QixJQUFHLEtBQUssQ0FBQyxTQUFTLENBQUMsS0FBSyxDQUFDLFdBQVcsQ0FBQyxHQUFHLENBQUMsQ0FBQyxDQUFDLFFBQVEsQ0FBQyxJQUFJLENBQUMsRUFBQyxDQUFDO1lBQ3ZELE9BQU8sS0FBSyxDQUFBO1FBQ2hCLENBQUM7SUFDSCxDQUFDO0lBRUQsMENBQTBDO0lBQzFDLE1BQU0sVUFBVSxHQUFHLGlEQUFpRCxDQUFDO0lBRXJFLE9BQU8sVUFBVSxDQUFDLElBQUksQ0FBQyxLQUFLLENBQUMsQ0FBQztBQUNoQyxDQUFDO0FBRUg7Ozs7Ozs7OztHQVNHO0FBQ0gsU0FBUyxlQUFlLENBQUMsUUFBZ0I7SUFDckMsNkNBQTZDO0lBQzdDLE1BQU0sYUFBYSxHQUFJLDBFQUEwRSxDQUFBO0lBRWpHLE9BQU8sYUFBYSxDQUFDLElBQUksQ0FBQyxRQUFRLENBQUMsQ0FBQztBQUN0QyxDQUFDO0FBRUg7Ozs7Ozs7R0FPRztBQUNELFNBQVMsZUFBZSxDQUFDLFFBQWdCO0lBQ3ZDLHdDQUF3QztJQUN4QyxNQUFNLEtBQUssR0FBRyw4QkFBOEIsQ0FBQyxDQUFDLG9IQUFvSDtJQUVsSyxzQ0FBc0M7SUFDdEMsT0FBTyxLQUFLLENBQUMsSUFBSSxDQUFDLFFBQVEsQ0FBQyxDQUFDO0FBQzlCLENBQUM7QUFFSDs7Ozs7R0FLRztBQUNELFNBQVMscUJBQXFCLENBQUMsS0FBYztJQUMzQyxNQUFNLEtBQUssR0FBRyx3REFBd0QsQ0FBQztJQUN2RSxPQUFPLEtBQUssQ0FBQyxJQUFJLENBQUMsS0FBSyxDQUFDLENBQUM7QUFDM0IsQ0FBQyIsIm5hbWVzIjpbXSwic291cmNlcyI6WyJDOlxcVXNlcnNcXEpvc2VwaFxcRGVza3RvcFxcU291cmNlXFxVc2VyX01hbmFnZW1lbnRfQXBwXFxhcHBcXHNlcnZlclxcc3JjXFx1dGlsc1xcaW5wdXQtdmFsaWRhdGlvbi51dGlsLnRzIl0sInNvdXJjZXNDb250ZW50IjpbIlxyXG4vKipcclxuICAgICAqIFZhbGlkYXRlcyB0aGUgZm9ybWF0IG9mIGFuIGVtYWlsIGFkZHJlc3MuXHJcbiAgICAgKiBDaGVja3MgZm9yIHRoZSBwcmVzZW5jZSBvZiBcIkBcIiBhbmQgZW5zdXJlcyBubyBjb25zZWN1dGl2ZSBkb3RzIGV4aXN0IGFmdGVyIGl0LFxyXG4gICAgICogdGhlbiB1c2VzIGEgcmVndWxhciBleHByZXNzaW9uIHRvIHZhbGlkYXRlIHRoZSBvdmVyYWxsIHN0cnVjdHVyZS5cclxuICAgICAqIFxyXG4gICAgICogQHBhcmFtIGVtYWlsIC0gVGhlIGVtYWlsIGFkZHJlc3MgdG8gdmFsaWRhdGUuXHJcbiAgICAgKiBAcmV0dXJucyBib29sZWFuIC0gUmV0dXJucyB0cnVlIGlmIHRoZSBlbWFpbCBpcyB2YWxpZCwgZmFsc2Ugb3RoZXJ3aXNlLlxyXG4gICAgICogQHRocm93cyBObyBleGNlcHRpb25zIGFyZSB0aHJvd24uXHJcbiAgICAgKi9cclxuZnVuY3Rpb24gaXNWYWxpZEVtYWlsKGVtYWlsIDogc3RyaW5nKSB7XHJcblxyXG4gICAgaWYoZW1haWwuaW5jbHVkZXMoXCJAXCIpKXtcclxuICAgICAgaWYoZW1haWwuc3Vic3RyaW5nKGVtYWlsLmxhc3RJbmRleE9mKFwiQFwiKSkuaW5jbHVkZXMoXCIuLlwiKSl7XHJcbiAgICAgICAgICByZXR1cm4gZmFsc2VcclxuICAgICAgfVxyXG4gICAgfVxyXG5cclxuICAgIC8vIFJlZ3VsYXIgZXhwcmVzc2lvbiBmb3IgZW1haWwgdmFsaWRhdGlvblxyXG4gICAgY29uc3QgZW1haWxSZWdleCA9IC9eW2EtekEtWjAtOS5fLV0rQFthLXpBLVowLTkuLV0rXFwuW2EtekEtWl17Miw2fSQvO1xyXG4gIFxyXG4gICAgcmV0dXJuIGVtYWlsUmVnZXgudGVzdChlbWFpbCk7XHJcbiAgfVxyXG5cclxuLyoqXHJcbiAqIFZhbGlkYXRlcyB0aGUgZm9ybWF0IG9mIGFuIHBhc3N3b3JkIHVzaW5nIGEgcmVndWxhciBleHByZXNzaW9uLiBcclxuICogQ2hlY2tzIGZvciBhdCBsZWFzdCBvbmUgbG93ZXJjYXNlIGxldHRlciwgb25lIHVwcGVyY2FzZSBsZXR0ZXIsIG9uZSBkaWdpdCwgXHJcbiAqIG9uZSBzcGVjaWFsIGNoYXJhY3RlciBmcm9tIHRoZSBzZXQgWyMgJCBAICEgJSAmICogP10sIGFuZCBlbnN1cmVzIHRoZSBsZW5ndGggXHJcbiAqIGlzIGJldHdlZW4gNiB0byAyMCBjaGFyYWN0ZXJzLiBBbHNvIGNoZWNrcyBmb3IgdGhlIHByZXNlbmNlIG9mIFwiQFwiIGFuZCBlbnN1cmluZyB0aGF0IHRoZXJlIGFyZSBubyBjb25zZWN1dGl2ZSBkb3RzIGZvbGxvd2luZyBpdC4gXHJcbiAqIFxyXG4gKiBAcGFyYW0gcGFzc3dvcmQgLSBUaGUgcGFzc3dvcmQgdG8gdmFsaWRhdGUuXHJcbiAqIEByZXR1cm5zIGJvb2xlYW4gLSBSZXR1cm5zIHRydWUgaWYgdGhlIHBhc3N3b3JkIGlzIHZhbGlkLCBmYWxzZSBvdGhlcndpc2UuXHJcbiAqIEB0aHJvd3MgTm8gZXhjZXB0aW9ucyBhcmUgdGhyb3duLlxyXG4gKi9cclxuZnVuY3Rpb24gaXNWYWxpZFBhc3N3b3JkKHBhc3N3b3JkOiBzdHJpbmcpIHtcclxuICAgIC8vIFJlZ3VsYXIgZXhwcmVzc2lvbiBmb3IgcGFzc3dvcmQgdmFsaWRhdGlvblxyXG4gICAgY29uc3QgcGFzc3dvcmRSZWdleCA9ICAvXig/PS4qW2Etel0pKD89LipbQS1aXSkoPz0uKlxcZCkoPz0uKlsjJEAhJSYqP10pW0EtWmEtelxcZCMkQCElJio/XXs2LDIwfSQvXHJcbiAgXHJcbiAgICByZXR1cm4gcGFzc3dvcmRSZWdleC50ZXN0KHBhc3N3b3JkKTtcclxuICB9XHJcblxyXG4vKipcclxuICogVmFsaWRhdGVzIHRoZSBmb3JtYXQgb2YgYW4gZW1haWwgYWRkcmVzcyB1c2luZyBhIHJlZ3VsYXIgZXhwcmVzc2lvbi4gXHJcbiAqIENoZWNrcyBmb3IgdGhlIHByZXNlbmNlIG9mIFwiQFwiIGFuZCBlbnN1cmVzIHZhbGlkIGNoYXJhY3RlcnMgYW5kIHN0cnVjdHVyZS4gXHJcbiAqIFxyXG4gKiBAcGFyYW0gZW1haWwgLSBUaGUgZW1haWwgYWRkcmVzcyB0byB2YWxpZGF0ZS5cclxuICogQHJldHVybnMgYm9vbGVhbiAtIFJldHVybnMgdHJ1ZSBpZiB0aGUgZW1haWwgZm9ybWF0IGlzIHZhbGlkLCBmYWxzZSBvdGhlcndpc2UuXHJcbiAqIEB0aHJvd3Mge1R5cGVFcnJvcn0gLSBUaHJvd3MgaWYgdGhlIGlucHV0IGlzIG5vdCBhIHN0cmluZy5cclxuICovXHJcbiAgZnVuY3Rpb24gaXNWYWxpZFVzZXJuYW1lKHVzZXJuYW1lOiBzdHJpbmcpIHtcclxuICAgIC8vIERlZmluZSB0aGUgcnVsZXMgZm9yIGEgdmFsaWQgdXNlcm5hbWVcclxuICAgIGNvbnN0IHJlZ2V4ID0gL15bYS16QS1aXVthLXpBLVowLTlfXXszLDE2fSQvOyAvLyBNdXN0IHN0YXJ0IHdpdGggYSBsZXR0ZXIsIGNvbnRhaW4gb25seSBsZXR0ZXJzLCBudW1iZXJzLCBhbmQgdW5kZXJzY29yZXMsIGFuZCBiZSBiZXR3ZWVuIDMgYW5kIDE2IGNoYXJhY3RlcnMgbG9uZ1xyXG4gIFxyXG4gICAgLy8gVGVzdCB0aGUgdXNlcm5hbWUgYWdhaW5zdCB0aGUgcmVnZXhcclxuICAgIHJldHVybiByZWdleC50ZXN0KHVzZXJuYW1lKTsgXHJcbiAgfSAgXHJcblxyXG4vKipcclxuICogVmFsaWRhdGVzIHRoZSBwcm92aWRlZCBwYXNzd29yZCBhZ2FpbnN0IGRlZmluZWQgY3JpdGVyaWEuXHJcbiAqIEBwYXJhbSBwYXNzd29yZCAtIFRoZSBwYXNzd29yZCBzdHJpbmcgdG8gYmUgdmFsaWRhdGVkLlxyXG4gKiBAcmV0dXJucyBib29sZWFuIC0gUmV0dXJucyB0cnVlIGlmIHRoZSBwYXNzd29yZCBpcyB2YWxpZCwgZmFsc2Ugb3RoZXJ3aXNlLlxyXG4gKiBAdGhyb3dzIE5vIGV4Y2VwdGlvbnMgYXJlIHRocm93bi5cclxuICovXHJcbiAgZnVuY3Rpb24gaXNWYWxpZGF0ZVBob25lTnVtYmVyKHBob25lIDogc3RyaW5nKSB7XHJcbiAgICBjb25zdCByZWdleCA9IC9eXFwrP1xcZHsxLDN9Wy0uXFxzXT9cXCg/XFxkezN9XFwpP1stLlxcc10/XFxkezN9Wy0uXFxzXT9cXGR7NH0kLztcclxuICAgIHJldHVybiByZWdleC50ZXN0KHBob25lKTtcclxuICB9XHJcblxyXG4gIGV4cG9ydCB7aXNWYWxpZEVtYWlsLCBpc1ZhbGlkUGFzc3dvcmQsIGlzVmFsaWRVc2VybmFtZSwgaXNWYWxpZGF0ZVBob25lTnVtYmVyfSJdLCJ2ZXJzaW9uIjozfQ==

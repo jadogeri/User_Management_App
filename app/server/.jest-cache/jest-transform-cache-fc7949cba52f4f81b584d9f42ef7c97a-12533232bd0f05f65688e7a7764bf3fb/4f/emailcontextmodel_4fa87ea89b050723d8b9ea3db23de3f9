@@ -1,0 +1,20 @@
+e127466c84650877d41ac455b658d462
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.EmailContext = void 0;
+class EmailContext {
+    getYear() {
+        const currentDate = new Date();
+        const currentYear = currentDate.getFullYear();
+        return currentYear;
+    }
+    getCompany() {
+        return process.env.COMPANY;
+    }
+    getLogoUrl() {
+        return process.env.LOGO_URL;
+    }
+}
+exports.EmailContext = EmailContext;
+//https://th.bing.com/th/id/OIP.y53aexkyw_ehqVHa8xRCkgHaHa?w=161&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiQzpcXFVzZXJzXFxKb3NlcGhcXERlc2t0b3BcXFNvdXJjZVxcVXNlcl9NYW5hZ2VtZW50X0FwcFxcYXBwXFxzZXJ2ZXJcXHNyY1xcbW9kZWxzXFxlbWFpbC1jb250ZXh0Lm1vZGVsLnRzIiwibWFwcGluZ3MiOiI7OztBQUNBLE1BQWEsWUFBWTtJQUNyQixPQUFPO1FBQ0gsTUFBTSxXQUFXLEdBQUcsSUFBSSxJQUFJLEVBQUUsQ0FBQztRQUMvQixNQUFNLFdBQVcsR0FBRyxXQUFXLENBQUMsV0FBVyxFQUFFLENBQUM7UUFDOUMsT0FBTyxXQUFXLENBQUM7SUFDdkIsQ0FBQztJQUNELFVBQVU7UUFDTixPQUFPLE9BQU8sQ0FBQyxHQUFHLENBQUMsT0FBaUIsQ0FBQztJQUN6QyxDQUFDO0lBRUQsVUFBVTtRQUNOLE9BQU8sT0FBTyxDQUFDLEdBQUcsQ0FBQyxRQUFrQixDQUFDO0lBQzFDLENBQUM7Q0FDSjtBQWJELG9DQWFDO0FBRUQsdUdBQXVHIiwibmFtZXMiOltdLCJzb3VyY2VzIjpbIkM6XFxVc2Vyc1xcSm9zZXBoXFxEZXNrdG9wXFxTb3VyY2VcXFVzZXJfTWFuYWdlbWVudF9BcHBcXGFwcFxcc2VydmVyXFxzcmNcXG1vZGVsc1xcZW1haWwtY29udGV4dC5tb2RlbC50cyJdLCJzb3VyY2VzQ29udGVudCI6WyJcclxuZXhwb3J0IGNsYXNzIEVtYWlsQ29udGV4dHtcclxuICAgIGdldFllYXIoKXtcclxuICAgICAgICBjb25zdCBjdXJyZW50RGF0ZSA9IG5ldyBEYXRlKCk7XHJcbiAgICAgICAgY29uc3QgY3VycmVudFllYXIgPSBjdXJyZW50RGF0ZS5nZXRGdWxsWWVhcigpO1xyXG4gICAgICAgIHJldHVybiBjdXJyZW50WWVhcjtcclxuICAgIH1cclxuICAgIGdldENvbXBhbnkoKXtcclxuICAgICAgICByZXR1cm4gcHJvY2Vzcy5lbnYuQ09NUEFOWSBhcyBzdHJpbmc7XHJcbiAgICB9XHJcblxyXG4gICAgZ2V0TG9nb1VybCgpe1xyXG4gICAgICAgIHJldHVybiBwcm9jZXNzLmVudi5MT0dPX1VSTCBhcyBzdHJpbmc7XHJcbiAgICB9XHJcbn1cclxuXHJcbi8vaHR0cHM6Ly90aC5iaW5nLmNvbS90aC9pZC9PSVAueTUzYWV4a3l3X2VocVZIYTh4UkNrZ0hhSGE/dz0xNjEmaD0xODAmYz03JnI9MCZvPTcmZHByPTEuMyZwaWQ9MS43JnJtPTMiXSwidmVyc2lvbiI6M30=

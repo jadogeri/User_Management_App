@@ -1,0 +1,46 @@
+8d0f241a8a298f4ef12d5e57c667a881
+"use strict";
+/**
+ * @author Joseph Adogeri
+ * @version 1.0
+ * @since 28-DEC-2025
+ * @description class representing Auth entity;
+ */
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+var _a;
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Auth = void 0;
+const typeorm_1 = require("typeorm");
+const user_entity_1 = __importDefault(require("./user.entity"));
+const audit_model_1 = require("../models/audit.model");
+let Auth = class Auth extends audit_model_1.Audit {
+};
+exports.Auth = Auth;
+__decorate([
+    (0, typeorm_1.PrimaryGeneratedColumn)(),
+    __metadata("design:type", Number)
+], Auth.prototype, "id", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: 'varchar', unique: true, nullable: true }),
+    __metadata("design:type", String)
+], Auth.prototype, "refreshToken", void 0);
+__decorate([
+    (0, typeorm_1.OneToOne)(() => user_entity_1.default, { onDelete: 'CASCADE', cascade: true }),
+    (0, typeorm_1.JoinColumn)(),
+    __metadata("design:type", typeof (_a = typeof user_entity_1.default !== "undefined" && user_entity_1.default) === "function" ? _a : Object)
+], Auth.prototype, "user", void 0);
+exports.Auth = Auth = __decorate([
+    (0, typeorm_1.Entity)()
+], Auth);
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiQzpcXFVzZXJzXFxKb3NlcGhcXERlc2t0b3BcXFNvdXJjZVxcVXNlcl9NYW5hZ2VtZW50X0FwcFxcYXBwXFxzZXJ2ZXJcXHNyY1xcZW50aXRpZXNcXGF1dGguZW50aXR5LnRzIiwibWFwcGluZ3MiOiI7QUFBQTs7Ozs7R0FLRzs7Ozs7Ozs7Ozs7Ozs7OztBQUVILHFDQUF1RjtBQUN2RixnRUFBaUM7QUFFakMsdURBQThDO0FBR3ZDLElBQU0sSUFBSSxHQUFWLE1BQU0sSUFBSyxTQUFRLG1CQUFLO0NBVTlCLENBQUE7QUFWWSxvQkFBSTtBQUViO0lBREMsSUFBQSxnQ0FBc0IsR0FBRTs7Z0NBQ2Q7QUFHWDtJQURDLElBQUEsZ0JBQU0sRUFBQyxFQUFFLElBQUksRUFBRSxTQUFTLEVBQUUsTUFBTSxFQUFFLElBQUksRUFBRSxRQUFRLEVBQUUsSUFBSSxFQUFFLENBQUM7OzBDQUNyQztBQUlyQjtJQUZDLElBQUEsa0JBQVEsRUFBQyxHQUFFLEVBQUUsQ0FBQyxxQkFBSSxFQUFFLEVBQUUsUUFBUSxFQUFFLFNBQVMsRUFBRSxPQUFPLEVBQUUsSUFBSSxFQUFFLENBQUM7SUFDM0QsSUFBQSxvQkFBVSxHQUFFO2tEQUNQLHFCQUFJLG9CQUFKLHFCQUFJO2tDQUFDO2VBVEYsSUFBSTtJQURoQixJQUFBLGdCQUFNLEdBQUU7R0FDSSxJQUFJLENBVWhCIiwibmFtZXMiOltdLCJzb3VyY2VzIjpbIkM6XFxVc2Vyc1xcSm9zZXBoXFxEZXNrdG9wXFxTb3VyY2VcXFVzZXJfTWFuYWdlbWVudF9BcHBcXGFwcFxcc2VydmVyXFxzcmNcXGVudGl0aWVzXFxhdXRoLmVudGl0eS50cyJdLCJzb3VyY2VzQ29udGVudCI6WyIvKipcclxuICogQGF1dGhvciBKb3NlcGggQWRvZ2VyaVxyXG4gKiBAdmVyc2lvbiAxLjBcclxuICogQHNpbmNlIDI4LURFQy0yMDI1XHJcbiAqIEBkZXNjcmlwdGlvbiBjbGFzcyByZXByZXNlbnRpbmcgQXV0aCBlbnRpdHk7XHJcbiAqL1xyXG5cclxuaW1wb3J0IHsgRW50aXR5LCBQcmltYXJ5R2VuZXJhdGVkQ29sdW1uLCBPbmVUb09uZSwgQ29sdW1uLCBKb2luQ29sdW1uIH0gZnJvbSBcInR5cGVvcm1cIjtcclxuaW1wb3J0IFVzZXIgZnJvbSBcIi4vdXNlci5lbnRpdHlcIjtcclxuaW1wb3J0IHsgQXV0aFR5cGUgfSBmcm9tIFwiLi4vdHlwZXMvYXV0aC50eXBlXCI7XHJcbmltcG9ydCB7IEF1ZGl0IH0gZnJvbSBcIi4uL21vZGVscy9hdWRpdC5tb2RlbFwiO1xyXG5cclxuQEVudGl0eSgpXHJcbmV4cG9ydCBjbGFzcyBBdXRoIGV4dGVuZHMgQXVkaXQgaW1wbGVtZW50cyBBdXRoVHlwZSB7XHJcbiAgICBAUHJpbWFyeUdlbmVyYXRlZENvbHVtbigpXHJcbiAgICBpZDogbnVtYmVyO1xyXG5cclxuICAgIEBDb2x1bW4oeyB0eXBlOiAndmFyY2hhcicsIHVuaXF1ZTogdHJ1ZSwgbnVsbGFibGU6IHRydWUgfSlcclxuICAgIHJlZnJlc2hUb2tlbjogc3RyaW5nO1xyXG5cclxuICAgIEBPbmVUb09uZSgoKT0+IFVzZXIsIHsgb25EZWxldGU6ICdDQVNDQURFJywgY2FzY2FkZTogdHJ1ZSB9KVxyXG4gICAgQEpvaW5Db2x1bW4oKSBcclxuICAgIHVzZXI6IFVzZXI7XHJcbn1cclxuXHJcbiJdLCJ2ZXJzaW9uIjozfQ==

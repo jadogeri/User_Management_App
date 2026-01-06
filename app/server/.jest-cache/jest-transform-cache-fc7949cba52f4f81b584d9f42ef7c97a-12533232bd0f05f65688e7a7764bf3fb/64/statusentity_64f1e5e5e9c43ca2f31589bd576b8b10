@@ -1,0 +1,50 @@
+fbecd03ad63fa420eb7878b26cb23a99
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+var _a;
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Status = void 0;
+/**
+* @version 1.0
+* @since 29-DEC-2025
+* @description class representing Status entity;
+*/
+const typeorm_1 = require("typeorm");
+const status_type_1 = require("../types/status.type");
+const user_entity_1 = __importDefault(require("./user.entity"));
+let Status = class Status {
+};
+exports.Status = Status;
+__decorate([
+    (0, typeorm_1.PrimaryColumn)(),
+    (0, typeorm_1.Check)(`"name" IN ('ENABLED', 'LOCKED', 'DISABLED')`),
+    __metadata("design:type", Number)
+], Status.prototype, "id", void 0);
+__decorate([
+    (0, typeorm_1.Column)({
+        type: 'simple-enum',
+        unique: true,
+        default: status_type_1.StatusEnum.ENABLED,
+    }),
+    __metadata("design:type", typeof (_a = typeof status_type_1.StatusEnum !== "undefined" && status_type_1.StatusEnum) === "function" ? _a : Object)
+], Status.prototype, "name", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => user_entity_1.default, (user) => user.status),
+    __metadata("design:type", Array)
+], Status.prototype, "users", void 0);
+exports.Status = Status = __decorate([
+    (0, typeorm_1.Entity)('status') // Ensure table name matches what you use in the migration
+], Status);
+exports.default = Status;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiQzpcXFVzZXJzXFxKb3NlcGhcXERlc2t0b3BcXFNvdXJjZVxcVXNlcl9NYW5hZ2VtZW50X0FwcFxcYXBwXFxzZXJ2ZXJcXHNyY1xcZW50aXRpZXNcXHN0YXR1cy5lbnRpdHkudHMiLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7OztBQUFDOzs7O0VBSUU7QUFDSCxxQ0FBMEU7QUFDMUUsc0RBQWtEO0FBQ2xELGdFQUFpQztBQUcxQixJQUFNLE1BQU0sR0FBWixNQUFNLE1BQU07Q0FlbEIsQ0FBQTtBQWZZLHdCQUFNO0FBR2pCO0lBRkMsSUFBQSx1QkFBYSxHQUFFO0lBQ2YsSUFBQSxlQUFLLEVBQUMsNkNBQTZDLENBQUM7O2tDQUMxQztBQU9YO0lBTEMsSUFBQSxnQkFBTSxFQUFDO1FBQ04sSUFBSSxFQUFFLGFBQWE7UUFDbkIsTUFBTSxFQUFFLElBQUk7UUFDWixPQUFPLEVBQUUsd0JBQVUsQ0FBQyxPQUFPO0tBQzVCLENBQUM7a0RBQ0ksd0JBQVUsb0JBQVYsd0JBQVU7b0NBQUM7QUFHakI7SUFEQyxJQUFBLG1CQUFTLEVBQUMsR0FBRyxFQUFFLENBQUMscUJBQUksRUFBRSxDQUFDLElBQUksRUFBRSxFQUFFLENBQUMsSUFBSSxDQUFDLE1BQU0sQ0FBQzs7cUNBQy9CO2lCQWJILE1BQU07SUFEbEIsSUFBQSxnQkFBTSxFQUFDLFFBQVEsQ0FBQyxDQUFDLDBEQUEwRDtHQUMvRCxNQUFNLENBZWxCO0FBRUQsa0JBQWUsTUFBTSxDQUFDIiwibmFtZXMiOltdLCJzb3VyY2VzIjpbIkM6XFxVc2Vyc1xcSm9zZXBoXFxEZXNrdG9wXFxTb3VyY2VcXFVzZXJfTWFuYWdlbWVudF9BcHBcXGFwcFxcc2VydmVyXFxzcmNcXGVudGl0aWVzXFxzdGF0dXMuZW50aXR5LnRzIl0sInNvdXJjZXNDb250ZW50IjpbIiAvKipcclxuICogQHZlcnNpb24gMS4wXHJcbiAqIEBzaW5jZSAyOS1ERUMtMjAyNVxyXG4gKiBAZGVzY3JpcHRpb24gY2xhc3MgcmVwcmVzZW50aW5nIFN0YXR1cyBlbnRpdHk7XHJcbiAqL1xyXG5pbXBvcnQgeyBFbnRpdHksIFByaW1hcnlDb2x1bW4sIENvbHVtbiwgQ2hlY2ssIE9uZVRvTWFueSB9IGZyb20gJ3R5cGVvcm0nO1xyXG5pbXBvcnQgeyBTdGF0dXNFbnVtIH0gZnJvbSAnLi4vdHlwZXMvc3RhdHVzLnR5cGUnO1xyXG5pbXBvcnQgVXNlciBmcm9tICcuL3VzZXIuZW50aXR5JztcclxuXHJcbkBFbnRpdHkoJ3N0YXR1cycpIC8vIEVuc3VyZSB0YWJsZSBuYW1lIG1hdGNoZXMgd2hhdCB5b3UgdXNlIGluIHRoZSBtaWdyYXRpb25cclxuZXhwb3J0IGNsYXNzIFN0YXR1cyB7XHJcbiAgQFByaW1hcnlDb2x1bW4oKVxyXG4gIEBDaGVjayhgXCJuYW1lXCIgSU4gKCdFTkFCTEVEJywgJ0xPQ0tFRCcsICdESVNBQkxFRCcpYClcclxuICBpZDogbnVtYmVyO1xyXG5cclxuICBAQ29sdW1uKHtcclxuICAgIHR5cGU6ICdzaW1wbGUtZW51bScsXHJcbiAgICB1bmlxdWU6IHRydWUsXHJcbiAgICBkZWZhdWx0OiBTdGF0dXNFbnVtLkVOQUJMRUQsXHJcbiAgfSlcclxuICBuYW1lOiBTdGF0dXNFbnVtO1xyXG5cclxuICBAT25lVG9NYW55KCgpID0+IFVzZXIsICh1c2VyKSA9PiB1c2VyLnN0YXR1cylcclxuICB1c2VyczogVXNlcltdO1xyXG5cclxufVxyXG5cclxuZXhwb3J0IGRlZmF1bHQgU3RhdHVzOyJdLCJ2ZXJzaW9uIjozfQ==

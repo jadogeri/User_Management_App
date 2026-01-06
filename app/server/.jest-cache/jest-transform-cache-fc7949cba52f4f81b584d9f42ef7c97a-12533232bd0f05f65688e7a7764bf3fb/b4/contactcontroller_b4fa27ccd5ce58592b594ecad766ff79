@@ -1,0 +1,76 @@
+fe4fe782c760d667456e596083d79108
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a, _b, _c, _d, _e, _f;
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ContactController = void 0;
+const tsoa_1 = require("tsoa");
+const decorators_1 = require("../decorators");
+const binding_type_1 = require("../types/binding.type");
+const contact_service_interface_1 = require("../interfaces/contact-service.interface");
+let ContactController = class ContactController extends tsoa_1.Controller {
+    createContact() {
+        return this.contactService.create();
+    }
+    getContact() {
+        return this.contactService.get();
+    }
+    updateContact() {
+        return this.contactService.update();
+    }
+    replaceContact() {
+        return this.contactService.replace();
+    }
+    deleteContact() {
+        return this.contactService.delete();
+    }
+};
+exports.ContactController = ContactController;
+__decorate([
+    (0, decorators_1.AutoWired)(binding_type_1.TYPES.ContactServiceInterface),
+    __metadata("design:type", typeof (_a = typeof contact_service_interface_1.ContactServiceInterface !== "undefined" && contact_service_interface_1.ContactServiceInterface) === "function" ? _a : Object)
+], ContactController.prototype, "contactService", void 0);
+__decorate([
+    (0, tsoa_1.Post)(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", typeof (_b = typeof Promise !== "undefined" && Promise) === "function" ? _b : Object)
+], ContactController.prototype, "createContact", null);
+__decorate([
+    (0, tsoa_1.Get)(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", typeof (_c = typeof Promise !== "undefined" && Promise) === "function" ? _c : Object)
+], ContactController.prototype, "getContact", null);
+__decorate([
+    (0, tsoa_1.Patch)(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", typeof (_d = typeof Promise !== "undefined" && Promise) === "function" ? _d : Object)
+], ContactController.prototype, "updateContact", null);
+__decorate([
+    (0, tsoa_1.Put)(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", typeof (_e = typeof Promise !== "undefined" && Promise) === "function" ? _e : Object)
+], ContactController.prototype, "replaceContact", null);
+__decorate([
+    (0, tsoa_1.Delete)(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", typeof (_f = typeof Promise !== "undefined" && Promise) === "function" ? _f : Object)
+], ContactController.prototype, "deleteContact", null);
+exports.ContactController = ContactController = __decorate([
+    (0, tsoa_1.Route)("contacts"),
+    (0, tsoa_1.Tags)("Contact"),
+    (0, decorators_1.Controller)()
+], ContactController);
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiQzpcXFVzZXJzXFxKb3NlcGhcXERlc2t0b3BcXFNvdXJjZVxcVXNlcl9NYW5hZ2VtZW50X0FwcFxcYXBwXFxzZXJ2ZXJcXHNyY1xcY29udHJvbGxlcnNcXGNvbnRhY3QuY29udHJvbGxlci50cyIsIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7O0FBQ0EsK0JBQWlNO0FBQ2pNLDhDQUFrRTtBQUVsRSx3REFBOEM7QUFJOUMsdUZBQWtGO0FBTTNFLElBQU0saUJBQWlCLEdBQXZCLE1BQU0saUJBQWtCLFNBQVEsaUJBQWM7SUFNbkQsYUFBYTtRQUNYLE9BQU8sSUFBSSxDQUFDLGNBQWMsQ0FBQyxNQUFNLEVBQUUsQ0FBQztJQUN0QyxDQUFDO0lBR0QsVUFBVTtRQUNSLE9BQU8sSUFBSSxDQUFDLGNBQWMsQ0FBQyxHQUFHLEVBQUUsQ0FBQztJQUNuQyxDQUFDO0lBRUQsYUFBYTtRQUNYLE9BQU8sSUFBSSxDQUFDLGNBQWMsQ0FBQyxNQUFNLEVBQUUsQ0FBQztJQUN0QyxDQUFDO0lBRUQsY0FBYztRQUNaLE9BQU8sSUFBSSxDQUFDLGNBQWMsQ0FBQyxPQUFPLEVBQUUsQ0FBQztJQUN2QyxDQUFDO0lBRUQsYUFBYTtRQUNYLE9BQU8sSUFBSSxDQUFDLGNBQWMsQ0FBQyxNQUFNLEVBQUUsQ0FBQztJQUN0QyxDQUFDO0NBRUYsQ0FBQTtBQTNCWSw4Q0FBaUI7QUFHWDtJQURoQixJQUFBLHNCQUFTLEVBQUMsb0JBQUssQ0FBQyx1QkFBdUIsQ0FBQztrREFDUCxtREFBdUIsb0JBQXZCLG1EQUF1Qjt5REFBQztBQUcxRDtJQURDLElBQUEsV0FBSSxHQUFFOzs7d0RBQ1UsT0FBTyxvQkFBUCxPQUFPO3NEQUV2QjtBQUdEO0lBREMsSUFBQSxVQUFHLEdBQUU7Ozt3REFDUSxPQUFPLG9CQUFQLE9BQU87bURBRXBCO0FBRUQ7SUFEQyxJQUFBLFlBQUssR0FBRTs7O3dEQUNTLE9BQU8sb0JBQVAsT0FBTztzREFFdkI7QUFFRDtJQURDLElBQUEsVUFBRyxHQUFFOzs7d0RBQ1ksT0FBTyxvQkFBUCxPQUFPO3VEQUV4QjtBQUVEO0lBREMsSUFBQSxhQUFNLEdBQUU7Ozt3REFDUSxPQUFPLG9CQUFQLE9BQU87c0RBRXZCOzRCQXpCVSxpQkFBaUI7SUFIN0IsSUFBQSxZQUFLLEVBQUMsVUFBVSxDQUFDO0lBQ2pCLElBQUEsV0FBSSxFQUFDLFNBQVMsQ0FBQztJQUNmLElBQUEsdUJBQVUsR0FBRTtHQUNBLGlCQUFpQixDQTJCN0IiLCJuYW1lcyI6W10sInNvdXJjZXMiOlsiQzpcXFVzZXJzXFxKb3NlcGhcXERlc2t0b3BcXFNvdXJjZVxcVXNlcl9NYW5hZ2VtZW50X0FwcFxcYXBwXFxzZXJ2ZXJcXHNyY1xcY29udHJvbGxlcnNcXGNvbnRhY3QuY29udHJvbGxlci50cyJdLCJzb3VyY2VzQ29udGVudCI6WyJcclxuaW1wb3J0IHsgUmVxdWVzdCwgQ29udHJvbGxlciBhcyBCYXNlQ29udHJvbGxlciwgQm9keSwgRGVsZXRlLCBHZXQsIFBvc3QsIFB1dCwgUm91dGUsIFRhZ3MsIFJlc3BvbnNlLCBQYXRoLCBFeGFtcGxlLCBTdWNjZXNzUmVzcG9uc2UsIFJlcywgVHNvYVJlc3BvbnNlLCBTZWN1cml0eSwgTm9TZWN1cml0eSwgUGF0Y2h9IGZyb20gXCJ0c29hXCI7XHJcbmltcG9ydCB7IEF1dG9XaXJlZCwgQ29udHJvbGxlciwgTWlkZGxld2FyZSB9IGZyb20gXCIuLi9kZWNvcmF0b3JzXCI7XHJcbmltcG9ydCB7IFJlcXVlc3QgYXMgRXhwcmVzc1JlcXVlc3QsUmVzcG9uc2UgYXMgRXhwcmVzc1Jlc3BvbnNlIH0gZnJvbSBcImV4cHJlc3NcIjtcclxuaW1wb3J0IHsgVFlQRVMgfSBmcm9tIFwiLi4vdHlwZXMvYmluZGluZy50eXBlXCI7XHJcbmltcG9ydCBsb2dpbkxpbWl0dGVyTWlkZGxld2FyZSBmcm9tIFwiLi4vbWlkZGxld2FyZXMvbG9naW4tbGltaXR0ZXIubWlkZGxld2FyZVwiO1xyXG5cclxuaW1wb3J0IHsgQ29udGFjdENvbnRyb2xsZXJJbnRlcmZhY2UgfSBmcm9tIFwiLi4vaW50ZXJmYWNlcy9jb250YWN0LWNvbnRyb2xsZXIuaW50ZXJmYWNlXCI7XHJcbmltcG9ydCB7IENvbnRhY3RTZXJ2aWNlSW50ZXJmYWNlIH0gZnJvbSBcIi4uL2ludGVyZmFjZXMvY29udGFjdC1zZXJ2aWNlLmludGVyZmFjZVwiO1xyXG5cclxuXHJcbkBSb3V0ZShcImNvbnRhY3RzXCIpXHJcbkBUYWdzKFwiQ29udGFjdFwiKVxyXG5AQ29udHJvbGxlcigpIFxyXG5leHBvcnQgY2xhc3MgQ29udGFjdENvbnRyb2xsZXIgZXh0ZW5kcyBCYXNlQ29udHJvbGxlciBpbXBsZW1lbnRzIENvbnRhY3RDb250cm9sbGVySW50ZXJmYWNlIHtcclxuXHJcbiAgQEF1dG9XaXJlZChUWVBFUy5Db250YWN0U2VydmljZUludGVyZmFjZSlcclxuICBwcml2YXRlIHJlYWRvbmx5IGNvbnRhY3RTZXJ2aWNlITogQ29udGFjdFNlcnZpY2VJbnRlcmZhY2U7XHJcblxyXG4gIEBQb3N0KClcclxuICBjcmVhdGVDb250YWN0KCk6IFByb21pc2U8YW55PiB7XHJcbiAgICByZXR1cm4gdGhpcy5jb250YWN0U2VydmljZS5jcmVhdGUoKTtcclxuICB9XHJcblxyXG4gIEBHZXQoKVxyXG4gIGdldENvbnRhY3QoKTogUHJvbWlzZTxhbnk+IHtcclxuICAgIHJldHVybiB0aGlzLmNvbnRhY3RTZXJ2aWNlLmdldCgpO1xyXG4gIH1cclxuICBAUGF0Y2goKVxyXG4gIHVwZGF0ZUNvbnRhY3QoKTogUHJvbWlzZTxhbnk+IHtcclxuICAgIHJldHVybiB0aGlzLmNvbnRhY3RTZXJ2aWNlLnVwZGF0ZSgpO1xyXG4gIH1cclxuICBAUHV0KClcclxuICByZXBsYWNlQ29udGFjdCgpOiBQcm9taXNlPGFueT4ge1xyXG4gICAgcmV0dXJuIHRoaXMuY29udGFjdFNlcnZpY2UucmVwbGFjZSgpO1xyXG4gIH1cclxuICBARGVsZXRlKCkgXHJcbiAgZGVsZXRlQ29udGFjdCgpOiBQcm9taXNlPGFueT4ge1xyXG4gICAgcmV0dXJuIHRoaXMuY29udGFjdFNlcnZpY2UuZGVsZXRlKCk7XHJcbiAgfVxyXG5cclxufVxyXG5cclxuIl0sInZlcnNpb24iOjN9

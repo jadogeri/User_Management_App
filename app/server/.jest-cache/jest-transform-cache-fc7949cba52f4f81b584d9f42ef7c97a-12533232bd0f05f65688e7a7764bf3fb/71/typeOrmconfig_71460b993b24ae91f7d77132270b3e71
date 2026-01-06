@@ -1,0 +1,37 @@
+4c27e5c7cfdf10aa66fc1b31355ffe5a
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.AppDataSource = void 0;
+// src/config/typeorm.config.ts
+const typeorm_1 = require("typeorm");
+const role_entity_1 = require("../entities/role.entity");
+const user_entity_1 = require("../entities/user.entity");
+const status_entity_1 = require("../entities/status.entity");
+const auth_entity_1 = require("../entities/auth.entity");
+const permission_entity_1 = require("../entities/permission.entity");
+const profile_entity_1 = __importDefault(require("../entities/profile.entity"));
+const contact_entity_1 = require("../entities/contact.entity");
+const env = process.env.NODE_ENV || 'development';
+console.log(`Current Environment: ${env}`);
+const options = {
+    type: "better-sqlite3",
+    database: "user-management-app.sqlite", // Name of the SQLite database file
+    synchronize: process.env.NODE_ENV === env, // Automatically creates database schema in development. Use migrations in production.
+    //logging: true, // Set to true to log generated SQL queries to the console
+    entities: [user_entity_1.User, role_entity_1.Role, status_entity_1.Status, auth_entity_1.Auth, permission_entity_1.Permission, profile_entity_1.default, contact_entity_1.Contact], // List your entity classes or use a glob pattern
+    migrations: ["src/migrations/**/*.ts"],
+    subscribers: [],
+    // These belong to SeederOptions
+    seeds: ['src/database/seeds/**/*{.ts,.js}'
+        //   StatusSeeder,     // Runs 1st
+        //   PermissionSeeder, // Runs 2nd
+        //   RoleSeeder,       // Runs 3rd
+        //  UserSeeder,       // Runs 4th
+    ],
+    factories: ['src/database/factories/**/*{.ts,.js}'],
+};
+exports.AppDataSource = new typeorm_1.DataSource(options);
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiQzpcXFVzZXJzXFxKb3NlcGhcXERlc2t0b3BcXFNvdXJjZVxcVXNlcl9NYW5hZ2VtZW50X0FwcFxcYXBwXFxzZXJ2ZXJcXHNyY1xcY29uZmlnc1xcdHlwZU9ybS5jb25maWcudHMiLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBQUEsK0JBQStCO0FBQzdCLHFDQUF3RDtBQUUxRCx5REFBK0M7QUFDL0MseURBQStDO0FBQy9DLDZEQUFtRDtBQUNuRCx5REFBK0M7QUFFL0MscUVBQTJEO0FBQzNELGdGQUFpRDtBQUNqRCwrREFBcUQ7QUFNckQsTUFBTSxHQUFHLEdBQXFCLE9BQU8sQ0FBQyxHQUFHLENBQUMsUUFBUSxJQUFJLGFBQWEsQ0FBQztBQUNwRSxPQUFPLENBQUMsR0FBRyxDQUFDLHdCQUF3QixHQUFHLEVBQUUsQ0FBQyxDQUFDO0FBRTNDLE1BQU0sT0FBTyxHQUFzQztJQUNqRCxJQUFJLEVBQUUsZ0JBQWdCO0lBQ3RCLFFBQVEsRUFBRSw0QkFBNEIsRUFBRSxtQ0FBbUM7SUFDM0UsV0FBVyxFQUFFLE9BQU8sQ0FBQyxHQUFHLENBQUMsUUFBUSxLQUFLLEdBQUcsRUFBRSxzRkFBc0Y7SUFDakksMkVBQTJFO0lBQzNFLFFBQVEsRUFBRSxDQUFDLGtCQUFJLEVBQUUsa0JBQUksRUFBRSxzQkFBTSxFQUFFLGtCQUFJLEVBQUUsOEJBQVUsRUFBRSx3QkFBTyxFQUFFLHdCQUFPLENBQUMsRUFBRSxpREFBaUQ7SUFDckgsVUFBVSxFQUFFLENBQUMsd0JBQXdCLENBQUM7SUFDdEMsV0FBVyxFQUFFLEVBQUU7SUFDZixnQ0FBZ0M7SUFDaEMsS0FBSyxFQUFFLENBQUUsa0NBQWtDO1FBQzNDLGtDQUFrQztRQUNsQyxrQ0FBa0M7UUFDbEMsa0NBQWtDO1FBQ2xDLGlDQUFpQztLQUVoQztJQUNELFNBQVMsRUFBRSxDQUFDLHNDQUFzQyxDQUFDO0NBQ3BELENBQUM7QUFFVyxRQUFBLGFBQWEsR0FBRyxJQUFJLG9CQUFVLENBQUMsT0FBTyxDQUFDLENBQUMiLCJuYW1lcyI6W10sInNvdXJjZXMiOlsiQzpcXFVzZXJzXFxKb3NlcGhcXERlc2t0b3BcXFNvdXJjZVxcVXNlcl9NYW5hZ2VtZW50X0FwcFxcYXBwXFxzZXJ2ZXJcXHNyY1xcY29uZmlnc1xcdHlwZU9ybS5jb25maWcudHMiXSwic291cmNlc0NvbnRlbnQiOlsiLy8gc3JjL2NvbmZpZy90eXBlb3JtLmNvbmZpZy50c1xyXG4gIGltcG9ydCB7IERhdGFTb3VyY2UsIERhdGFTb3VyY2VPcHRpb25zIH0gZnJvbSAndHlwZW9ybSc7XHJcbmltcG9ydCB7IFNlZWRlck9wdGlvbnMgfSBmcm9tICd0eXBlb3JtLWV4dGVuc2lvbic7XHJcbmltcG9ydCB7IFJvbGUgfSBmcm9tICcuLi9lbnRpdGllcy9yb2xlLmVudGl0eSc7XHJcbmltcG9ydCB7IFVzZXIgfSBmcm9tICcuLi9lbnRpdGllcy91c2VyLmVudGl0eSc7XHJcbmltcG9ydCB7IFN0YXR1cyB9IGZyb20gJy4uL2VudGl0aWVzL3N0YXR1cy5lbnRpdHknO1xyXG5pbXBvcnQgeyBBdXRoIH0gZnJvbSAnLi4vZW50aXRpZXMvYXV0aC5lbnRpdHknO1xyXG5pbXBvcnQgeyBOb2RlRW52aXJvbm1lbnQgfSBmcm9tICcuLi90eXBlcy9ub2RlLWVudmlyb25tZW50LnR5cGUnO1xyXG5pbXBvcnQgeyBQZXJtaXNzaW9uIH0gZnJvbSAnLi4vZW50aXRpZXMvcGVybWlzc2lvbi5lbnRpdHknO1xyXG5pbXBvcnQgUHJvZmlsZSBmcm9tICcuLi9lbnRpdGllcy9wcm9maWxlLmVudGl0eSc7XHJcbmltcG9ydCB7IENvbnRhY3QgfSBmcm9tICcuLi9lbnRpdGllcy9jb250YWN0LmVudGl0eSc7XHJcbmltcG9ydCBTdGF0dXNTZWVkZXIgZnJvbSAnLi4vZGF0YWJhc2Uvc2VlZHMvc3RhdHVzLnNlZWQnO1xyXG5pbXBvcnQgUGVybWlzc2lvblNlZWRlciBmcm9tICcuLi9kYXRhYmFzZS9zZWVkcy9wZXJtaXNzaW9uLnNlZWQnO1xyXG5pbXBvcnQgUm9sZVNlZWRlciBmcm9tICcuLi9kYXRhYmFzZS9zZWVkcy9yb2xlLnNlZWQnO1xyXG5pbXBvcnQgVXNlclNlZWRlciBmcm9tICcuLi9kYXRhYmFzZS9zZWVkcy91c2VyLnNlZWQnO1xyXG5cclxuY29uc3QgZW52IDogTm9kZUVudmlyb25tZW50ID0gcHJvY2Vzcy5lbnYuTk9ERV9FTlYgfHwgJ2RldmVsb3BtZW50JztcclxuY29uc29sZS5sb2coYEN1cnJlbnQgRW52aXJvbm1lbnQ6ICR7ZW52fWApO1xyXG5cclxuY29uc3Qgb3B0aW9uczogRGF0YVNvdXJjZU9wdGlvbnMgJiBTZWVkZXJPcHRpb25zID0ge1xyXG4gIHR5cGU6IFwiYmV0dGVyLXNxbGl0ZTNcIixcclxuICBkYXRhYmFzZTogXCJ1c2VyLW1hbmFnZW1lbnQtYXBwLnNxbGl0ZVwiLCAvLyBOYW1lIG9mIHRoZSBTUUxpdGUgZGF0YWJhc2UgZmlsZVxyXG4gIHN5bmNocm9uaXplOiBwcm9jZXNzLmVudi5OT0RFX0VOViA9PT0gZW52LCAvLyBBdXRvbWF0aWNhbGx5IGNyZWF0ZXMgZGF0YWJhc2Ugc2NoZW1hIGluIGRldmVsb3BtZW50LiBVc2UgbWlncmF0aW9ucyBpbiBwcm9kdWN0aW9uLlxyXG4gIC8vbG9nZ2luZzogdHJ1ZSwgLy8gU2V0IHRvIHRydWUgdG8gbG9nIGdlbmVyYXRlZCBTUUwgcXVlcmllcyB0byB0aGUgY29uc29sZVxyXG4gIGVudGl0aWVzOiBbVXNlciwgUm9sZSwgU3RhdHVzLCBBdXRoLCBQZXJtaXNzaW9uLCBQcm9maWxlLCBDb250YWN0XSwgLy8gTGlzdCB5b3VyIGVudGl0eSBjbGFzc2VzIG9yIHVzZSBhIGdsb2IgcGF0dGVyblxyXG4gIG1pZ3JhdGlvbnM6IFtcInNyYy9taWdyYXRpb25zLyoqLyoudHNcIl0sXHJcbiAgc3Vic2NyaWJlcnM6IFtdLFxyXG4gIC8vIFRoZXNlIGJlbG9uZyB0byBTZWVkZXJPcHRpb25zXHJcbiAgc2VlZHM6IFsgJ3NyYy9kYXRhYmFzZS9zZWVkcy8qKi8qey50cywuanN9J1xyXG4gIC8vICAgU3RhdHVzU2VlZGVyLCAgICAgLy8gUnVucyAxc3RcclxuICAvLyAgIFBlcm1pc3Npb25TZWVkZXIsIC8vIFJ1bnMgMm5kXHJcbiAgLy8gICBSb2xlU2VlZGVyLCAgICAgICAvLyBSdW5zIDNyZFxyXG4gIC8vICBVc2VyU2VlZGVyLCAgICAgICAvLyBSdW5zIDR0aFxyXG5cclxuICBdLFxyXG4gIGZhY3RvcmllczogWydzcmMvZGF0YWJhc2UvZmFjdG9yaWVzLyoqLyp7LnRzLC5qc30nXSxcclxufTtcclxuXHJcbmV4cG9ydCBjb25zdCBBcHBEYXRhU291cmNlID0gbmV3IERhdGFTb3VyY2Uob3B0aW9ucyk7XHJcbiJdLCJ2ZXJzaW9uIjozfQ==

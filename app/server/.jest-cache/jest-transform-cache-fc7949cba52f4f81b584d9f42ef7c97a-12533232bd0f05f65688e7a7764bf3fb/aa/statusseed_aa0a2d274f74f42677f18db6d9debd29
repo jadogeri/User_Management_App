@@ -1,0 +1,28 @@
+4ae7d876969e69f8eaf0a2fcfaefd710
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const status_entity_1 = require("../../entities/status.entity");
+const status_data_1 = require("../../data/status.data");
+class StatusSeeder {
+    /**
+       * Checks for the existence of predefined status entities in the database
+       * and saves them if they do not already exist.
+       *
+       * @param dataSource - The data source used to access the repository.
+       * @returns A promise that resolves to void.
+       * @throws Any errors thrown by the repository methods during execution.
+       */
+    async run(dataSource) {
+        const statusRepository = dataSource.getRepository(status_entity_1.Status);
+        const statuses = [status_data_1.EnabledStatus, status_data_1.DisabledStatus, status_data_1.LockedStatus];
+        for (const status of statuses) {
+            // Check if the status already exists by ID
+            const existingStatus = await statusRepository.findOneBy({ id: status.id });
+            if (!existingStatus) {
+                await statusRepository.save(status);
+            }
+        }
+    }
+}
+exports.default = StatusSeeder;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiQzpcXFVzZXJzXFxKb3NlcGhcXERlc2t0b3BcXFNvdXJjZVxcVXNlcl9NYW5hZ2VtZW50X0FwcFxcYXBwXFxzZXJ2ZXJcXHNyY1xcZGF0YWJhc2VcXHNlZWRzXFxzdGF0dXMuc2VlZC50cyIsIm1hcHBpbmdzIjoiOztBQUdBLGdFQUFzRDtBQUN0RCx3REFBcUY7QUFFckYsTUFBcUIsWUFBWTtJQUNqQzs7Ozs7OztTQU9LO0lBQ0ksS0FBSyxDQUFDLEdBQUcsQ0FBQyxVQUFzQjtRQUNyQyxNQUFNLGdCQUFnQixHQUFHLFVBQVUsQ0FBQyxhQUFhLENBQUMsc0JBQU0sQ0FBQyxDQUFDO1FBQzFELE1BQU0sUUFBUSxHQUFHLENBQUMsMkJBQWEsRUFBRSw0QkFBYyxFQUFFLDBCQUFZLENBQUMsQ0FBQztRQUUvRCxLQUFLLE1BQU0sTUFBTSxJQUFJLFFBQVEsRUFBRSxDQUFDO1lBQzlCLDJDQUEyQztZQUMzQyxNQUFNLGNBQWMsR0FBRyxNQUFNLGdCQUFnQixDQUFDLFNBQVMsQ0FBQyxFQUFFLEVBQUUsRUFBRSxNQUFNLENBQUMsRUFBRSxFQUFFLENBQUMsQ0FBQztZQUUzRSxJQUFJLENBQUMsY0FBYyxFQUFFLENBQUM7Z0JBQ3BCLE1BQU0sZ0JBQWdCLENBQUMsSUFBSSxDQUFDLE1BQU0sQ0FBQyxDQUFDO1lBQ3RDLENBQUM7UUFDSCxDQUFDO0lBQ0gsQ0FBQztDQUNGO0FBdEJELCtCQXNCQyIsIm5hbWVzIjpbXSwic291cmNlcyI6WyJDOlxcVXNlcnNcXEpvc2VwaFxcRGVza3RvcFxcU291cmNlXFxVc2VyX01hbmFnZW1lbnRfQXBwXFxhcHBcXHNlcnZlclxcc3JjXFxkYXRhYmFzZVxcc2VlZHNcXHN0YXR1cy5zZWVkLnRzIl0sInNvdXJjZXNDb250ZW50IjpbIi8vIHNyYy9kYXRhYmFzZS9zZWVkcy9TdGF0dXNTZWVkZXIudHNcclxuaW1wb3J0IHsgRGF0YVNvdXJjZSB9IGZyb20gJ3R5cGVvcm0nO1xyXG5pbXBvcnQgeyBTZWVkZXIgfSBmcm9tICd0eXBlb3JtLWV4dGVuc2lvbic7XHJcbmltcG9ydCB7IFN0YXR1cyB9IGZyb20gJy4uLy4uL2VudGl0aWVzL3N0YXR1cy5lbnRpdHknO1xyXG5pbXBvcnQgeyBFbmFibGVkU3RhdHVzLCBEaXNhYmxlZFN0YXR1cywgTG9ja2VkU3RhdHVzIH0gZnJvbSAnLi4vLi4vZGF0YS9zdGF0dXMuZGF0YSc7XHJcblxyXG5leHBvcnQgZGVmYXVsdCBjbGFzcyBTdGF0dXNTZWVkZXIgaW1wbGVtZW50cyBTZWVkZXIge1xyXG4vKipcclxuICAgKiBDaGVja3MgZm9yIHRoZSBleGlzdGVuY2Ugb2YgcHJlZGVmaW5lZCBzdGF0dXMgZW50aXRpZXMgaW4gdGhlIGRhdGFiYXNlIFxyXG4gICAqIGFuZCBzYXZlcyB0aGVtIGlmIHRoZXkgZG8gbm90IGFscmVhZHkgZXhpc3QuIFxyXG4gICAqIFxyXG4gICAqIEBwYXJhbSBkYXRhU291cmNlIC0gVGhlIGRhdGEgc291cmNlIHVzZWQgdG8gYWNjZXNzIHRoZSByZXBvc2l0b3J5LlxyXG4gICAqIEByZXR1cm5zIEEgcHJvbWlzZSB0aGF0IHJlc29sdmVzIHRvIHZvaWQuXHJcbiAgICogQHRocm93cyBBbnkgZXJyb3JzIHRocm93biBieSB0aGUgcmVwb3NpdG9yeSBtZXRob2RzIGR1cmluZyBleGVjdXRpb24uXHJcbiAgICovXHJcbiAgcHVibGljIGFzeW5jIHJ1bihkYXRhU291cmNlOiBEYXRhU291cmNlKTogUHJvbWlzZTx2b2lkPiB7XHJcbiAgICBjb25zdCBzdGF0dXNSZXBvc2l0b3J5ID0gZGF0YVNvdXJjZS5nZXRSZXBvc2l0b3J5KFN0YXR1cyk7XHJcbiAgICBjb25zdCBzdGF0dXNlcyA9IFtFbmFibGVkU3RhdHVzLCBEaXNhYmxlZFN0YXR1cywgTG9ja2VkU3RhdHVzXTtcclxuICAgIFxyXG4gICAgZm9yIChjb25zdCBzdGF0dXMgb2Ygc3RhdHVzZXMpIHtcclxuICAgICAgLy8gQ2hlY2sgaWYgdGhlIHN0YXR1cyBhbHJlYWR5IGV4aXN0cyBieSBJRFxyXG4gICAgICBjb25zdCBleGlzdGluZ1N0YXR1cyA9IGF3YWl0IHN0YXR1c1JlcG9zaXRvcnkuZmluZE9uZUJ5KHsgaWQ6IHN0YXR1cy5pZCB9KTtcclxuICAgICAgXHJcbiAgICAgIGlmICghZXhpc3RpbmdTdGF0dXMpIHtcclxuICAgICAgICBhd2FpdCBzdGF0dXNSZXBvc2l0b3J5LnNhdmUoc3RhdHVzKTtcclxuICAgICAgfVxyXG4gICAgfVxyXG4gIH1cclxufVxyXG4iXSwidmVyc2lvbiI6M30=

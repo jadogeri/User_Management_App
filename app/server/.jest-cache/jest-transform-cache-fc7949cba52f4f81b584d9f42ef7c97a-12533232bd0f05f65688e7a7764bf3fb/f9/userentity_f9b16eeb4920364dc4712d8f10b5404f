@@ -1,0 +1,109 @@
+d178f16629ad175608f4a8a3400684f3
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+var _a, _b;
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.User = void 0;
+// src/entities/User.ts
+const typeorm_1 = require("typeorm");
+const class_validator_1 = require("class-validator");
+const audit_model_1 = require("../models/audit.model");
+const role_entity_1 = __importDefault(require("./role.entity"));
+const status_entity_1 = __importDefault(require("./status.entity"));
+const contact_entity_1 = require("./contact.entity");
+let User = class User extends audit_model_1.Audit {
+    getPermissionNames() {
+        const uniquePermissions = new Set();
+        for (let role of this.roles) {
+            for (let permission of role.permissions)
+                uniquePermissions.add(permission.rbacPermission());
+        }
+        console.log("unique permissions: ", uniquePermissions);
+        const permissionList = [...uniquePermissions];
+        return permissionList;
+    }
+};
+exports.User = User;
+__decorate([
+    (0, typeorm_1.PrimaryGeneratedColumn)() // SQLite uses auto-increment integers by default
+    ,
+    __metadata("design:type", Number)
+], User.prototype, "id", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: "varchar", length: 40, nullable: false, unique: false }),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], User.prototype, "fullname", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: "varchar", length: 40, nullable: false, unique: true }),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], User.prototype, "username", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], User.prototype, "email", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: "varchar", length: 15, nullable: true }),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], User.prototype, "phone", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: "varchar", length: 100, nullable: false, //select: false 
+    }),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], User.prototype, "password", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: "integer", default: 0, nullable: false, unsigned: true }),
+    (0, class_validator_1.IsInt)(),
+    __metadata("design:type", Number)
+], User.prototype, "failedLogins", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: "boolean", default: true, nullable: false }),
+    (0, class_validator_1.IsInt)(),
+    __metadata("design:type", Boolean)
+], User.prototype, "isEnabled", void 0);
+__decorate([
+    (0, typeorm_1.Column)({
+        type: "json",
+        nullable: true,
+        default: null
+    }),
+    __metadata("design:type", Object)
+], User.prototype, "suspension", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)(() => status_entity_1.default),
+    (0, typeorm_1.JoinColumn)({ name: 'status_id' }),
+    __metadata("design:type", typeof (_b = typeof status_entity_1.default !== "undefined" && status_entity_1.default) === "function" ? _b : Object)
+], User.prototype, "status", void 0);
+__decorate([
+    (0, typeorm_1.ManyToMany)(() => role_entity_1.default, role => role.users, { cascade: true }),
+    (0, typeorm_1.JoinTable)({
+        name: 'user_roles', // Custom name for the join table
+        joinColumn: { name: 'user_id', referencedColumnName: 'id' },
+        inverseJoinColumn: { name: 'role_id', referencedColumnName: 'id' },
+    }),
+    __metadata("design:type", Array)
+], User.prototype, "roles", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => contact_entity_1.Contact, (contact) => contact.user, { cascade: true }),
+    __metadata("design:type", Array)
+], User.prototype, "contacts", void 0);
+exports.User = User = __decorate([
+    (0, typeorm_1.Entity)()
+], User);
+exports.default = User;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiQzpcXFVzZXJzXFxKb3NlcGhcXERlc2t0b3BcXFNvdXJjZVxcVXNlcl9NYW5hZ2VtZW50X0FwcFxcYXBwXFxzZXJ2ZXJcXHNyY1xcZW50aXRpZXNcXHVzZXIuZW50aXR5LnRzIiwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7QUFBQSx1QkFBdUI7QUFDdkIscUNBQTJIO0FBQzNILHFEQUFrRDtBQUNsRCx1REFBOEM7QUFFOUMsZ0VBQWlDO0FBQ2pDLG9FQUFxQztBQUdyQyxxREFBMkM7QUFHcEMsSUFBTSxJQUFJLEdBQVYsTUFBTSxJQUFLLFNBQVEsbUJBQUs7SUEyRDdCLGtCQUFrQjtRQUVoQixNQUFNLGlCQUFpQixHQUF3QixJQUFJLEdBQUcsRUFBRSxDQUFDO1FBRXpELEtBQUssSUFBSSxJQUFJLElBQUksSUFBSSxDQUFDLEtBQUssRUFBRSxDQUFDO1lBQzVCLEtBQUksSUFBSSxVQUFVLElBQUksSUFBSSxDQUFDLFdBQVc7Z0JBQ3BDLGlCQUFpQixDQUFDLEdBQUcsQ0FBQyxVQUFVLENBQUMsY0FBYyxFQUFFLENBQUMsQ0FBQztRQUN2RCxDQUFDO1FBQ0QsT0FBTyxDQUFDLEdBQUcsQ0FBQyxzQkFBc0IsRUFBRSxpQkFBaUIsQ0FBQyxDQUFDO1FBQ3ZELE1BQU0sY0FBYyxHQUFxQixDQUFDLEdBQUcsaUJBQWlCLENBQUMsQ0FBQztRQUVoRSxPQUFPLGNBQWMsQ0FBQztJQUN4QixDQUFDO0NBRUYsQ0FBQTtBQXpFWSxvQkFBSTtBQUVmO0lBREMsSUFBQSxnQ0FBc0IsR0FBRSxDQUFDLGlEQUFpRDs7O2dDQUNoRTtBQUlYO0lBRkMsSUFBQSxnQkFBTSxFQUFDLEVBQUMsSUFBSSxFQUFFLFNBQVMsRUFBRSxNQUFNLEVBQUUsRUFBRSxFQUFFLFFBQVEsRUFBRSxLQUFLLEVBQUUsTUFBTSxFQUFFLEtBQUssRUFBRSxDQUFDO0lBQ3RFLElBQUEsMEJBQVEsR0FBRTs7c0NBQ007QUFJakI7SUFGQyxJQUFBLGdCQUFNLEVBQUMsRUFBQyxJQUFJLEVBQUUsU0FBUyxFQUFFLE1BQU0sRUFBRSxFQUFFLEVBQUUsUUFBUSxFQUFFLEtBQUssRUFBRSxNQUFNLEVBQUUsSUFBSSxFQUFFLENBQUM7SUFDckUsSUFBQSwwQkFBUSxHQUFFOztzQ0FDTTtBQUlqQjtJQUZDLElBQUEsZ0JBQU0sR0FBRTtJQUNSLElBQUEsMEJBQVEsR0FBRTs7bUNBQ0c7QUFJZDtJQUZDLElBQUEsZ0JBQU0sRUFBQyxFQUFDLElBQUksRUFBRSxTQUFTLEVBQUUsTUFBTSxFQUFFLEVBQUUsRUFBRSxRQUFRLEVBQUUsSUFBSSxFQUFFLENBQUM7SUFDdEQsSUFBQSwwQkFBUSxHQUFFOzttQ0FDRztBQU1kO0lBSkMsSUFBQSxnQkFBTSxFQUFDLEVBQUMsSUFBSSxFQUFFLFNBQVMsRUFBRSxNQUFNLEVBQUUsR0FBRyxFQUFFLFFBQVEsRUFBRSxLQUFLLEVBQUUsZ0JBQWdCO0tBRXRFLENBQUM7SUFDRixJQUFBLDBCQUFRLEdBQUU7O3NDQUNNO0FBSWpCO0lBRkMsSUFBQSxnQkFBTSxFQUFDLEVBQUMsSUFBSSxFQUFFLFNBQVMsRUFBRSxPQUFPLEVBQUUsQ0FBQyxFQUFFLFFBQVEsRUFBRSxLQUFLLEVBQUUsUUFBUSxFQUFFLElBQUksRUFBRSxDQUFDO0lBQ3ZFLElBQUEsdUJBQUssR0FBRTs7MENBQ2E7QUFJckI7SUFGQyxJQUFBLGdCQUFNLEVBQUMsRUFBQyxJQUFJLEVBQUUsU0FBUyxFQUFFLE9BQU8sRUFBRSxJQUFJLEVBQUUsUUFBUSxFQUFFLEtBQUssRUFBRSxDQUFDO0lBQzFELElBQUEsdUJBQUssR0FBRTs7dUNBQ1c7QUFPbkI7SUFMRyxJQUFBLGdCQUFNLEVBQUM7UUFDUixJQUFJLEVBQUUsTUFBTTtRQUNaLFFBQVEsRUFBRSxJQUFJO1FBQ2QsT0FBTyxFQUFFLElBQUk7S0FDZCxDQUFDOzt3Q0FDbUM7QUFJckM7SUFGQyxJQUFBLG1CQUFTLEVBQUMsR0FBRyxFQUFFLENBQUMsdUJBQU0sQ0FBQztJQUN2QixJQUFBLG9CQUFVLEVBQUMsRUFBRSxJQUFJLEVBQUUsV0FBVyxFQUFFLENBQUM7a0RBQzFCLHVCQUFNLG9CQUFOLHVCQUFNO29DQUFDO0FBVWY7SUFQQyxJQUFBLG9CQUFVLEVBQUMsR0FBRyxFQUFFLENBQUMscUJBQUksRUFBRSxJQUFJLENBQUMsRUFBRSxDQUFDLElBQUksQ0FBQyxLQUFLLEVBQUMsRUFBRSxPQUFPLEVBQUUsSUFBSSxFQUFFLENBQUM7SUFDNUQsSUFBQSxtQkFBUyxFQUFDO1FBQ1QsSUFBSSxFQUFFLFlBQVksRUFBRSxpQ0FBaUM7UUFDckQsVUFBVSxFQUFFLEVBQUUsSUFBSSxFQUFFLFNBQVMsRUFBRSxvQkFBb0IsRUFBRSxJQUFJLEVBQUU7UUFDM0QsaUJBQWlCLEVBQUUsRUFBRSxJQUFJLEVBQUUsU0FBUyxFQUFFLG9CQUFvQixFQUFFLElBQUksRUFBRTtLQUVuRSxDQUFDOzttQ0FDWTtBQUlkO0lBREMsSUFBQSxtQkFBUyxFQUFDLEdBQUcsRUFBRSxDQUFDLHdCQUFPLEVBQUUsQ0FBQyxPQUFPLEVBQUUsRUFBRSxDQUFDLE9BQU8sQ0FBQyxJQUFJLEVBQUUsRUFBRSxPQUFPLEVBQUUsSUFBSSxFQUFFLENBQUM7O3NDQUNuRDtlQXpEVCxJQUFJO0lBRGhCLElBQUEsZ0JBQU0sR0FBRTtHQUNJLElBQUksQ0F5RWhCO0FBRUQsa0JBQWUsSUFBSSxDQUFDIiwibmFtZXMiOltdLCJzb3VyY2VzIjpbIkM6XFxVc2Vyc1xcSm9zZXBoXFxEZXNrdG9wXFxTb3VyY2VcXFVzZXJfTWFuYWdlbWVudF9BcHBcXGFwcFxcc2VydmVyXFxzcmNcXGVudGl0aWVzXFx1c2VyLmVudGl0eS50cyJdLCJzb3VyY2VzQ29udGVudCI6WyIvLyBzcmMvZW50aXRpZXMvVXNlci50c1xyXG5pbXBvcnQgeyBFbnRpdHksICBDb2x1bW4sIFByaW1hcnlHZW5lcmF0ZWRDb2x1bW4sIEpvaW5Db2x1bW4sIE1hbnlUb09uZSwgTWFueVRvTWFueSwgSm9pblRhYmxlLCBPbmVUb01hbnkgfSBmcm9tIFwidHlwZW9ybVwiO1xyXG5pbXBvcnQgeyBJc0ludCwgSXNTdHJpbmcgfSBmcm9tICdjbGFzcy12YWxpZGF0b3InO1xyXG5pbXBvcnQgeyBBdWRpdCB9IGZyb20gXCIuLi9tb2RlbHMvYXVkaXQubW9kZWxcIjtcclxuaW1wb3J0IHsgVXNlclR5cGUgfSBmcm9tIFwiLi4vdHlwZXMvdXNlci50eXBlXCI7XHJcbmltcG9ydCBSb2xlIGZyb20gXCIuL3JvbGUuZW50aXR5XCI7XHJcbmltcG9ydCBTdGF0dXMgZnJvbSBcIi4vc3RhdHVzLmVudGl0eVwiO1xyXG5pbXBvcnQgeyBTdXNwZW5zaW9uRGV0YWlscyB9IGZyb20gXCIuLi90eXBlcy9zdXNwZW5zaW9uLWRldGFpbHMudHlwZVwiO1xyXG5pbXBvcnQgeyBSQkFDUGVybWlzc2lvbiB9IGZyb20gXCIuLi90eXBlcy9yYmFjLnR5cGVcIjtcclxuaW1wb3J0IHsgQ29udGFjdCB9IGZyb20gXCIuL2NvbnRhY3QuZW50aXR5XCI7XHJcblxyXG5ARW50aXR5KClcclxuZXhwb3J0IGNsYXNzIFVzZXIgZXh0ZW5kcyBBdWRpdCBpbXBsZW1lbnRzIFVzZXJUeXBlIHtcclxuICBAUHJpbWFyeUdlbmVyYXRlZENvbHVtbigpIC8vIFNRTGl0ZSB1c2VzIGF1dG8taW5jcmVtZW50IGludGVnZXJzIGJ5IGRlZmF1bHRcclxuICBpZDogbnVtYmVyO1xyXG5cclxuICBAQ29sdW1uKHt0eXBlOiBcInZhcmNoYXJcIiwgbGVuZ3RoOiA0MCwgbnVsbGFibGU6IGZhbHNlLCB1bmlxdWU6IGZhbHNlIH0pXHJcbiAgQElzU3RyaW5nKClcclxuICBmdWxsbmFtZTogc3RyaW5nO1xyXG5cclxuICBAQ29sdW1uKHt0eXBlOiBcInZhcmNoYXJcIiwgbGVuZ3RoOiA0MCwgbnVsbGFibGU6IGZhbHNlLCB1bmlxdWU6IHRydWUgfSlcclxuICBASXNTdHJpbmcoKVxyXG4gIHVzZXJuYW1lOiBzdHJpbmc7XHJcblxyXG4gIEBDb2x1bW4oKVxyXG4gIEBJc1N0cmluZygpXHJcbiAgZW1haWw6IHN0cmluZztcclxuXHJcbiAgQENvbHVtbih7dHlwZTogXCJ2YXJjaGFyXCIsIGxlbmd0aDogMTUsIG51bGxhYmxlOiB0cnVlIH0pXHJcbiAgQElzU3RyaW5nKClcclxuICBwaG9uZTogc3RyaW5nO1xyXG5cclxuICBAQ29sdW1uKHt0eXBlOiBcInZhcmNoYXJcIiwgbGVuZ3RoOiAxMDAsIG51bGxhYmxlOiBmYWxzZSwgLy9zZWxlY3Q6IGZhbHNlIFxyXG5cclxuICAgfSlcclxuICBASXNTdHJpbmcoKVxyXG4gIHBhc3N3b3JkOiBzdHJpbmc7XHJcblxyXG4gIEBDb2x1bW4oe3R5cGU6IFwiaW50ZWdlclwiLCBkZWZhdWx0OiAwLCBudWxsYWJsZTogZmFsc2UsIHVuc2lnbmVkOiB0cnVlIH0pXHJcbiAgQElzSW50KClcclxuICBmYWlsZWRMb2dpbnM6IG51bWJlcjtcclxuXHJcbiAgQENvbHVtbih7dHlwZTogXCJib29sZWFuXCIsIGRlZmF1bHQ6IHRydWUsIG51bGxhYmxlOiBmYWxzZSB9KVxyXG4gIEBJc0ludCgpXHJcbiAgaXNFbmFibGVkOiBib29sZWFuOyBcclxuXHJcbiAgICBAQ29sdW1uKHtcclxuICAgIHR5cGU6IFwianNvblwiLCBcclxuICAgIG51bGxhYmxlOiB0cnVlLFxyXG4gICAgZGVmYXVsdDogbnVsbFxyXG4gIH0pXHJcbiAgc3VzcGVuc2lvbjogU3VzcGVuc2lvbkRldGFpbHMgfCBudWxsO1xyXG5cclxuICBATWFueVRvT25lKCgpID0+IFN0YXR1cylcclxuICBASm9pbkNvbHVtbih7IG5hbWU6ICdzdGF0dXNfaWQnIH0pXHJcbiAgc3RhdHVzOiBTdGF0dXM7IC8vIFRoaXMgd2lsbCBob2xkIHRoZSBTdGF0dXMgb2JqZWN0IHdoZW4gbG9hZGVkXHJcblxyXG4gIC8vIE1hbnlUb01hbnkgcmVsYXRpb25zaGlwIHdpdGggUm9sZSwgbWFuYWdlZCBieSBhIGpvaW4gdGFibGVcclxuICBATWFueVRvTWFueSgoKSA9PiBSb2xlLCByb2xlID0+IHJvbGUudXNlcnMseyBjYXNjYWRlOiB0cnVlIH0pXHJcbiAgQEpvaW5UYWJsZSh7XHJcbiAgICBuYW1lOiAndXNlcl9yb2xlcycsIC8vIEN1c3RvbSBuYW1lIGZvciB0aGUgam9pbiB0YWJsZVxyXG4gICAgam9pbkNvbHVtbjogeyBuYW1lOiAndXNlcl9pZCcsIHJlZmVyZW5jZWRDb2x1bW5OYW1lOiAnaWQnIH0sXHJcbiAgICBpbnZlcnNlSm9pbkNvbHVtbjogeyBuYW1lOiAncm9sZV9pZCcsIHJlZmVyZW5jZWRDb2x1bW5OYW1lOiAnaWQnIH0sXHJcbiAgICBcclxuICB9KVxyXG4gIHJvbGVzOiBSb2xlW107XHJcblxyXG4gIC8vIEEgdXNlciBjYW4gaGF2ZSBtdWx0aXBsZSBjb250YWN0cyAob25lLXRvLW1hbnkpXHJcbiAgQE9uZVRvTWFueSgoKSA9PiBDb250YWN0LCAoY29udGFjdCkgPT4gY29udGFjdC51c2VyLCB7IGNhc2NhZGU6IHRydWUgfSlcclxuICBjb250YWN0czogQ29udGFjdFtdO1xyXG5cclxuICBnZXRQZXJtaXNzaW9uTmFtZXMoKTogQXJyYXk8UkJBQ1Blcm1pc3Npb24+IHtcclxuXHJcbiAgICBjb25zdCB1bmlxdWVQZXJtaXNzaW9uczogU2V0PFJCQUNQZXJtaXNzaW9uPiA9IG5ldyBTZXQoKTtcclxuXHJcbiAgICBmb3IgKGxldCByb2xlIG9mIHRoaXMucm9sZXMpIHtcclxuICAgICAgZm9yKGxldCBwZXJtaXNzaW9uIG9mIHJvbGUucGVybWlzc2lvbnMpXHJcbiAgICAgICAgdW5pcXVlUGVybWlzc2lvbnMuYWRkKHBlcm1pc3Npb24ucmJhY1Blcm1pc3Npb24oKSk7XHJcbiAgICB9ICAgXHJcbiAgICBjb25zb2xlLmxvZyhcInVuaXF1ZSBwZXJtaXNzaW9uczogXCIsIHVuaXF1ZVBlcm1pc3Npb25zKTtcclxuICAgIGNvbnN0IHBlcm1pc3Npb25MaXN0OiBSQkFDUGVybWlzc2lvbltdID0gWy4uLnVuaXF1ZVBlcm1pc3Npb25zXTtcclxuXHJcbiAgICByZXR1cm4gcGVybWlzc2lvbkxpc3Q7XHJcbiAgfVxyXG5cclxufVxyXG5cclxuZXhwb3J0IGRlZmF1bHQgVXNlcjtcclxuXHJcblxyXG5cclxuIl0sInZlcnNpb24iOjN9

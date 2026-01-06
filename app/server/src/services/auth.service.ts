@@ -193,7 +193,12 @@ export class AuthService implements AuthServiceInterface{
             newUser.status = EnabledStatus
 
             // 🏁 Get the repo from the passed dataSource
-            const roleRepository = AppDataSource.getRepository(Role);                
+            const roleRepository = AppDataSource.getRepository(Role);     
+            if (!roleRepository) {
+                console.error("Role repository is not available.");
+            }           
+            const roles = await roleRepository.find();
+            console.log("Available Roles: ", roles);
             const existingRole = await roleRepository.findOne({
                 where: { name: RoleNamesEnum.USER },
                 relations: ['permissions'] 

@@ -1,0 +1,56 @@
+63ebf71e25882d30a8cb410173addc91
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a;
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Contact = void 0;
+// src/entities/User.ts
+const typeorm_1 = require("typeorm");
+const class_validator_1 = require("class-validator");
+const audit_model_1 = require("../models/audit.model");
+const user_entity_1 = require("./user.entity");
+let Contact = class Contact extends audit_model_1.Audit {
+};
+exports.Contact = Contact;
+__decorate([
+    (0, typeorm_1.PrimaryGeneratedColumn)() // SQLite uses auto-increment integers by default
+    ,
+    __metadata("design:type", Number)
+], Contact.prototype, "id", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: "varchar", length: 40, nullable: false, unique: false }),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], Contact.prototype, "fullname", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: "varchar", length: 40, nullable: true, default: null }),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], Contact.prototype, "email", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: "varchar", length: 15, nullable: true, default: null }),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], Contact.prototype, "phone", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: "varchar", length: 15, nullable: true, default: null }),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], Contact.prototype, "fax", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)(() => user_entity_1.User, (user) => user.contacts),
+    __metadata("design:type", typeof (_a = typeof user_entity_1.User !== "undefined" && user_entity_1.User) === "function" ? _a : Object)
+], Contact.prototype, "user", void 0);
+exports.Contact = Contact = __decorate([
+    (0, typeorm_1.Entity)()
+], Contact);
+exports.default = Contact;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiQzpcXFVzZXJzXFxKb3NlcGhcXERlc2t0b3BcXFNvdXJjZVxcVXNlcl9NYW5hZ2VtZW50X0FwcFxcYXBwXFxzZXJ2ZXJcXHNyY1xcZW50aXRpZXNcXGNvbnRhY3QuZW50aXR5LnRzIiwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7QUFBQSx1QkFBdUI7QUFDdkIscUNBQWdIO0FBQ2hILHFEQUFrRDtBQUNsRCx1REFBOEM7QUFNOUMsK0NBQXFDO0FBRzlCLElBQU0sT0FBTyxHQUFiLE1BQU0sT0FBUSxTQUFRLG1CQUFLO0NBd0JqQyxDQUFBO0FBeEJZLDBCQUFPO0FBRWxCO0lBREMsSUFBQSxnQ0FBc0IsR0FBRSxDQUFDLGlEQUFpRDs7O21DQUNoRTtBQUlYO0lBRkMsSUFBQSxnQkFBTSxFQUFDLEVBQUMsSUFBSSxFQUFFLFNBQVMsRUFBRSxNQUFNLEVBQUUsRUFBRSxFQUFFLFFBQVEsRUFBRSxLQUFLLEVBQUUsTUFBTSxFQUFFLEtBQUssRUFBRSxDQUFDO0lBQ3RFLElBQUEsMEJBQVEsR0FBRTs7eUNBQ007QUFJakI7SUFGQyxJQUFBLGdCQUFNLEVBQUMsRUFBQyxJQUFJLEVBQUUsU0FBUyxFQUFFLE1BQU0sRUFBRSxFQUFFLEVBQUUsUUFBUSxFQUFFLElBQUksRUFBRSxPQUFPLEVBQUUsSUFBSSxFQUFFLENBQUM7SUFDckUsSUFBQSwwQkFBUSxHQUFFOztzQ0FDRztBQUlkO0lBRkMsSUFBQSxnQkFBTSxFQUFDLEVBQUMsSUFBSSxFQUFFLFNBQVMsRUFBRSxNQUFNLEVBQUUsRUFBRSxFQUFFLFFBQVEsRUFBRSxJQUFJLEVBQUUsT0FBTyxFQUFFLElBQUksRUFBRSxDQUFDO0lBQ3JFLElBQUEsMEJBQVEsR0FBRTs7c0NBQ0c7QUFJZDtJQUZDLElBQUEsZ0JBQU0sRUFBQyxFQUFDLElBQUksRUFBRSxTQUFTLEVBQUUsTUFBTSxFQUFFLEVBQUUsRUFBRSxRQUFRLEVBQUUsSUFBSSxFQUFFLE9BQU8sRUFBRSxJQUFJLEVBQUUsQ0FBQztJQUNyRSxJQUFBLDBCQUFRLEdBQUU7O29DQUNDO0FBSVo7SUFEQyxJQUFBLG1CQUFTLEVBQUMsR0FBRyxFQUFFLENBQUMsa0JBQUksRUFBRSxDQUFDLElBQUksRUFBRSxFQUFFLENBQUMsSUFBSSxDQUFDLFFBQVEsQ0FBQztrREFDekMsa0JBQUksb0JBQUosa0JBQUk7cUNBQUM7a0JBdEJBLE9BQU87SUFEbkIsSUFBQSxnQkFBTSxHQUFFO0dBQ0ksT0FBTyxDQXdCbkI7QUFFRCxrQkFBZSxPQUFPLENBQUMiLCJuYW1lcyI6W10sInNvdXJjZXMiOlsiQzpcXFVzZXJzXFxKb3NlcGhcXERlc2t0b3BcXFNvdXJjZVxcVXNlcl9NYW5hZ2VtZW50X0FwcFxcYXBwXFxzZXJ2ZXJcXHNyY1xcZW50aXRpZXNcXGNvbnRhY3QuZW50aXR5LnRzIl0sInNvdXJjZXNDb250ZW50IjpbIi8vIHNyYy9lbnRpdGllcy9Vc2VyLnRzXHJcbmltcG9ydCB7IEVudGl0eSwgIENvbHVtbiwgUHJpbWFyeUdlbmVyYXRlZENvbHVtbiwgSm9pbkNvbHVtbiwgTWFueVRvT25lLCBNYW55VG9NYW55LCBKb2luVGFibGUgfSBmcm9tIFwidHlwZW9ybVwiO1xyXG5pbXBvcnQgeyBJc0ludCwgSXNTdHJpbmcgfSBmcm9tICdjbGFzcy12YWxpZGF0b3InO1xyXG5pbXBvcnQgeyBBdWRpdCB9IGZyb20gXCIuLi9tb2RlbHMvYXVkaXQubW9kZWxcIjtcclxuaW1wb3J0IFJvbGUgZnJvbSBcIi4vcm9sZS5lbnRpdHlcIjtcclxuaW1wb3J0IFN0YXR1cyBmcm9tIFwiLi9zdGF0dXMuZW50aXR5XCI7XHJcbmltcG9ydCB7IFN1c3BlbnNpb25EZXRhaWxzIH0gZnJvbSBcIi4uL3R5cGVzL3N1c3BlbnNpb24tZGV0YWlscy50eXBlXCI7XHJcbmltcG9ydCB7IFJCQUNQZXJtaXNzaW9uIH0gZnJvbSBcIi4uL3R5cGVzL3JiYWMudHlwZVwiO1xyXG5pbXBvcnQgeyBDb250YWN0VHlwZSB9IGZyb20gXCIuLi90eXBlcy9jb250YWN0LnR5cGVcIjtcclxuaW1wb3J0IHsgVXNlciB9IGZyb20gXCIuL3VzZXIuZW50aXR5XCI7XHJcblxyXG5ARW50aXR5KClcclxuZXhwb3J0IGNsYXNzIENvbnRhY3QgZXh0ZW5kcyBBdWRpdCBpbXBsZW1lbnRzIENvbnRhY3RUeXBlIHtcclxuICBAUHJpbWFyeUdlbmVyYXRlZENvbHVtbigpIC8vIFNRTGl0ZSB1c2VzIGF1dG8taW5jcmVtZW50IGludGVnZXJzIGJ5IGRlZmF1bHRcclxuICBpZDogbnVtYmVyO1xyXG5cclxuICBAQ29sdW1uKHt0eXBlOiBcInZhcmNoYXJcIiwgbGVuZ3RoOiA0MCwgbnVsbGFibGU6IGZhbHNlLCB1bmlxdWU6IGZhbHNlIH0pXHJcbiAgQElzU3RyaW5nKClcclxuICBmdWxsbmFtZTogc3RyaW5nO1xyXG5cclxuICBAQ29sdW1uKHt0eXBlOiBcInZhcmNoYXJcIiwgbGVuZ3RoOiA0MCwgbnVsbGFibGU6IHRydWUsIGRlZmF1bHQ6IG51bGwgfSlcclxuICBASXNTdHJpbmcoKVxyXG4gIGVtYWlsOiBzdHJpbmc7XHJcblxyXG4gIEBDb2x1bW4oe3R5cGU6IFwidmFyY2hhclwiLCBsZW5ndGg6IDE1LCBudWxsYWJsZTogdHJ1ZSwgZGVmYXVsdDogbnVsbCB9KVxyXG4gIEBJc1N0cmluZygpXHJcbiAgcGhvbmU6IHN0cmluZztcclxuXHJcbiAgQENvbHVtbih7dHlwZTogXCJ2YXJjaGFyXCIsIGxlbmd0aDogMTUsIG51bGxhYmxlOiB0cnVlLCBkZWZhdWx0OiBudWxsIH0pXHJcbiAgQElzU3RyaW5nKClcclxuICBmYXg6IHN0cmluZztcclxuXHJcbiAgLy8gTWFueSBjb250YWN0cyBjYW4gYmVsb25nIHRvIG9uZSB1c2VyIChtYW55LXRvLW9uZSlcclxuICBATWFueVRvT25lKCgpID0+IFVzZXIsICh1c2VyKSA9PiB1c2VyLmNvbnRhY3RzKVxyXG4gIHVzZXI6IFVzZXI7XHJcblxyXG59XHJcblxyXG5leHBvcnQgZGVmYXVsdCBDb250YWN0O1xyXG5cclxuXHJcblxyXG4iXSwidmVyc2lvbiI6M30=

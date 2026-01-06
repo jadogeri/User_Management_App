@@ -1,0 +1,12 @@
+3ef9ab0e2933bd1a0c095852c5a1b309
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.RoleDescriptionsEnum = void 0;
+var RoleDescriptionsEnum;
+(function (RoleDescriptionsEnum) {
+    RoleDescriptionsEnum["ADMIN"] = "Administrator: Highest level; manages users, settings, and system access; can do everything.";
+    RoleDescriptionsEnum["USER"] = "Regular User: Standard access; can use application features but has limited administrative capabilities.";
+    RoleDescriptionsEnum["VIEWER"] = "Viewer: Read-only access; can view content but cannot make changes or manage settings.";
+    RoleDescriptionsEnum["EDITOR"] = "Editor: Can create and modify content; has more permissions than a regular user but cannot manage users or settings.";
+})(RoleDescriptionsEnum || (exports.RoleDescriptionsEnum = RoleDescriptionsEnum = {}));
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiQzpcXFVzZXJzXFxKb3NlcGhcXERlc2t0b3BcXFNvdXJjZVxcVXNlcl9NYW5hZ2VtZW50X0FwcFxcYXBwXFxzZXJ2ZXJcXHNyY1xcdHlwZXNcXHJvbGUtZGVzY3JpcHRpb24udHlwZS50cyIsIm1hcHBpbmdzIjoiOzs7QUFBQSxJQUFZLG9CQUtYO0FBTEQsV0FBWSxvQkFBb0I7SUFDOUIsOEhBQXNHLENBQUE7SUFDdEcseUlBQWlILENBQUE7SUFDakgseUhBQWlHLENBQUE7SUFDakcsdUpBQStILENBQUE7QUFDakksQ0FBQyxFQUxXLG9CQUFvQixvQ0FBcEIsb0JBQW9CLFFBSy9CIiwibmFtZXMiOltdLCJzb3VyY2VzIjpbIkM6XFxVc2Vyc1xcSm9zZXBoXFxEZXNrdG9wXFxTb3VyY2VcXFVzZXJfTWFuYWdlbWVudF9BcHBcXGFwcFxcc2VydmVyXFxzcmNcXHR5cGVzXFxyb2xlLWRlc2NyaXB0aW9uLnR5cGUudHMiXSwic291cmNlc0NvbnRlbnQiOlsiZXhwb3J0IGVudW0gUm9sZURlc2NyaXB0aW9uc0VudW0ge1xyXG4gIEFETUlOID0gJ0FkbWluaXN0cmF0b3I6IEhpZ2hlc3QgbGV2ZWw7IG1hbmFnZXMgdXNlcnMsIHNldHRpbmdzLCBhbmQgc3lzdGVtIGFjY2VzczsgY2FuIGRvIGV2ZXJ5dGhpbmcuJyxcclxuICBVU0VSID0gJ1JlZ3VsYXIgVXNlcjogU3RhbmRhcmQgYWNjZXNzOyBjYW4gdXNlIGFwcGxpY2F0aW9uIGZlYXR1cmVzIGJ1dCBoYXMgbGltaXRlZCBhZG1pbmlzdHJhdGl2ZSBjYXBhYmlsaXRpZXMuJyxcclxuICBWSUVXRVIgPSAnVmlld2VyOiBSZWFkLW9ubHkgYWNjZXNzOyBjYW4gdmlldyBjb250ZW50IGJ1dCBjYW5ub3QgbWFrZSBjaGFuZ2VzIG9yIG1hbmFnZSBzZXR0aW5ncy4nLFxyXG4gIEVESVRPUiA9ICdFZGl0b3I6IENhbiBjcmVhdGUgYW5kIG1vZGlmeSBjb250ZW50OyBoYXMgbW9yZSBwZXJtaXNzaW9ucyB0aGFuIGEgcmVndWxhciB1c2VyIGJ1dCBjYW5ub3QgbWFuYWdlIHVzZXJzIG9yIHNldHRpbmdzLicsXHJcbn1cclxuXHJcbiJdLCJ2ZXJzaW9uIjozfQ==

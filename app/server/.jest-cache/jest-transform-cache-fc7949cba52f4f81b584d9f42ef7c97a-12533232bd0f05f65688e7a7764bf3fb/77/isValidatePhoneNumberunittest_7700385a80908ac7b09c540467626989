@@ -1,0 +1,60 @@
+0150ea83e3dbfedc87a0ad4e04a3d5b6
+"use strict";
+// Unit tests for: isValidatePhoneNumber
+Object.defineProperty(exports, "__esModule", { value: true });
+const input_validation_util_1 = require("../../../../src/utils/input-validation.util");
+// src/utils/__tests__/inputValidation.test.ts
+describe('isValidatePhoneNumber() isValidatePhoneNumber method', () => {
+    // Happy path tests
+    describe('Happy Paths', () => {
+        it('should return true for a valid phone number with country code and spaces', () => {
+            // Test a valid phone number with country code and spaces
+            expect((0, input_validation_util_1.isValidatePhoneNumber)('+1 123 456 7890')).toBe(true);
+        });
+        it('should return true for a valid phone number with country code and dashes', () => {
+            // Test a valid phone number with country code and dashes
+            expect((0, input_validation_util_1.isValidatePhoneNumber)('+1-123-456-7890')).toBe(true);
+        });
+        it('should return false for a valid phone number with parentheses and spaces', () => {
+            // Test a valid phone number with parentheses and spaces
+            expect((0, input_validation_util_1.isValidatePhoneNumber)('(123) 456 7890')).toBe(false);
+        });
+        it('should return false for a valid phone number without country code', () => {
+            // Test a valid phone number without country code
+            expect((0, input_validation_util_1.isValidatePhoneNumber)('123-456-7890')).toBe(false);
+        });
+    });
+    // Edge case tests
+    describe('Edge Cases', () => {
+        it('should return false for a phone number with letters', () => {
+            // Test a phone number containing letters
+            expect((0, input_validation_util_1.isValidatePhoneNumber)('123-abc-7890')).toBe(false);
+        });
+        it('should return false for a phone number with special characters', () => {
+            // Test a phone number containing special characters
+            expect((0, input_validation_util_1.isValidatePhoneNumber)('123-456-7890!')).toBe(false);
+        });
+        it('should return false for a phone number that is too short', () => {
+            // Test a phone number that is too short
+            expect((0, input_validation_util_1.isValidatePhoneNumber)('123-45')).toBe(false);
+        });
+        it('should return false for a phone number that is too long', () => {
+            // Test a phone number that is too long
+            expect((0, input_validation_util_1.isValidatePhoneNumber)('123-456-789012397879878667')).toBe(false);
+        });
+        it('should return false for an empty string', () => {
+            // Test an empty string
+            expect((0, input_validation_util_1.isValidatePhoneNumber)('')).toBe(false);
+        });
+        it('should return false for a phone number with only spaces', () => {
+            // Test a phone number with only spaces
+            expect((0, input_validation_util_1.isValidatePhoneNumber)('     ')).toBe(false);
+        });
+        it('should return false for a phone number with incorrect format', () => {
+            // Test a phone number with incorrect format
+            expect((0, input_validation_util_1.isValidatePhoneNumber)('1234567890')).toBe(false);
+        });
+    });
+});
+// End of unit tests for: isValidatePhoneNumber
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiQzpcXFVzZXJzXFxKb3NlcGhcXERlc2t0b3BcXFNvdXJjZVxcVXNlcl9NYW5hZ2VtZW50X0FwcFxcYXBwXFxzZXJ2ZXJcXHRlc3RzXFx1bml0XFx1dGlsc1xcaW5wdXRWYWxpZGF0aW9uXFxpc1ZhbGlkYXRlUGhvbmVOdW1iZXIudW5pdC50ZXN0LnRzIiwibWFwcGluZ3MiOiI7QUFDQSx3Q0FBd0M7O0FBRXhDLHVGQUFvRjtBQUtwRiw4Q0FBOEM7QUFDOUMsUUFBUSxDQUFDLHNEQUFzRCxFQUFFLEdBQUcsRUFBRTtJQUVwRSxtQkFBbUI7SUFDbkIsUUFBUSxDQUFDLGFBQWEsRUFBRSxHQUFHLEVBQUU7UUFDM0IsRUFBRSxDQUFDLDBFQUEwRSxFQUFFLEdBQUcsRUFBRTtZQUNsRix5REFBeUQ7WUFDekQsTUFBTSxDQUFDLElBQUEsNkNBQXFCLEVBQUMsaUJBQWlCLENBQUMsQ0FBQyxDQUFDLElBQUksQ0FBQyxJQUFJLENBQUMsQ0FBQztRQUM5RCxDQUFDLENBQUMsQ0FBQztRQUVILEVBQUUsQ0FBQywwRUFBMEUsRUFBRSxHQUFHLEVBQUU7WUFDbEYseURBQXlEO1lBQ3pELE1BQU0sQ0FBQyxJQUFBLDZDQUFxQixFQUFDLGlCQUFpQixDQUFDLENBQUMsQ0FBQyxJQUFJLENBQUMsSUFBSSxDQUFDLENBQUM7UUFDOUQsQ0FBQyxDQUFDLENBQUM7UUFFSCxFQUFFLENBQUMsMEVBQTBFLEVBQUUsR0FBRyxFQUFFO1lBQ2xGLHdEQUF3RDtZQUN4RCxNQUFNLENBQUMsSUFBQSw2Q0FBcUIsRUFBQyxnQkFBZ0IsQ0FBQyxDQUFDLENBQUMsSUFBSSxDQUFDLEtBQUssQ0FBQyxDQUFDO1FBQzlELENBQUMsQ0FBQyxDQUFDO1FBRUgsRUFBRSxDQUFDLG1FQUFtRSxFQUFFLEdBQUcsRUFBRTtZQUMzRSxpREFBaUQ7WUFDakQsTUFBTSxDQUFDLElBQUEsNkNBQXFCLEVBQUMsY0FBYyxDQUFDLENBQUMsQ0FBQyxJQUFJLENBQUMsS0FBSyxDQUFDLENBQUM7UUFDNUQsQ0FBQyxDQUFDLENBQUM7SUFDTCxDQUFDLENBQUMsQ0FBQztJQUVILGtCQUFrQjtJQUNsQixRQUFRLENBQUMsWUFBWSxFQUFFLEdBQUcsRUFBRTtRQUMxQixFQUFFLENBQUMscURBQXFELEVBQUUsR0FBRyxFQUFFO1lBQzdELHlDQUF5QztZQUN6QyxNQUFNLENBQUMsSUFBQSw2Q0FBcUIsRUFBQyxjQUFjLENBQUMsQ0FBQyxDQUFDLElBQUksQ0FBQyxLQUFLLENBQUMsQ0FBQztRQUM1RCxDQUFDLENBQUMsQ0FBQztRQUVILEVBQUUsQ0FBQyxnRUFBZ0UsRUFBRSxHQUFHLEVBQUU7WUFDeEUsb0RBQW9EO1lBQ3BELE1BQU0sQ0FBQyxJQUFBLDZDQUFxQixFQUFDLGVBQWUsQ0FBQyxDQUFDLENBQUMsSUFBSSxDQUFDLEtBQUssQ0FBQyxDQUFDO1FBQzdELENBQUMsQ0FBQyxDQUFDO1FBRUgsRUFBRSxDQUFDLDBEQUEwRCxFQUFFLEdBQUcsRUFBRTtZQUNsRSx3Q0FBd0M7WUFDeEMsTUFBTSxDQUFDLElBQUEsNkNBQXFCLEVBQUMsUUFBUSxDQUFDLENBQUMsQ0FBQyxJQUFJLENBQUMsS0FBSyxDQUFDLENBQUM7UUFDdEQsQ0FBQyxDQUFDLENBQUM7UUFFSCxFQUFFLENBQUMseURBQXlELEVBQUUsR0FBRyxFQUFFO1lBQ2pFLHVDQUF1QztZQUN2QyxNQUFNLENBQUMsSUFBQSw2Q0FBcUIsRUFBQyw0QkFBNEIsQ0FBQyxDQUFDLENBQUMsSUFBSSxDQUFDLEtBQUssQ0FBQyxDQUFDO1FBQzFFLENBQUMsQ0FBQyxDQUFDO1FBRUgsRUFBRSxDQUFDLHlDQUF5QyxFQUFFLEdBQUcsRUFBRTtZQUNqRCx1QkFBdUI7WUFDdkIsTUFBTSxDQUFDLElBQUEsNkNBQXFCLEVBQUMsRUFBRSxDQUFDLENBQUMsQ0FBQyxJQUFJLENBQUMsS0FBSyxDQUFDLENBQUM7UUFDaEQsQ0FBQyxDQUFDLENBQUM7UUFFSCxFQUFFLENBQUMseURBQXlELEVBQUUsR0FBRyxFQUFFO1lBQ2pFLHVDQUF1QztZQUN2QyxNQUFNLENBQUMsSUFBQSw2Q0FBcUIsRUFBQyxPQUFPLENBQUMsQ0FBQyxDQUFDLElBQUksQ0FBQyxLQUFLLENBQUMsQ0FBQztRQUNyRCxDQUFDLENBQUMsQ0FBQztRQUVILEVBQUUsQ0FBQyw4REFBOEQsRUFBRSxHQUFHLEVBQUU7WUFDdEUsNENBQTRDO1lBQzVDLE1BQU0sQ0FBQyxJQUFBLDZDQUFxQixFQUFDLFlBQVksQ0FBQyxDQUFDLENBQUMsSUFBSSxDQUFDLEtBQUssQ0FBQyxDQUFDO1FBQzFELENBQUMsQ0FBQyxDQUFDO0lBQ0wsQ0FBQyxDQUFDLENBQUM7QUFDTCxDQUFDLENBQUMsQ0FBQztBQUVILCtDQUErQyIsIm5hbWVzIjpbXSwic291cmNlcyI6WyJDOlxcVXNlcnNcXEpvc2VwaFxcRGVza3RvcFxcU291cmNlXFxVc2VyX01hbmFnZW1lbnRfQXBwXFxhcHBcXHNlcnZlclxcdGVzdHNcXHVuaXRcXHV0aWxzXFxpbnB1dFZhbGlkYXRpb25cXGlzVmFsaWRhdGVQaG9uZU51bWJlci51bml0LnRlc3QudHMiXSwic291cmNlc0NvbnRlbnQiOlsiXHJcbi8vIFVuaXQgdGVzdHMgZm9yOiBpc1ZhbGlkYXRlUGhvbmVOdW1iZXJcclxuXHJcbmltcG9ydCB7IGlzVmFsaWRhdGVQaG9uZU51bWJlciB9IGZyb20gXCIuLi8uLi8uLi8uLi9zcmMvdXRpbHMvaW5wdXQtdmFsaWRhdGlvbi51dGlsXCI7XHJcblxyXG5cclxuXHJcblxyXG4vLyBzcmMvdXRpbHMvX190ZXN0c19fL2lucHV0VmFsaWRhdGlvbi50ZXN0LnRzXHJcbmRlc2NyaWJlKCdpc1ZhbGlkYXRlUGhvbmVOdW1iZXIoKSBpc1ZhbGlkYXRlUGhvbmVOdW1iZXIgbWV0aG9kJywgKCkgPT4ge1xyXG4gIFxyXG4gIC8vIEhhcHB5IHBhdGggdGVzdHNcclxuICBkZXNjcmliZSgnSGFwcHkgUGF0aHMnLCAoKSA9PiB7XHJcbiAgICBpdCgnc2hvdWxkIHJldHVybiB0cnVlIGZvciBhIHZhbGlkIHBob25lIG51bWJlciB3aXRoIGNvdW50cnkgY29kZSBhbmQgc3BhY2VzJywgKCkgPT4ge1xyXG4gICAgICAvLyBUZXN0IGEgdmFsaWQgcGhvbmUgbnVtYmVyIHdpdGggY291bnRyeSBjb2RlIGFuZCBzcGFjZXNcclxuICAgICAgZXhwZWN0KGlzVmFsaWRhdGVQaG9uZU51bWJlcignKzEgMTIzIDQ1NiA3ODkwJykpLnRvQmUodHJ1ZSk7XHJcbiAgICB9KTtcclxuXHJcbiAgICBpdCgnc2hvdWxkIHJldHVybiB0cnVlIGZvciBhIHZhbGlkIHBob25lIG51bWJlciB3aXRoIGNvdW50cnkgY29kZSBhbmQgZGFzaGVzJywgKCkgPT4ge1xyXG4gICAgICAvLyBUZXN0IGEgdmFsaWQgcGhvbmUgbnVtYmVyIHdpdGggY291bnRyeSBjb2RlIGFuZCBkYXNoZXNcclxuICAgICAgZXhwZWN0KGlzVmFsaWRhdGVQaG9uZU51bWJlcignKzEtMTIzLTQ1Ni03ODkwJykpLnRvQmUodHJ1ZSk7XHJcbiAgICB9KTtcclxuXHJcbiAgICBpdCgnc2hvdWxkIHJldHVybiBmYWxzZSBmb3IgYSB2YWxpZCBwaG9uZSBudW1iZXIgd2l0aCBwYXJlbnRoZXNlcyBhbmQgc3BhY2VzJywgKCkgPT4ge1xyXG4gICAgICAvLyBUZXN0IGEgdmFsaWQgcGhvbmUgbnVtYmVyIHdpdGggcGFyZW50aGVzZXMgYW5kIHNwYWNlc1xyXG4gICAgICBleHBlY3QoaXNWYWxpZGF0ZVBob25lTnVtYmVyKCcoMTIzKSA0NTYgNzg5MCcpKS50b0JlKGZhbHNlKTtcclxuICAgIH0pO1xyXG5cclxuICAgIGl0KCdzaG91bGQgcmV0dXJuIGZhbHNlIGZvciBhIHZhbGlkIHBob25lIG51bWJlciB3aXRob3V0IGNvdW50cnkgY29kZScsICgpID0+IHtcclxuICAgICAgLy8gVGVzdCBhIHZhbGlkIHBob25lIG51bWJlciB3aXRob3V0IGNvdW50cnkgY29kZVxyXG4gICAgICBleHBlY3QoaXNWYWxpZGF0ZVBob25lTnVtYmVyKCcxMjMtNDU2LTc4OTAnKSkudG9CZShmYWxzZSk7XHJcbiAgICB9KTtcclxuICB9KTtcclxuXHJcbiAgLy8gRWRnZSBjYXNlIHRlc3RzXHJcbiAgZGVzY3JpYmUoJ0VkZ2UgQ2FzZXMnLCAoKSA9PiB7XHJcbiAgICBpdCgnc2hvdWxkIHJldHVybiBmYWxzZSBmb3IgYSBwaG9uZSBudW1iZXIgd2l0aCBsZXR0ZXJzJywgKCkgPT4ge1xyXG4gICAgICAvLyBUZXN0IGEgcGhvbmUgbnVtYmVyIGNvbnRhaW5pbmcgbGV0dGVyc1xyXG4gICAgICBleHBlY3QoaXNWYWxpZGF0ZVBob25lTnVtYmVyKCcxMjMtYWJjLTc4OTAnKSkudG9CZShmYWxzZSk7XHJcbiAgICB9KTtcclxuXHJcbiAgICBpdCgnc2hvdWxkIHJldHVybiBmYWxzZSBmb3IgYSBwaG9uZSBudW1iZXIgd2l0aCBzcGVjaWFsIGNoYXJhY3RlcnMnLCAoKSA9PiB7XHJcbiAgICAgIC8vIFRlc3QgYSBwaG9uZSBudW1iZXIgY29udGFpbmluZyBzcGVjaWFsIGNoYXJhY3RlcnNcclxuICAgICAgZXhwZWN0KGlzVmFsaWRhdGVQaG9uZU51bWJlcignMTIzLTQ1Ni03ODkwIScpKS50b0JlKGZhbHNlKTtcclxuICAgIH0pO1xyXG5cclxuICAgIGl0KCdzaG91bGQgcmV0dXJuIGZhbHNlIGZvciBhIHBob25lIG51bWJlciB0aGF0IGlzIHRvbyBzaG9ydCcsICgpID0+IHtcclxuICAgICAgLy8gVGVzdCBhIHBob25lIG51bWJlciB0aGF0IGlzIHRvbyBzaG9ydFxyXG4gICAgICBleHBlY3QoaXNWYWxpZGF0ZVBob25lTnVtYmVyKCcxMjMtNDUnKSkudG9CZShmYWxzZSk7XHJcbiAgICB9KTtcclxuXHJcbiAgICBpdCgnc2hvdWxkIHJldHVybiBmYWxzZSBmb3IgYSBwaG9uZSBudW1iZXIgdGhhdCBpcyB0b28gbG9uZycsICgpID0+IHtcclxuICAgICAgLy8gVGVzdCBhIHBob25lIG51bWJlciB0aGF0IGlzIHRvbyBsb25nXHJcbiAgICAgIGV4cGVjdChpc1ZhbGlkYXRlUGhvbmVOdW1iZXIoJzEyMy00NTYtNzg5MDEyMzk3ODc5ODc4NjY3JykpLnRvQmUoZmFsc2UpO1xyXG4gICAgfSk7XHJcblxyXG4gICAgaXQoJ3Nob3VsZCByZXR1cm4gZmFsc2UgZm9yIGFuIGVtcHR5IHN0cmluZycsICgpID0+IHtcclxuICAgICAgLy8gVGVzdCBhbiBlbXB0eSBzdHJpbmdcclxuICAgICAgZXhwZWN0KGlzVmFsaWRhdGVQaG9uZU51bWJlcignJykpLnRvQmUoZmFsc2UpO1xyXG4gICAgfSk7XHJcblxyXG4gICAgaXQoJ3Nob3VsZCByZXR1cm4gZmFsc2UgZm9yIGEgcGhvbmUgbnVtYmVyIHdpdGggb25seSBzcGFjZXMnLCAoKSA9PiB7XHJcbiAgICAgIC8vIFRlc3QgYSBwaG9uZSBudW1iZXIgd2l0aCBvbmx5IHNwYWNlc1xyXG4gICAgICBleHBlY3QoaXNWYWxpZGF0ZVBob25lTnVtYmVyKCcgICAgICcpKS50b0JlKGZhbHNlKTtcclxuICAgIH0pO1xyXG5cclxuICAgIGl0KCdzaG91bGQgcmV0dXJuIGZhbHNlIGZvciBhIHBob25lIG51bWJlciB3aXRoIGluY29ycmVjdCBmb3JtYXQnLCAoKSA9PiB7XHJcbiAgICAgIC8vIFRlc3QgYSBwaG9uZSBudW1iZXIgd2l0aCBpbmNvcnJlY3QgZm9ybWF0XHJcbiAgICAgIGV4cGVjdChpc1ZhbGlkYXRlUGhvbmVOdW1iZXIoJzEyMzQ1Njc4OTAnKSkudG9CZShmYWxzZSk7XHJcbiAgICB9KTtcclxuICB9KTtcclxufSk7XHJcblxyXG4vLyBFbmQgb2YgdW5pdCB0ZXN0cyBmb3I6IGlzVmFsaWRhdGVQaG9uZU51bWJlclxyXG4iXSwidmVyc2lvbiI6M30=

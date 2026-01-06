@@ -1,0 +1,1656 @@
+1ff422921abca8fdcf8bf3fa49f16251
+{
+	"openapi": "3.0.0",
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"Pick_UserType.Exclude_keyofUserType.password__": {
+				"properties": {
+					"createdAt": {
+						"type": "string",
+						"format": "date-time",
+						"description": "The date and time when the auth was created.",
+						"example": "2024-01-01T12:00:00.000Z"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time",
+						"description": "The date and time when the auth was last updated.",
+						"example": "2024-01-01T13:00:00.000Z"
+					},
+					"id": {
+						"type": "number",
+						"format": "double",
+						"description": "The user's identifier.",
+						"example": "1"
+					},
+					"fullname": {
+						"type": "string",
+						"description": "The user's full name.",
+						"example": "John Doe"
+					},
+					"username": {
+						"type": "string",
+						"description": "The user's username.",
+						"example": "John1Doe"
+					},
+					"email": {
+						"type": "string",
+						"description": "The user's email.",
+						"example": "JohnDoe@gmail.com",
+						"pattern": "^(.+)@(.+)$"
+					},
+					"phone": {
+						"type": "string",
+						"description": "The user's phone number.",
+						"example": "123-456-7890"
+					},
+					"failedLogins": {
+						"type": "number",
+						"format": "double",
+						"description": "The user's failed login attempts.",
+						"example": 0
+					},
+					"isEnabled": {
+						"type": "boolean",
+						"description": "The user's account status.",
+						"example": true
+					}
+				},
+				"required": [
+					"createdAt",
+					"updatedAt",
+					"id",
+					"fullname",
+					"username",
+					"email",
+					"phone",
+					"failedLogins",
+					"isEnabled"
+				],
+				"type": "object",
+				"description": "From T, pick a set of properties whose keys are in the union K"
+			},
+			"UserReadResponseDTO": {
+				"description": "Represents a user read account response dto object.",
+				"properties": {
+					"createdAt": {
+						"type": "string",
+						"format": "date-time",
+						"description": "The date and time when the auth was created.",
+						"example": "2024-01-01T12:00:00.000Z"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time",
+						"description": "The date and time when the auth was last updated.",
+						"example": "2024-01-01T13:00:00.000Z"
+					},
+					"id": {
+						"type": "number",
+						"format": "double",
+						"description": "The user's identifier.",
+						"example": "1"
+					},
+					"fullname": {
+						"type": "string",
+						"description": "The user's full name.",
+						"example": "John Doe"
+					},
+					"username": {
+						"type": "string",
+						"description": "The user's username.",
+						"example": "John1Doe"
+					},
+					"email": {
+						"type": "string",
+						"description": "The user's email.",
+						"example": "JohnDoe@gmail.com",
+						"pattern": "^(.+)@(.+)$"
+					},
+					"phone": {
+						"type": "string",
+						"description": "The user's phone number.",
+						"example": "123-456-7890"
+					},
+					"failedLogins": {
+						"type": "number",
+						"format": "double",
+						"description": "The user's failed login attempts.",
+						"example": 0
+					},
+					"isEnabled": {
+						"type": "boolean",
+						"description": "The user's account status.",
+						"example": true
+					}
+				},
+				"required": [
+					"createdAt",
+					"updatedAt",
+					"id",
+					"fullname",
+					"username",
+					"email",
+					"phone",
+					"failedLogins",
+					"isEnabled"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ErrorResponse": {
+				"properties": {},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AuthLoginResponseDTO": {
+				"description": "Represents a user login response dto object.",
+				"properties": {
+					"refreshToken": {
+						"type": "string",
+						"description": "The JWT refresh token.",
+						"example": "some-refresh-token"
+					},
+					"accessToken": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"refreshToken",
+					"accessToken"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ResourceNotFoundError": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"message": {
+						"type": "string"
+					},
+					"stack": {
+						"type": "string"
+					},
+					"statusCode": {
+						"type": "number",
+						"format": "double"
+					},
+					"title": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"name",
+					"message",
+					"statusCode",
+					"title"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"BadRequestError": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"message": {
+						"type": "string"
+					},
+					"stack": {
+						"type": "string"
+					},
+					"statusCode": {
+						"type": "number",
+						"format": "double"
+					},
+					"title": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"name",
+					"message",
+					"statusCode",
+					"title"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AuthLoginRequestDTO": {
+				"description": "Represents a user login request dto object.",
+				"properties": {
+					"password": {
+						"type": "string",
+						"description": "The user's password.",
+						"example": "SecurePassword123!"
+					},
+					"email": {
+						"type": "string",
+						"description": "The user's email.",
+						"example": "JohnDoe@gmail.com",
+						"pattern": "^(.+)@(.+)$"
+					}
+				},
+				"required": [
+					"password",
+					"email"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AuthLogoutResponseDTO": {
+				"description": "Represents a user logout response dto object.",
+				"properties": {
+					"message": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AuthRegisterResponseDTO": {
+				"description": "Represents a user register response dto object.",
+				"properties": {
+					"createdAt": {
+						"type": "string",
+						"format": "date-time",
+						"description": "The date and time when the auth was created.",
+						"example": "2024-01-01T12:00:00.000Z"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time",
+						"description": "The date and time when the auth was last updated.",
+						"example": "2024-01-01T13:00:00.000Z"
+					},
+					"id": {
+						"type": "number",
+						"format": "double",
+						"description": "The user's identifier.",
+						"example": "1"
+					},
+					"fullname": {
+						"type": "string",
+						"description": "The user's full name.",
+						"example": "John Doe"
+					},
+					"username": {
+						"type": "string",
+						"description": "The user's username.",
+						"example": "John1Doe"
+					},
+					"email": {
+						"type": "string",
+						"description": "The user's email.",
+						"example": "JohnDoe@gmail.com",
+						"pattern": "^(.+)@(.+)$"
+					},
+					"phone": {
+						"type": "string",
+						"description": "The user's phone number.",
+						"example": "123-456-7890"
+					},
+					"failedLogins": {
+						"type": "number",
+						"format": "double",
+						"description": "The user's failed login attempts.",
+						"example": 0
+					},
+					"isEnabled": {
+						"type": "boolean",
+						"description": "The user's account status.",
+						"example": true
+					}
+				},
+				"required": [
+					"createdAt",
+					"updatedAt",
+					"id",
+					"fullname",
+					"username",
+					"email",
+					"phone",
+					"failedLogins",
+					"isEnabled"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ConflictError": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"message": {
+						"type": "string"
+					},
+					"stack": {
+						"type": "string"
+					},
+					"statusCode": {
+						"type": "number",
+						"format": "double"
+					},
+					"title": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"name",
+					"message",
+					"statusCode",
+					"title"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"InternalServerError": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"message": {
+						"type": "string"
+					},
+					"stack": {
+						"type": "string"
+					},
+					"statusCode": {
+						"type": "number",
+						"format": "double"
+					},
+					"title": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"name",
+					"message",
+					"statusCode",
+					"title"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AuthRegisterRequestDTO": {
+				"description": "Represents a user object creation request.",
+				"properties": {
+					"password": {
+						"type": "string",
+						"description": "The user's password.",
+						"example": "SecurePassword123!"
+					},
+					"fullname": {
+						"type": "string",
+						"description": "The user's full name.",
+						"example": "John Doe"
+					},
+					"username": {
+						"type": "string",
+						"description": "The user's username.",
+						"example": "John1Doe"
+					},
+					"email": {
+						"type": "string",
+						"description": "The user's email.",
+						"example": "JohnDoe@gmail.com",
+						"pattern": "^(.+)@(.+)$"
+					},
+					"phone": {
+						"type": "string",
+						"description": "The user's phone number.",
+						"example": "123-456-7890"
+					}
+				},
+				"required": [
+					"password",
+					"fullname",
+					"username",
+					"email",
+					"phone"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AuthRefreshTokenRequestDTO": {
+				"description": "Represents an auth refresh token request dto object.",
+				"properties": {
+					"refreshToken": {
+						"type": "string",
+						"description": "The JWT refresh token.",
+						"example": "some-refresh-token"
+					}
+				},
+				"required": [
+					"refreshToken"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"RoleNamesEnum": {
+				"enum": [
+					"ADMIN",
+					"USER",
+					"VIEWER",
+					"EDITOR"
+				],
+				"type": "string"
+			},
+			"Role": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"name": {
+						"$ref": "#/components/schemas/RoleNamesEnum"
+					},
+					"description": {
+						"type": "string"
+					},
+					"permissions": {
+						"items": {
+							"$ref": "#/components/schemas/Permission"
+						},
+						"type": "array"
+					},
+					"users": {
+						"items": {
+							"$ref": "#/components/schemas/User"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"id",
+					"name",
+					"description",
+					"permissions",
+					"users"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Resource": {
+				"enum": [
+					"user",
+					"users",
+					"auth",
+					"product",
+					"order",
+					"project",
+					"invoice",
+					"document",
+					"system",
+					"*"
+				],
+				"type": "string"
+			},
+			"Action": {
+				"enum": [
+					"create",
+					"read",
+					"update",
+					"delete",
+					"manage",
+					"*"
+				],
+				"type": "string"
+			},
+			"Permission": {
+				"properties": {
+					"action": {
+						"$ref": "#/components/schemas/Action",
+						"description": "The action the permission allows."
+					},
+					"resource": {
+						"$ref": "#/components/schemas/Resource",
+						"description": "The resource the permission applies to."
+					},
+					"roles": {
+						"items": {
+							"$ref": "#/components/schemas/Role"
+						},
+						"type": "array",
+						"description": "The user's list of roles."
+					},
+					"description": {
+						"type": "string",
+						"description": "The permission's description."
+					},
+					"id": {
+						"type": "number",
+						"format": "double",
+						"description": "The permission's identifier."
+					}
+				},
+				"required": [
+					"action",
+					"resource",
+					"roles",
+					"description",
+					"id"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"SuspensionDetails": {
+				"properties": {
+					"suspendedBy": {
+						"type": "number",
+						"format": "double"
+					},
+					"suspendedAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"reason": {
+						"type": "string"
+					},
+					"isSuspended": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"suspendedBy",
+					"suspendedAt",
+					"reason",
+					"isSuspended"
+				],
+				"type": "object"
+			},
+			"StatusEnum": {
+				"enum": [
+					"ENABLED",
+					"LOCKED",
+					"DISABLED"
+				],
+				"type": "string"
+			},
+			"User": {
+				"properties": {
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time",
+						"description": "The date and time when the auth was last updated."
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time",
+						"description": "The date and time when the auth was created."
+					},
+					"id": {
+						"type": "number",
+						"format": "double",
+						"description": "The user's identifier."
+					},
+					"fullname": {
+						"type": "string",
+						"description": "The user's full name."
+					},
+					"username": {
+						"type": "string",
+						"description": "The user's username."
+					},
+					"email": {
+						"type": "string",
+						"description": "The user's email."
+					},
+					"phone": {
+						"type": "string",
+						"description": "The user's phone number."
+					},
+					"password": {
+						"type": "string",
+						"description": "The user's password."
+					},
+					"failedLogins": {
+						"type": "number",
+						"format": "double",
+						"description": "The user's failed login attempts."
+					},
+					"isEnabled": {
+						"type": "boolean",
+						"description": "The user's account status."
+					},
+					"suspension": {
+						"allOf": [
+							{
+								"$ref": "#/components/schemas/SuspensionDetails"
+							}
+						],
+						"nullable": true
+					},
+					"status": {
+						"$ref": "#/components/schemas/Status"
+					},
+					"roles": {
+						"items": {
+							"$ref": "#/components/schemas/Role"
+						},
+						"type": "array"
+					},
+					"contacts": {
+						"items": {
+							"$ref": "#/components/schemas/Contact"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"updatedAt",
+					"createdAt",
+					"id",
+					"fullname",
+					"username",
+					"email",
+					"phone",
+					"password",
+					"failedLogins",
+					"isEnabled",
+					"suspension",
+					"status",
+					"roles",
+					"contacts"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Status": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"name": {
+						"$ref": "#/components/schemas/StatusEnum"
+					},
+					"users": {
+						"items": {
+							"$ref": "#/components/schemas/User"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"id",
+					"name",
+					"users"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AuditType": {
+				"properties": {
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time",
+						"description": "The date and time when the auth was last updated.",
+						"example": "2024-01-01T13:00:00.000Z"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time",
+						"description": "The date and time when the auth was created.",
+						"example": "2024-01-01T12:00:00.000Z"
+					}
+				},
+				"required": [
+					"updatedAt",
+					"createdAt"
+				],
+				"type": "object"
+			},
+			"Contact": {
+				"properties": {
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time",
+						"description": "The date and time when the auth was last updated."
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time",
+						"description": "The date and time when the auth was created."
+					},
+					"id": {
+						"type": "number",
+						"format": "double",
+						"description": "The contact's identifier."
+					},
+					"fullname": {
+						"type": "string",
+						"description": "The contact's full name."
+					},
+					"email": {
+						"type": "string",
+						"description": "The contact's email."
+					},
+					"phone": {
+						"type": "string",
+						"description": "The contact's phone number."
+					},
+					"fax": {
+						"type": "string",
+						"description": "The contact's fax number."
+					},
+					"user": {
+						"$ref": "#/components/schemas/User"
+					}
+				},
+				"required": [
+					"updatedAt",
+					"createdAt",
+					"id",
+					"fullname",
+					"email",
+					"phone",
+					"fax",
+					"user"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"JwtPayloadInterface": {
+				"properties": {
+					"iss": {
+						"type": "string"
+					},
+					"sub": {
+						"type": "string"
+					},
+					"aud": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"items": {
+									"type": "string"
+								},
+								"type": "array"
+							}
+						]
+					},
+					"exp": {
+						"type": "number",
+						"format": "double"
+					},
+					"nbf": {
+						"type": "number",
+						"format": "double"
+					},
+					"iat": {
+						"type": "number",
+						"format": "double"
+					},
+					"jti": {
+						"type": "string"
+					},
+					"user": {
+						"properties": {
+							"roles": {
+								"items": {
+									"$ref": "#/components/schemas/Role"
+								},
+								"type": "array"
+							},
+							"id": {
+								"type": "number",
+								"format": "double"
+							},
+							"email": {
+								"type": "string"
+							},
+							"username": {
+								"type": "string"
+							}
+						},
+						"additionalProperties": {},
+						"required": [
+							"roles",
+							"id",
+							"email",
+							"username"
+						],
+						"type": "object"
+					},
+					"scopes": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"user"
+				],
+				"type": "object",
+				"additionalProperties": false
+			}
+		},
+		"securitySchemes": {
+			"jwt": {
+				"type": "http",
+				"scheme": "bearer",
+				"bearerFormat": "JWT",
+				"description": "Enter your bearer token in the format \"Bearer {token}\"",
+				"scopes": {
+					"ADMIN": "Admin privileges",
+					"USER": "User privileges"
+				}
+			}
+		}
+	},
+	"info": {
+		"title": "User Management API",
+		"version": "1.0.7",
+		"description": "This is a sample server User server.  You can find out more about Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).",
+		"termsOfService": "http://swagger.io/terms/",
+		"license": {
+			"name": {
+				"name": "MIT License",
+				"url": "opensource.org"
+			}
+		},
+		"contact": {
+			"name": "Joseph Adogeri",
+			"email": "johndoe@gmail.com",
+			"url": "http://example.com"
+		}
+	},
+	"paths": {
+		"/users/{userId}": {
+			"get": {
+				"operationId": "GetSingleUser",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"anyOf": [
+										{
+											"$ref": "#/components/schemas/UserReadResponseDTO"
+										},
+										{
+											"$ref": "#/components/schemas/ErrorResponse"
+										}
+									]
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"id": 1,
+											"username": "john1doe",
+											"fullname": "John Doe",
+											"email": "johndoe@tsoa.com",
+											"phone": "123-456-7890",
+											"createdAt": "2023-01-01T10:00:00.000Z",
+											"updatedAt": "2023-01-01T11:30:00.000Z",
+											"failedLogins": 0,
+											"isEnabled": false
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"description": "Retrieves the details of an existing user.\r\nSupply the unique user ID and receive corresponding user details.",
+				"summary": "Gets a single user.",
+				"tags": [
+					"User"
+				],
+				"security": [
+					{
+						"jwt": [
+							"user:read"
+						]
+					}
+				],
+				"parameters": [
+					{
+						"description": "The user's identifier",
+						"in": "path",
+						"name": "userId",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						},
+						"example": 1
+					}
+				]
+			}
+		},
+		"/users/get-all": {
+			"get": {
+				"operationId": "GetAllUsers",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User"
+				],
+				"security": [
+					{
+						"jwt": [
+							""
+						]
+					}
+				],
+				"parameters": []
+			}
+		},
+		"/users/modify": {
+			"put": {
+				"operationId": "ModifyUser",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/users/deactivate": {
+			"delete": {
+				"operationId": "DeactivateUser",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/users/reactivate": {
+			"post": {
+				"operationId": "ReactivateUser",
+				"responses": {
+					"200": {
+						"description": "The newly created user.",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"description": "Creates a new user in the system.",
+				"summary": "Create a new user",
+				"tags": [
+					"User"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/users/error": {
+			"get": {
+				"operationId": "Error",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/users/warn": {
+			"get": {
+				"operationId": "Warn",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/users/info": {
+			"get": {
+				"operationId": "Info",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/profiles": {
+			"post": {
+				"operationId": "CreateProfile",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Profile"
+				],
+				"security": [],
+				"parameters": []
+			},
+			"get": {
+				"operationId": "GetProfile",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Profile"
+				],
+				"security": [],
+				"parameters": []
+			},
+			"patch": {
+				"operationId": "UpdateProfile",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Profile"
+				],
+				"security": [],
+				"parameters": []
+			},
+			"put": {
+				"operationId": "ReplaceProfile",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Profile"
+				],
+				"security": [],
+				"parameters": []
+			},
+			"delete": {
+				"operationId": "DeleteProfile",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Profile"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/contacts": {
+			"post": {
+				"operationId": "CreateContact",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Contact"
+				],
+				"security": [],
+				"parameters": []
+			},
+			"get": {
+				"operationId": "GetContact",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Contact"
+				],
+				"security": [],
+				"parameters": []
+			},
+			"patch": {
+				"operationId": "UpdateContact",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Contact"
+				],
+				"security": [],
+				"parameters": []
+			},
+			"put": {
+				"operationId": "ReplaceContact",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Contact"
+				],
+				"security": [],
+				"parameters": []
+			},
+			"delete": {
+				"operationId": "DeleteContact",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Contact"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/auths/login": {
+			"post": {
+				"operationId": "LoginUser",
+				"responses": {
+					"200": {
+						"description": "ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"anyOf": [
+										{
+											"$ref": "#/components/schemas/AuthLoginResponseDTO"
+										},
+										{
+											"$ref": "#/components/schemas/ErrorResponse"
+										}
+									]
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoicm9vdEBBZG1pbmlzdHJhdG9yMSIsImVtYWlsIjoicm9vdEBleGFtcGxlLmNvbSIsImlkIjoxLCJyb2xlcyI6W3siaWQiOjEsIm5hbWUiOiJBRE1JTiIsImRlc2NyaXB0aW9uIjoiQWRtaW5pc3RyYXRvcjogSGlnaGVzdCBsZXZlbDsgbWFuYWdlcyB1c2Vycywgc2V0dGluZ3MsIGFuZCBzeXN0ZW0gYWNjZXNzOyBjYW4gZG8gZXZlcnl0aGluZy4iLCJwZXJtaXNzaW9ucyI6W3siaWQiOjEsImRlc2NyaXB0aW9uIjoiRnVsbCBhY2Nlc3MgdG8gYWxsIHJlc291cmNlcy4iLCJyZXNvdXJjZSI6IioiLCJhY3Rpb24iOiIqIn0seyJpZCI6MiwiZGVzY3JpcHRpb24iOiJDcmVhdGUgbmV3IHVzZXIuIiwicmVzb3VyY2UiOiJ1c2VyIiwiYWN0aW9uIjoiY3JlYXRlIn0seyJpZCI6MywiZGVzY3JpcHRpb24iOiJSZWFkIG93biBkYXRhLiIsInJlc291cmNlIjoidXNlciIsImFjdGlvbiI6InJlYWQifSx7ImlkIjo0LCJkZXNjcmlwdGlvbiI6IlVwZGF0ZSBvd24gZGF0YS4iLCJyZXNvdXJjZSI6InVzZXIiLCJhY3Rpb24iOiJ1cGRhdGUifSx7ImlkIjo1LCJkZXNjcmlwdGlvbiI6IkRlbGV0ZSBvd24gcmVjb3JkLiIsInJlc291cmNlIjoidXNlciIsImFjdGlvbiI6ImRlbGV0ZSJ9LHsiaWQiOjksImRlc2NyaXB0aW9uIjoiUmVhZCBvd24gYXV0aCBkYXRhLiIsInJlc291cmNlIjoiYXV0aCIsImFjdGlvbiI6InJlYWQifSx7ImlkIjoxMCwiZGVzY3JpcHRpb24iOiJVcGRhdGUgb3duIGF1dGggZGF0YS4iLCJyZXNvdXJjZSI6ImF1dGgiLCJhY3Rpb24iOiJ1cGRhdGUifSx7ImlkIjoxMSwiZGVzY3JpcHRpb24iOiJDcmVhdGUgYXV0aCBkYXRhLiIsInJlc291cmNlIjoiYXV0aCIsImFjdGlvbiI6ImNyZWF0ZSJ9XX1dfSwic2NvcGVzIjpbIio6KiIsInVzZXI6Y3JlYXRlIiwidXNlcjpyZWFkIiwidXNlcjp1cGRhdGUiLCJ1c2VyOmRlbGV0ZSIsImF1dGg6cmVhZCIsImF1dGg6dXBkYXRlIiwiYXV0aDpjcmVhdGUiXSwiaWF0IjoxNzY3NjcwMzE0LCJleHAiOjE3NjgyNzUxMTR9.PCFsmtyNL1uFauuvfD38KTu927LjpzQDTQVJvC05ZM2",
+											"refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoicm9vdEBBZG1pbmlzdHJhdG9yMSIsImVtYWlsIjoicm9vdEBleGFtcGxlLmNvbSIsImlkIjoxLCJyb2xlcyI6W3siaWQiOjEsIm5hbWUiOiJBRE1JTiIsImRlc2NyaXB0aW9uIjoiQWRtaW5pc3RyYXRvcjogSGlnaGVzdCBsZXZlbDsgbWFuYWdlcyB1c2Vycywgc2V0dGluZ3MsIGFuZCBzeXN0ZW0gYWNjZXNzOyBjYW4gZG8gZXZlcnl0aGluZy4iLCJwZXJtaXNzaW9ucyI6W3siaWQiOjEsImRlc2NyaXB0aW9uIjoiRnVsbCBhY2Nlc3MgdG8gYWxsIHJlc291cmNlcy4iLCJyZXNvdXJjZSI6IioiLCJhY3Rpb24iOiIqIn0seyJpZCI6MiwiZGVzY3JpcHRpb24iOiJDcmVhdGUgbmV3IHVzZXIuIiwicmVzb3VyY2UiOiJ1c2VyIiwiYWN0aW9uIjoiY3JlYXRlIn0seyJpZCI6MywiZGVzY3JpcHRpb24iOiJSZWFkIG93biBkYXRhLiIsInJlc291cmNlIjoidXNlciIsImFjdGlvbiI6InJlYWQifSx7ImlkIjo0LCJkZXNjcmlwdGlvbiI6IlVwZGF0ZSBvd24gZGF0YS4iLCJyZXNvdXJjZSI6InVzZXIiLCJhY3Rpb24iOiJ1cGRhdGUifSx7ImlkIjo1LCJkZXNjcmlwdGlvbiI6IkRlbGV0ZSBvd24gcmVjb3JkLiIsInJlc291cmNlIjoidXNlciIsImFjdGlvbiI6ImRlbGV0ZSJ9LHsiaWQiOjksImRlc2NyaXB0aW9uIjoiUmVhZCBvd24gYXV0aCBkYXRhLiIsInJlc291cmNlIjoiYXV0aCIsImFjdGlvbiI6InJlYWQifSx7ImlkIjoxMCwiZGVzY3JpcHRpb24iOiJVcGRhdGUgb3duIGF1dGggZGF0YS4iLCJyZXNvdXJjZSI6ImF1dGgiLCJhY3Rpb24iOiJ1cGRhdGUifSx7ImlkIjoxMSwiZGVzY3JpcHRpb24iOiJDcmVhdGUgYXV0aCBkYXRhLiIsInJlc291cmNlIjoiYXV0aCIsImFjdGlvbiI6ImNyZWF0ZSJ9XX1dfSwic2NvcGVzIjpbIio6KiIsInVzZXI6Y3JlYXRlIiwidXNlcjpyZWFkIiwidXNlcjp1cGRhdGUiLCJ1c2VyOmRlbGV0ZSIsImF1dGg6cmVhZCIsImF1dGg6dXBkYXRlIiwiYXV0aDpjcmVhdGUiXSwiaWF0IjoxNzY3NjcwMzE0LCJleHAiOjE3NjgyNzUxMTR9.eLK-wWRy2D1DOxEjyFw_K4XMlS57kNXNeCgRy6GZ8J7"
+										}
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BadRequestError"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Resource Not Found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ResourceNotFoundError"
+								}
+							}
+						}
+					}
+				},
+				"description": "Authenticates a registered user.",
+				"summary": "Authenticates an existing user",
+				"tags": [
+					"Auth"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/AuthLoginRequestDTO"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/auths/logout": {
+			"post": {
+				"operationId": "LogoutUser",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AuthLogoutResponseDTO"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Auth"
+				],
+				"security": [
+					{
+						"jwt": [
+							"auth:delete"
+						]
+					}
+				],
+				"parameters": []
+			}
+		},
+		"/auths/forgot-password": {
+			"post": {
+				"operationId": "ForgotUser",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Auth"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/auths/reset-password": {
+			"post": {
+				"operationId": "ResetUser",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Auth"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/auths/register": {
+			"post": {
+				"operationId": "RegisterUser",
+				"responses": {
+					"201": {
+						"description": "Created",
+						"content": {
+							"application/json": {
+								"schema": {
+									"anyOf": [
+										{
+											"$ref": "#/components/schemas/AuthRegisterResponseDTO"
+										},
+										{
+											"$ref": "#/components/schemas/ErrorResponse"
+										}
+									]
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"id": 1,
+											"username": "john1doe",
+											"fullname": "John Doe",
+											"email": "johndoe@tsoa.com",
+											"phone": "123-456-7890",
+											"createdAt": "2023-01-01T10:00:00.000Z",
+											"updatedAt": "2023-01-01T11:30:00.000Z",
+											"failedLogins": 0,
+											"isEnabled": false
+										}
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BadRequestError"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Resource Not Found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ResourceNotFoundError"
+								}
+							}
+						}
+					},
+					"409": {
+						"description": "Conflict",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ConflictError"
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "Internal Server Error",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/InternalServerError"
+								}
+							}
+						}
+					}
+				},
+				"description": "Creates a new user in the system.",
+				"summary": "Create a new user",
+				"tags": [
+					"Auth"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"description": "The user details for creation.",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/AuthRegisterRequestDTO",
+								"description": "The user details for creation."
+							}
+						}
+					}
+				}
+			}
+		},
+		"/auths/refresh": {
+			"post": {
+				"operationId": "RefreshToken",
+				"responses": {
+					"200": {
+						"description": "The newly created refresh and access tokens.",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"description": "Creates a new refresh token in the system.",
+				"summary": "Invalidate current refresh token and generate a new pair of tokens",
+				"tags": [
+					"Auth"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/AuthRefreshTokenRequestDTO"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/auths/current": {
+			"get": {
+				"operationId": "CurrentUser",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/JwtPayloadInterface"
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"user": {
+												"username": "John1Doe",
+												"email": "JohnDoe@gmail.com",
+												"id": 2,
+												"roles": [
+													{
+														"id": 2,
+														"users": [],
+														"name": "USER",
+														"description": "Regular User: Standard access; can use application features but has limited administrative capabilities.",
+														"permissions": [
+															{
+																"id": 2,
+																"description": "Create new user.",
+																"resource": "user",
+																"action": "create",
+																"roles": []
+															},
+															{
+																"id": 3,
+																"description": "Read own data.",
+																"resource": "user",
+																"action": "read",
+																"roles": []
+															}
+														]
+													}
+												]
+											},
+											"scopes": [
+												"user:create",
+												"user:read"
+											],
+											"iat": 1767492049,
+											"exp": 1767492109
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"description": "Gets current user credentials by access token.",
+				"summary": "Gets authorized user jwt payload",
+				"tags": [
+					"Auth"
+				],
+				"security": [
+					{
+						"jwt": [
+							"user:read"
+						]
+					}
+				],
+				"parameters": []
+			}
+		},
+		"/auths": {
+			"get": {
+				"operationId": "GetUsers",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Auth"
+				],
+				"security": [],
+				"parameters": []
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "http://localhost:3000",
+			"description": "Development server"
+		},
+		{
+			"url": "http://localhost:3000/api/v1",
+			"description": "Test Server"
+		},
+		{
+			"url": "http://prod:3000/api/v1",
+			"description": "Production server"
+		}
+	],
+	"tags": [
+		{
+			"name": "User",
+			"description": "Operations related to user management, including creation, retrieval, and updates."
+		},
+		{
+			"name": "Auth",
+			"description": "Operations related to authentication, including login, logout, and token management."
+		},
+		{
+			"name": "Profile",
+			"description": "Operations related to user profiles, including retrieval and updates."
+		}
+	]
+}

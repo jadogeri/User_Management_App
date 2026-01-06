@@ -18,27 +18,15 @@ export default class PermissionSeeder implements Seeder {
 
     for (const permission of permissions) {
       // Check if the role already exists by ID
-      // const existingPermission = await permissionRepository.findOneBy({ id: permission.id });
+      const existingPermission = await permissionRepository.findOneBy({ id: permission.id });
       
-      // if (!existingPermission) {
-      //   await permissionRepository.upsert(permissions, {
-      //       conflictPaths: ["action", "resource","id"], // Columns that trigger the conflict
-      //       upsertType: "on-conflict-do-update",
-      //       overwriteCondition: { where: { description: () => "EXCLUDED.description" } }, // 👈 ONLY update description, keep ID and Foreign Keys safe
-      //   });
-      // }
-
-          // Use upsert for the Role itself to prevent ID conflicts
-    await permissionRepository.upsert(
-      permission,
-      ["id"]
-    );
-
-    // Re-fetch the role to establish relations safely
-    const savedPermission = await permissionRepository.findOneBy({ id: permission.id });
-    if (savedPermission) {
-      await permissionRepository.save(savedPermission); // TypeORM handles role_permission automatically
-    }
+      if (!existingPermission) {
+        await permissionRepository.upsert(permissions, {
+            conflictPaths: ["action", "resource"], // Columns that trigger the conflict
+            upsertType: "on-conflict-do-update",
+            overwriteCondition: { where: { description: () => "EXCLUDED.description" } }, // 👈 ONLY update description, keep ID and Foreign Keys safe
+        });
+      }
     }
   }
 }

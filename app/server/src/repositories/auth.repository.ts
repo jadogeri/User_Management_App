@@ -41,13 +41,16 @@ export class AuthRepository extends BaseRepository<Auth> implements AuthReposito
     }
     findByUserId(userId: number): Promise<Auth | null> {
 
-        return this.findOne({ where: { user: { id: userId } }, relations: ["user"] });
+        return this.findOne({ 
+            where: { user: { id: userId } }, 
+            relations: ["user", "user.roles","user.roles.permissions"], // Specify nested relations
+        });
         
     }
     findByRefreshToken(token: string): Promise<Auth | null> {
         return this.findOne({
             where: { refreshToken: token },
-            relations: ["user", "user.roles.permissions"], // Specify nested relations
+            relations: ["user", "user.roles","user.roles.permissions"], // Specify nested relations
         });    
     }
     

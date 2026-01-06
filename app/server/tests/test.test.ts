@@ -1,37 +1,86 @@
 import { DataSource } from "typeorm";
-import { User } from "../src/entities/user.entity";
-import { SQLiteTestContainer } from "./__configurations__/SQLiteTestContainer";
+import { User } from "../src/entities/user.entity.js"; // Note: Use .js for ESM compatibility
+import { SQLiteTestContainer } from "./__configurations__/SQLiteTestContainer.js";
+import request from "supertest";
+import { buildApp } from "../src/app.js";
+import { bindDataSource, iocContainer } from "../src/configs/ioc.config.js";
+import path from "path";
+import fs from "fs";
+import { TYPES } from "../src/types/binding.type.js";
+import { Role } from "../src/entities/role.entity.js";
+import { AuthService } from "../src/services/auth.service.js";
+import { Application } from "express";
 
-describe("User Entity with MariaDB Testcontainer", () => {
-
+describe("TSOA Integration with SQLite Testcontainer", () => {
   const sqliteContainer = new SQLiteTestContainer();
-  let dataSource: DataSource ;
+  let dataSource: DataSource;
+  let app: Application ;
 
   beforeAll(async () => {
+    // 1. Snapshot the container to ensure cleanup after tests
+    iocContainer.snapshot();
 
+    // 2. Start container and get the initialized DataSource
     await sqliteContainer.startTestConatiner();
     dataSource = sqliteContainer.getDataSource();
-  }, 120000); // Generous timeout for image pull
+    if (!dataSource.isInitialized) {
+      console.log("Initializing Test DataSource... not yet initialized.");
+      dataSource = await dataSource.initialize();
+    }
+    console.log("Test DataSource initialized:", dataSource.isInitialized);
+    
+    // 3. REBIND (Sync): Inversify rebind is synchronous
+    // We use toConstantValue to force the app to use our live test instance
+
+    // 4. Seed the database
+    await bindDataSource(dataSource);
+
+    if (iocContainer.isBound(TYPES.AuthServiceInterface)) {
+    await iocContainer.unbind(TYPES.AuthServiceInterface);
+    iocContainer.bind(TYPES.AuthServiceInterface).to(AuthService).inSingletonScope();
+  }
+      app = buildApp();
+
+    // Ensure all tables (Role, Status, etc.) are populated before tests run
+    await sqliteContainer.runSeeders(dataSource);
+
+    
+  }, 120000); // 2026 Recommended: 60s timeout for container pull + seeding
 
   afterAll(async () => {
+    // Revert container to production state
+   iocContainer.restore();
+
     await sqliteContainer.stopTestConatiner();
+    
+    // Clean up local sqlite file
+    const localDbPath = path.join(process.cwd(), './tests/__database__/testdb.sqlite');
+    if (fs.existsSync(localDbPath)) {
+      fs.unlinkSync(localDbPath);
+    }
   });
 
-  it("should save user with JSON and enums successfully", async () => {
-    const userRepository = dataSource.getRepository(User);
-    
-    const user = userRepository.create({
-      fullname: "Test User",
-      username: "testuser",
-      email: "test@example.com",
-      password: "password",
-      isEnabled: true,
-      failedLogins: 0,
-    });
+  it('should create a new user via TSOA endpoint', async () => {
+    const payload = {
+      fullname: "Supertest User",
+      username: "supertest_user",
+      email: "tester@example.com",
+      password: "@securePassword123",
+      phone: "12412348901",
+    };
 
-    const savedUser = await userRepository.save(user);
-    console.log("Saved User:", savedUser);
-    expect(savedUser.id).toBeDefined();
-    expect(savedUser.password).toBe("password");
+    const response = await request(app)
+      .post('/auths/register')
+      .send(payload)
+      .set('Accept', 'application/json');
+
+    // If roles were seeded correctly, status will be 201
+    expect(response.status).toBe(201);
+    expect(response.body.username).toBe(payload.username);
+    
+    // Verify Role persistence in Test DB
+    const roleRepository = dataSource.getRepository(Role);
+    const roles = await roleRepository.find();
+    expect(roles.length).toBeGreaterThan(0);
   });
 });
