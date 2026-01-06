@@ -96,29 +96,11 @@ iocContainer.load(buildProviderModule());
  * @returns {void}
  * @throws {Error} Throws an error if the binding fails.
  */
-// export const bindDataSource = async (dataSource: DataSource) => {
-//   // iocContainer.bind<DataSource>(TYPES.DataSource).toConstantValue(dataSource);
-//     if (iocContainer.isBound(TYPES.DataSource)) {
-//     // Rebind allows you to swap out the existing binding for a new one
-//   (await iocContainer.rebind<DataSource>(TYPES.DataSource)).toConstantValue(dataSource);  
-//   } else {
-//       // If not bound, perform the initial binding
-//       iocContainer.bind<DataSource>(TYPES.DataSource).toConstantValue(dataSource);
-//     }
-// };
 
-// export const bindDataSource = async (dataSource: DataSource) => {
-//   if (iocContainer.isBound(TYPES.DataSource)) {
-//     return (await iocContainer.rebind<DataSource>(TYPES.DataSource)).toConstantValue(dataSource);
-//   }
-//   return iocContainer.bind<DataSource>(TYPES.DataSource).toConstantValue(dataSource);
-// };
 
-// src/ioc.config.ts
-export const bindDataSource = async (dataSource: DataSource) => {
+export const bindDataSource =(dataSource: DataSource) => {
   if (iocContainer.isBound(TYPES.DataSource)) {
-    // Await the rebind to ensure the container completes the swap
-    return (await iocContainer.rebind<DataSource>(TYPES.DataSource)).toConstantValue(dataSource);
+    return iocContainer.unbind(TYPES.DataSource)
   }
   return iocContainer.bind<DataSource>(TYPES.DataSource).toConstantValue(dataSource);
 };

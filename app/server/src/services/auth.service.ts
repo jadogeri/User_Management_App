@@ -24,8 +24,6 @@ import { TokenValidatorInterface } from "../interfaces/token-validator.interface
 import { TokenExpiredError, JsonWebTokenError } from "jsonwebtoken";
 import { ForbiddenError } from "../errors/forbidden.error";
 import { AppDataSource } from "../configs/typeOrm.config";
-import { UserCreateRequestDTO } from "../dtos/requests/user-request.dto";
-import { UserCreateResponseDTO } from "../dtos/responses/user-response.dto";
 import Role from "../entities/role.entity";
 import User from "../entities/user.entity";
 import { ConflictError } from "../errors/conflict.error";
@@ -52,9 +50,15 @@ export class AuthService implements AuthServiceInterface{
     private readonly cookieStorageService!: CookieStorageInterface; 
     @AutoWired(TYPES.PasswordGeneratorInterface)
     private readonly passwordGeneratorService!: PasswordGeneratorInterface;
+<<<<<<< HEAD
     @AutoWired(TYPES.DataSource)
     private readonly dataSource!:  DataSource;
  
+=======
+    @AutoWired(TYPES.DataSource) 
+    private readonly dataSource: DataSource;
+
+>>>>>>> 69935cae36e3864c2cff1a8397bfb0c85ce52c7c
 
     public async login(userRequest: AuthLoginRequestDTO, req: Request): Promise<AuthLoginResponseDTO | ErrorResponse > {
         const { email, password } = userRequest;
@@ -200,8 +204,6 @@ export class AuthService implements AuthServiceInterface{
             if (!roleRepository) {
                 console.error("Role repository is not available.");
             }           
-            const roles = await roleRepository.find();
-            console.log("Available Roles: ", roles);
             const existingRole = await roleRepository.findOne({
                 where: { name: RoleNamesEnum.USER },
                 relations: ['permissions'] 

@@ -1,5 +1,4 @@
-// src/config/typeorm.config.ts
-  import { DataSource, DataSourceOptions } from 'typeorm';
+import { DataSource, DataSourceOptions } from 'typeorm';
 import { SeederOptions } from 'typeorm-extension';
 import { Role } from '../entities/role.entity';
 import { User } from '../entities/user.entity';
@@ -9,9 +8,9 @@ import { NodeEnvironment } from '../types/node-environment.type';
 import { Permission } from '../entities/permission.entity';
 import Profile from '../entities/profile.entity';
 import { Contact } from '../entities/contact.entity';
-import StatusSeeder from '../database/seeds/status.seed';
-import PermissionSeeder from '../database/seeds/permission.seed';
 import RoleSeeder from '../database/seeds/role.seed';
+import PermissionSeeder from '../database/seeds/permission.seed';
+import StatusSeeder from '../database/seeds/status.seed';
 import UserSeeder from '../database/seeds/user.seed';
 
 const env : NodeEnvironment = process.env.NODE_ENV || 'development';
@@ -26,13 +25,7 @@ const options: DataSourceOptions & SeederOptions = {
   migrations: ["src/migrations/**/*.ts"],
   subscribers: [],
   // These belong to SeederOptions
-  seeds: [ 'src/database/seeds/**/*{.ts,.js}'
-  //   StatusSeeder,     // Runs 1st
-  //   PermissionSeeder, // Runs 2nd
-  //   RoleSeeder,       // Runs 3rd
-  //  UserSeeder,       // Runs 4th
-
-  ],
+  seeds: [ StatusSeeder, PermissionSeeder, RoleSeeder, UserSeeder ],
   factories: ['src/database/factories/**/*{.ts,.js}'],
 };
 

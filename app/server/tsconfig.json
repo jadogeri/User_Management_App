@@ -34,6 +34,12 @@
     "./src/**/*.ts", "./*.ts", "./**/**.*.ts","./**/**.*.ts"
 , "jest.config.ts","src/**/*.ts", "src/@types/**/*.d.ts", "tests/**/*"  ],
   "exclude": ["./node_modules/*","node_modules"],
-  "files": ["env.d.ts"] 
+  "files": ["env.d.ts"],
+    "ts-node": {
+    "transpileOnly": true,
+    "compilerOptions": {
+      "module": "CommonJS"
+    }
+  }
 }
 

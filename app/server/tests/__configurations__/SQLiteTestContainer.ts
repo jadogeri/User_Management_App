@@ -5,7 +5,7 @@ import { Auth } from '../../src/entities/auth.entity';
 import Contact from '../../src/entities/contact.entity';
 import { Permission } from '../../src/entities/permission.entity';
 import Profile from '../../src/entities/profile.entity';
-import Role from '../../src/entities/role.entity.js';
+import Role from '../../src/entities/role.entity';
 import Status from '../../src/entities/status.entity';
 import User from '../../src/entities/user.entity';
 import {SeederOptions } from 'typeorm-extension';
@@ -19,10 +19,15 @@ const options: DataSourceOptions & SeederOptions = {
   synchronize: true,
    type: "better-sqlite3",
    //logging: true, // Set to true to log generated SQL queries to the console
-   entities: ["./src/entities/**/*.ts"], // List your entity classes or use a glob pattern
+   entities: [User, Role, Status, Auth, Permission, Profile, Contact], // List your entity classes or use a glob pattern
    migrations: ["src/migrations/**/*.ts"],
    subscribers: [],
    // These belong to SeederOptions
+   seeds: [ 'src/database/seeds/**/*{.ts,.js}'],
+   //   StatusSeeder,     // Runs 1st
+   //   PermissionSeeder, // Runs 2nd
+   //   RoleSeeder,       // Runs 3rd
+   //  UserSeeder,       // Runs 4th
 
 
   factories: ['src/database/factories/**/*{.ts,.js}'],
