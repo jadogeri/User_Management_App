@@ -33,6 +33,7 @@ import { InternalServerError } from "../errors/internal-server.error";
 import { ResourceNotFoundError } from "../errors/resource-not-found.error";
 import { RoleNamesEnum } from "../types/role-names.type";
 import { PasswordGeneratorInterface } from "../interfaces/password-generator.interface";
+import { DataSource } from "typeorm";
 
 @Service()
 export class AuthService implements AuthServiceInterface{
@@ -51,6 +52,8 @@ export class AuthService implements AuthServiceInterface{
     private readonly cookieStorageService!: CookieStorageInterface; 
     @AutoWired(TYPES.PasswordGeneratorInterface)
     private readonly passwordGeneratorService!: PasswordGeneratorInterface;
+    @AutoWired(TYPES.DataSource)
+    private readonly dataSource!:  DataSource;
  
 
     public async login(userRequest: AuthLoginRequestDTO, req: Request): Promise<AuthLoginResponseDTO | ErrorResponse > {
@@ -193,7 +196,7 @@ export class AuthService implements AuthServiceInterface{
             newUser.status = EnabledStatus
 
             // 🏁 Get the repo from the passed dataSource
-            const roleRepository = AppDataSource.getRepository(Role);     
+            const roleRepository = this.dataSource.getRepository(Role);     
             if (!roleRepository) {
                 console.error("Role repository is not available.");
             }           

@@ -1,14 +1,14 @@
 import { DataSource } from "typeorm";
-import { User } from "../src/entities/user.entity.js"; // Note: Use .js for ESM compatibility
-import { SQLiteTestContainer } from "./__configurations__/SQLiteTestContainer.js";
+import { User } from "../src/entities/user.entity"; // Note: Use  for ESM compatibility
+import { SQLiteTestContainer } from "./__configurations__/SQLiteTestContainer";
 import request from "supertest";
-import { buildApp } from "../src/app.js";
-import { bindDataSource, iocContainer } from "../src/configs/ioc.config.js";
+import { buildApp } from "../src/app";
+import { bindDataSource, iocContainer } from "../src/configs/ioc.config";
 import path from "path";
 import fs from "fs";
-import { TYPES } from "../src/types/binding.type.js";
-import { Role } from "../src/entities/role.entity.js";
-import { AuthService } from "../src/services/auth.service.js";
+import { TYPES } from "../src/types/binding.type";
+import { Role } from "../src/entities/role.entity";
+import { AuthService } from "../src/services/auth.service";
 import { Application } from "express";
 
 describe("TSOA Integration with SQLite Testcontainer", () => {
