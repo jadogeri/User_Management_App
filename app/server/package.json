@@ -42,7 +42,7 @@
     "dc": "concurrently \"tsc --watch\" \"nodemon dist/server.js\"",
     "swagger-gen": "tsoa spec",
     "routes-gen": "tsoa routes",
-    "test": "cross-env NODE_ENV=test DOTENV_CONFIG_PATH=.test.env jest --setupFiles dotenv/config &&  --config=jest.config.ts --coverage  --testPathPatterns=tests/ --runInBand --colors --verbose --detectOpenHandles"
+    "test": "cross-env NODE_ENV=test DOTENV_CONFIG_PATH=.test.env jest --setupFiles dotenv/config && jest --config=jest.config.ts --coverage  --testPathPatterns=tests/ --runInBand --colors --verbose --detectOpenHandles"
   },
   "dependencies": {
     "@babel/cli": "^7.28.3",
