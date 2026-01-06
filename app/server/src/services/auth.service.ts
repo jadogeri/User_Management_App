@@ -50,15 +50,11 @@ export class AuthService implements AuthServiceInterface{
     private readonly cookieStorageService!: CookieStorageInterface; 
     @AutoWired(TYPES.PasswordGeneratorInterface)
     private readonly passwordGeneratorService!: PasswordGeneratorInterface;
-<<<<<<< HEAD
     @AutoWired(TYPES.DataSource)
     private readonly dataSource!:  DataSource;
  
-=======
-    @AutoWired(TYPES.DataSource) 
-    private readonly dataSource: DataSource;
 
->>>>>>> 69935cae36e3864c2cff1a8397bfb0c85ce52c7c
+
 
     public async login(userRequest: AuthLoginRequestDTO, req: Request): Promise<AuthLoginResponseDTO | ErrorResponse > {
         const { email, password } = userRequest;
