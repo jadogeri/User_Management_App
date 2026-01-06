@@ -11,7 +11,7 @@ export class AuthRepository extends BaseRepository<Auth> implements AuthReposito
     
 
     constructor(@inject(TYPES.DataSource) dataSource: DataSource) {
-        //console.log("Registered Entities:", dataSource.entityMetadatas.map(m => m.name));
+        console.log("Registered Entities:", dataSource.entityMetadatas.map(m => m.name));
         super(Auth, dataSource.createEntityManager());
         
     }

@@ -1,5 +1,9 @@
 // jest.config.ts
 import type { Config } from 'jest';
+import dotenv from 'dotenv';
+
+// Load variables from your preferred test env file
+dotenv.config({ path: '.test.env' }); 
 
 const config: Config = {
   preset: 'ts-jest/presets/default-esm', // Use the ESM preset

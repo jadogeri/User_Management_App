@@ -10,6 +10,13 @@ import { TYPES } from "../src/types/binding.type.js";
 import { Role } from "../src/entities/role.entity.js";
 import { AuthService } from "../src/services/auth.service.js";
 import { Application } from "express";
+import { AuthRepository } from "../src/repositories/auth.repository.js";
+import { AuthRepositoryInterface } from "../src/interfaces/auth-repository.interface.js";
+import Status from "../src/entities/status.entity.js";
+import { Permission } from "../src/entities/permission.entity.js";
+import Contact from "../src/entities/contact.entity.js";
+import Profile from "../src/entities/profile.entity.js";
+import { Auth } from "../src/entities/auth.entity.js";
 
 describe("TSOA Integration with SQLite Testcontainer", () => {
   const sqliteContainer = new SQLiteTestContainer();
@@ -25,6 +32,10 @@ describe("TSOA Integration with SQLite Testcontainer", () => {
     dataSource = sqliteContainer.getDataSource();
     if (!dataSource.isInitialized) {
       console.log("Initializing Test DataSource... not yet initialized.");
+      dataSource.setOptions({
+        entities: [User, Role, Status, Permission, Contact, Profile, Auth],
+        migrations: [path.join(__dirname, '../src/migrations/*.{ts,js}')],
+      });
       dataSource = await dataSource.initialize();
     }
     console.log("Test DataSource initialized:", dataSource.isInitialized);
@@ -35,10 +46,11 @@ describe("TSOA Integration with SQLite Testcontainer", () => {
     // 4. Seed the database
     await bindDataSource(dataSource);
 
-    if (iocContainer.isBound(TYPES.AuthServiceInterface)) {
-    await iocContainer.unbind(TYPES.AuthServiceInterface);
-    iocContainer.bind(TYPES.AuthServiceInterface).to(AuthService).inSingletonScope();
-  }
+    // if (iocContainer.isBound(TYPES.AuthServiceInterface)) {
+    // await iocContainer.unbind(TYPES.AuthServiceInterface);
+    // iocContainer.bind(TYPES.AuthServiceInterface).to(AuthService).inSingletonScope();
+    //iocContainer.bind<DataSource>(TYPES.DataSource).toConstantValue(dataSource);
+  //}
       app = buildApp();
 
     // Ensure all tables (Role, Status, etc.) are populated before tests run
