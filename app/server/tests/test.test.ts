@@ -1,22 +1,22 @@
 import { DataSource } from "typeorm";
-import { User } from "../src/entities/user.entity.js"; // Note: Use .js for ESM compatibility
-import { SQLiteTestContainer } from "./__configurations__/SQLiteTestContainer.js";
+import { User } from "../src/entities/user.entity"; // Note: Use  for ESM compatibility
+import { SQLiteTestContainer } from "./__configurations__/SQLiteTestContainer";
 import request from "supertest";
-import { buildApp } from "../src/app.js";
-import { bindDataSource, iocContainer } from "../src/configs/ioc.config.js";
+import { buildApp } from "../src/app";
+import { bindDataSource, iocContainer } from "../src/configs/ioc.config";
 import path from "path";
 import fs from "fs";
-import { TYPES } from "../src/types/binding.type.js";
-import { Role } from "../src/entities/role.entity.js";
-import { AuthService } from "../src/services/auth.service.js";
+import { TYPES } from "../src/types/binding.type";
+import { Role } from "../src/entities/role.entity";
+import { AuthService } from "../src/services/auth.service";
 import { Application } from "express";
-import { AuthRepository } from "../src/repositories/auth.repository.js";
-import { AuthRepositoryInterface } from "../src/interfaces/auth-repository.interface.js";
-import Status from "../src/entities/status.entity.js";
-import { Permission } from "../src/entities/permission.entity.js";
-import Contact from "../src/entities/contact.entity.js";
-import Profile from "../src/entities/profile.entity.js";
-import { Auth } from "../src/entities/auth.entity.js";
+import { AuthRepository } from "../src/repositories/auth.repository";
+import { AuthRepositoryInterface } from "../src/interfaces/auth-repository.interface";
+import Status from "../src/entities/status.entity";
+import { Permission } from "../src/entities/permission.entity";
+import Contact from "../src/entities/contact.entity";
+import Profile from "../src/entities/profile.entity";
+import { Auth } from "../src/entities/auth.entity";
 
 describe("TSOA Integration with SQLite Testcontainer", () => {
   const sqliteContainer = new SQLiteTestContainer();
