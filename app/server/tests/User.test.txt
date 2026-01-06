@@ -1,0 +1,49 @@
+// src/user/user.service.spec.ts
+import { DataSource, Repository } from 'typeorm';
+import { createTestConnection, closeTestConnection, getTestConnection } from './__congigurations__/test-setUps';
+import User from '../src/entities/user.entity';
+
+describe('UserService Integration Tests', () => {
+  let connection: DataSource;
+  let userRepository: Repository<User>;
+
+  beforeAll(async () => {
+    connection = await createTestConnection();
+    userRepository = connection.getRepository(User);
+  }, 30000); // Increase timeout as container startup can take time
+
+  afterAll(async () => {
+    await closeTestConnection();
+  });
+
+  beforeEach(async () => {
+    // Optional: Clear database between tests to ensure isolation
+    await userRepository.clear();
+  });
+
+  it('should save a user to the database', async () => {
+    const user = new User();
+    user.fullname = 'Test User';
+    user.email = 'test@example.com';
+    user.password = 'S@ecurepassword123';
+    user.roles = [];
+    user.id= 1;
+
+    const newUser = userRepository.create(user);
+    await userRepository.save(newUser);
+
+    const savedUser = await userRepository.findOne({ where: { email: 'test@example.com' } });
+    expect(savedUser).toBeDefined();
+    expect(savedUser?.fullname).toBe('Test User');
+  });
+
+  it('should retrieve all users', async () => {
+    await userRepository.save([
+      { fullname: 'User 1', email: 'user1@example.com' },
+      { fullname: 'User 2', email: 'user2@example.com' },
+    ]);
+
+    const users = await userRepository.find();
+    expect(users).toHaveLength(2);
+  });
+});

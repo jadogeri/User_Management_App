@@ -8,9 +8,9 @@ import { Auth } from "../entities/auth.entity";
 import { Request } from "express";
 import { AuthRepositoryInterface } from "../interfaces/auth-repository.interface";
 import { UserRepositoryInterface } from "../interfaces/user-repository.interface";
-import { LockedStatus } from "../data/status.data";
-import { AuthLoginRequestDTO } from "../dtos/requests/auth-request.dto";
-import { AuthLoginResponseDTO, AuthRefreshTokenResponseDTO } from "../dtos/responses/auth-response.dto";
+import { EnabledStatus, LockedStatus } from "../data/status.data";
+import { AuthLoginRequestDTO, AuthRegisterRequestDTO } from "../dtos/requests/auth-request.dto";
+import { AuthLoginResponseDTO, AuthLogoutResponseDTO, AuthRefreshTokenResponseDTO, AuthRegisterResponseDTO } from "../dtos/responses/auth-response.dto";
 import { JwtPayloadInterface } from "../interfaces/jwt-payload.interface";
 import { EmailServiceInterface } from "../interfaces/email-service.interface";
 import { TokenGeneratorInterface } from "../interfaces/token-generator.interface";
@@ -23,6 +23,16 @@ import { LockedAccountError } from "../errors/locked-account.error";
 import { TokenValidatorInterface } from "../interfaces/token-validator.interface";
 import { TokenExpiredError, JsonWebTokenError } from "jsonwebtoken";
 import { ForbiddenError } from "../errors/forbidden.error";
+import { AppDataSource } from "../configs/typeOrm.config";
+import { UserCreateRequestDTO } from "../dtos/requests/user-request.dto";
+import { UserCreateResponseDTO } from "../dtos/responses/user-response.dto";
+import Role from "../entities/role.entity";
+import User from "../entities/user.entity";
+import { ConflictError } from "../errors/conflict.error";
+import { InternalServerError } from "../errors/internal-server.error";
+import { ResourceNotFoundError } from "../errors/resource-not-found.error";
+import { RoleNamesEnum } from "../types/role-names.type";
+import { PasswordGeneratorInterface } from "../interfaces/password-generator.interface";
 
 @Service()
 export class AuthService implements AuthServiceInterface{
@@ -39,6 +49,8 @@ export class AuthService implements AuthServiceInterface{
     private readonly tokenValidatorService!: TokenValidatorInterface;
     @AutoWired(TYPES.CookieStorageInterface)
     private readonly cookieStorageService!: CookieStorageInterface; 
+    @AutoWired(TYPES.PasswordGeneratorInterface)
+    private readonly passwordGeneratorService!: PasswordGeneratorInterface;
  
 
     public async login(userRequest: AuthLoginRequestDTO, req: Request): Promise<AuthLoginResponseDTO | ErrorResponse > {
@@ -107,8 +119,14 @@ export class AuthService implements AuthServiceInterface{
             throw new UnAuthorizedError("email or password is incorrect");
         }              
     }
-    logout(): Promise<any> {
-        throw new Error("Method not implemented.");
+    async logout(payload: JwtPayloadInterface): Promise<any> {
+        const auth = await this.authRepository.findByUserId(payload.user.id);
+        if(!auth){
+            throw new ResourceNotFoundError(`Auth record for User ID ${payload.user.id} not found.`);
+        }
+        await this.authRepository.remove(auth);
+        const response : AuthLogoutResponseDTO = { message: "Logout successful" };
+        return response;
     }
     forgot(): Promise<any> {
         throw new Error("Method not implemented.");
@@ -148,6 +166,80 @@ export class AuthService implements AuthServiceInterface{
         const userResponse : AuthRefreshTokenResponseDTO = { accessToken: newAccessToken, refreshToken: newRefreshToken };
         return userResponse;
 
-    }        
+    }    
+  public async register(userRequest: AuthRegisterRequestDTO): Promise<AuthRegisterResponseDTO | ErrorResponse> {
+        console.log("In UserService.register with userRequest:", userRequest);
+        try{
+            const { username, email, password } = userRequest;
+            const userByEmailAvailable  = await this.userRepository.findByEmail(email);
+            if (userByEmailAvailable) {
+                throw new ConflictError("Email already taken!");
+            }
+
+            const userByUsernameAvailable  = await this.userRepository.findByUsername(username);
+            if (userByUsernameAvailable) {
+                throw new ConflictError("Username already taken!");
+            }
+            //Hash password
+            const hashedPassword : string = await this.passwordGeneratorService.generateHashedPassword(password);
+            console.log("Hashed Password: ", hashedPassword);
+            //update password with hashed password
+            userRequest.password = hashedPassword;
+            const newUser = new User();
+            //copy properties from DTO to entity
+            Object.assign<User, AuthRegisterRequestDTO>(newUser, userRequest);
+            newUser.failedLogins = 0;
+            newUser.isEnabled = true;
+            newUser.status = EnabledStatus
+
+            // 🏁 Get the repo from the passed dataSource
+            const roleRepository = AppDataSource.getRepository(Role);                
+            const existingRole = await roleRepository.findOne({
+                where: { name: RoleNamesEnum.USER },
+                relations: ['permissions'] 
+            });
+
+            if (!existingRole) {
+                throw new ResourceNotFoundError("Default role not found in the database.");
+            }
+
+
+            const createdUser : User = this.userRepository.create({
+                ...newUser,
+                roles: [existingRole], // Assign the existing entity
+            });
+
+            const savedUser : User = await this.userRepository.save(createdUser);
+
+
+            
+            console.log("Saved User: ", savedUser);
+            
+            const userResponse : AuthRegisterResponseDTO ={
+                username: savedUser.username,
+                email: savedUser.email,
+                phone: savedUser.phone,
+                failedLogins: savedUser.failedLogins,
+                isEnabled: savedUser.isEnabled,
+                id: savedUser.id,
+                createdAt: savedUser.createdAt,
+                updatedAt: savedUser.updatedAt,
+                fullname: savedUser.fullname
+            }
+            // If in production environment send email
+            // SEND EMAIL
+            if(process.env.NODE_ENV !== "test"){
+            let recipient : Recipient= {username : userResponse.username, email: userResponse.email}  
+            console.log("Sending registration email to:", process.env.COMPANY);
+
+            this.emailService.sendEmail('register-account', recipient);
+            }
+            // SEND RESPONSE
+            return userResponse;
+        }catch(e: unknown){
+            console.log("error in service layer ", e)
+            throw new InternalServerError("internal error in user service !");
+        }
+    }    
 
 }

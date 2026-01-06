@@ -42,7 +42,7 @@
     "dc": "concurrently \"tsc --watch\" \"nodemon dist/server.js\"",
     "swagger-gen": "tsoa spec",
     "routes-gen": "tsoa routes",
-    "test": "cross-env NODE_ENV=test DOTENV_CONFIG_PATH=.test.env jest --setupFiles dotenv/config && jest --config=jest.config.ts --coverage  --testPathPatterns=tests/ --runInBand --colors --verbose --detectOpenHandles"
+    "test": "cross-env NODE_ENV=test DOTENV_CONFIG_PATH=.test.env jest --setupFiles dotenv/config &&  --config=jest.config.ts --coverage  --testPathPatterns=tests/ --runInBand --colors --verbose --detectOpenHandles"
   },
   "dependencies": {
     "@babel/cli": "^7.28.3",
@@ -80,6 +80,7 @@
     "nodemailer": "^6.9.14",
     "nodemailer-juice": "^1.0.1",
     "reflect-metadata": "^0.2.2",
+    "sqlite3": "^5.1.7",
     "swagger-ui-express": "^5.0.1",
     "ts-node-dev": "^2.0.0",
     "typeorm": "^0.3.28",
@@ -88,7 +89,9 @@
     "winston-daily-rotate-file": "^5.0.0"
   },
   "devDependencies": {
+    "@testcontainers/mariadb": "^11.11.0",
     "@testcontainers/mongodb": "^11.9.0",
+    "@testcontainers/postgresql": "^11.11.0",
     "@types/bcrypt": "^5.0.2",
     "@types/body-parser": "^1.19.6",
     "@types/cookie-parser": "^1.4.10",
@@ -106,8 +109,9 @@
     "concurrently": "^9.2.1",
     "jest": "^30.2.0",
     "nodemon": "^3.1.11",
+    "pg": "^8.16.3",
     "supertest": "^7.1.4",
-    "testcontainers": "^11.9.0",
+    "testcontainers": "^11.11.0",
     "ts-jest": "^29.4.5",
     "ts-node": "^10.9.2",
     "tsoa": "^6.6.0",

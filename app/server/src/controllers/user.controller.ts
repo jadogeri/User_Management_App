@@ -28,48 +28,6 @@ export class UserController extends BaseController implements UserControllerInte
   @AutoWired(TYPES.CredentialValidatorServiceInterface)
   private readonly credentialValidatorService!: CredentialValidatorServiceInterface
 
-/**
-   * Creates a new user in the system.
-   * @summary Create a new user
-   * @param requestBody The user details for creation.
-   * @returns The newly created user.
-   */
-  @NoSecurity()
-  @SuccessResponse("201", "Created")
-  @Response<ErrorResponse>("404", "Not Found")
-  @Response<ConflictError>("409", "Conflict")
-  @Response<InternalServerError>("500", "Internal Server Error")
-  @Response<ResourceNotFoundError>("404", "Resource Not Found")
-  @Response<BadRequestError>("400", "Bad Request")
-  @Example<UserCreateResponseDTO>({
-    id: 1,
-    username: "john1doe",
-    fullname: "John Doe",
-    email: "johndoe@tsoa.com",
-    phone: "123-456-7890",
-    createdAt: new Date("2023-01-01T10:00:00Z"),
-    updatedAt: new Date("2023-01-01T11:30:00Z"),
-    failedLogins: 0,
-    isEnabled: false
-  })  
-  @Post("/")   
-  public async createUser( @Body() requestBody: UserCreateRequestDTO): Promise<UserCreateResponseDTO |  ErrorResponse> {
-
-    const userRequest : UserCreateRequestDTO = requestBody
-    // calling validation service
-    const validation : ValidationResponse = this.credentialValidatorService.validateRegistration(userRequest);
-    if(!validation.isValid()){
-      console.log("validation failed in controller", validation.getErrorResponse()?.getMessage());
-      const errorResponse : ErrorResponse = validation.getErrorResponse() as ErrorResponse;
-      this.setStatus(errorResponse.getCode());
-      return errorResponse;
-    }   
-    //calling user service
-    const userResponse : ErrorResponse | UserCreateResponseDTO = await this.userService.create(userRequest);    
-
-    return userResponse;
-
-  }
 
   /**
    * Retrieves the details of an existing user.

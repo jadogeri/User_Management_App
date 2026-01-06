@@ -6,7 +6,7 @@ import { JwtPayloadInterface } from "./jwt-payload.interface";
 
 export interface AuthControllerInterface {
   loginUser(requestBody: AuthLoginRequestDTO, req: Request): Promise<AuthLoginResponseDTO | ErrorResponse>;
-  logoutUser(): Promise<any>;
+  logoutUser(req: Request): Promise<any> ;
   forgotUser(): Promise<any>;
   resetUser(): Promise<any>;
   refreshToken(userRequest: AuthRefreshTokenRequestDTO, req: Request): Promise<any> ;

@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class InitialSchemaSetup1767578244685 implements MigrationInterface {
-    name = 'InitialSchemaSetup1767578244685'
+export class InitialSchemaSetup1767659731189 implements MigrationInterface {
+    name = 'InitialSchemaSetup1767659731189'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`
@@ -10,6 +10,18 @@ export class InitialSchemaSetup1767578244685 implements MigrationInterface {
                 "name" varchar NOT NULL DEFAULT ('ENABLED'),
                 CONSTRAINT "UQ_95ff138b88fdd8a7c9ebdb97a32" UNIQUE ("name"),
                 CONSTRAINT "CHK_c9606cd2b199227790e7788335" CHECK ("name" IN ('ENABLED', 'LOCKED', 'DISABLED'))
+            )
+        `);
+        await queryRunner.query(`
+            CREATE TABLE "contact" (
+                "createdAt" datetime NOT NULL DEFAULT (datetime('now')),
+                "updatedAt" datetime NOT NULL DEFAULT (datetime('now')),
+                "id" integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+                "fullname" varchar(40) NOT NULL,
+                "email" varchar(40),
+                "phone" varchar(15),
+                "fax" varchar(15),
+                "userId" integer
             )
         `);
         await queryRunner.query(`
@@ -36,6 +48,7 @@ export class InitialSchemaSetup1767578244685 implements MigrationInterface {
                 "resource" varchar CHECK(
                     "resource" IN (
                         'user',
+                        'users',
                         'auth',
                         'product',
                         'order',
@@ -115,6 +128,47 @@ export class InitialSchemaSetup1767578244685 implements MigrationInterface {
         `);
         await queryRunner.query(`
             CREATE INDEX "IDX_17022daf3f885f7d35423e9971" ON "role_permissions" ("permission_id")
+        `);
+        await queryRunner.query(`
+            CREATE TABLE "temporary_contact" (
+                "createdAt" datetime NOT NULL DEFAULT (datetime('now')),
+                "updatedAt" datetime NOT NULL DEFAULT (datetime('now')),
+                "id" integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+                "fullname" varchar(40) NOT NULL,
+                "email" varchar(40),
+                "phone" varchar(15),
+                "fax" varchar(15),
+                "userId" integer,
+                CONSTRAINT "FK_e7e34fa8e409e9146f4729fd0cb" FOREIGN KEY ("userId") REFERENCES "user" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION
+            )
+        `);
+        await queryRunner.query(`
+            INSERT INTO "temporary_contact"(
+                    "createdAt",
+                    "updatedAt",
+                    "id",
+                    "fullname",
+                    "email",
+                    "phone",
+                    "fax",
+                    "userId"
+                )
+            SELECT "createdAt",
+                "updatedAt",
+                "id",
+                "fullname",
+                "email",
+                "phone",
+                "fax",
+                "userId"
+            FROM "contact"
+        `);
+        await queryRunner.query(`
+            DROP TABLE "contact"
+        `);
+        await queryRunner.query(`
+            ALTER TABLE "temporary_contact"
+                RENAME TO "contact"
         `);
         await queryRunner.query(`
             CREATE TABLE "temporary_user" (
@@ -525,6 +579,46 @@ export class InitialSchemaSetup1767578244685 implements MigrationInterface {
             DROP TABLE "temporary_user"
         `);
         await queryRunner.query(`
+            ALTER TABLE "contact"
+                RENAME TO "temporary_contact"
+        `);
+        await queryRunner.query(`
+            CREATE TABLE "contact" (
+                "createdAt" datetime NOT NULL DEFAULT (datetime('now')),
+                "updatedAt" datetime NOT NULL DEFAULT (datetime('now')),
+                "id" integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+                "fullname" varchar(40) NOT NULL,
+                "email" varchar(40),
+                "phone" varchar(15),
+                "fax" varchar(15),
+                "userId" integer
+            )
+        `);
+        await queryRunner.query(`
+            INSERT INTO "contact"(
+                    "createdAt",
+                    "updatedAt",
+                    "id",
+                    "fullname",
+                    "email",
+                    "phone",
+                    "fax",
+                    "userId"
+                )
+            SELECT "createdAt",
+                "updatedAt",
+                "id",
+                "fullname",
+                "email",
+                "phone",
+                "fax",
+                "userId"
+            FROM "temporary_contact"
+        `);
+        await queryRunner.query(`
+            DROP TABLE "temporary_contact"
+        `);
+        await queryRunner.query(`
             DROP INDEX "IDX_17022daf3f885f7d35423e9971"
         `);
         await queryRunner.query(`
@@ -556,6 +650,9 @@ export class InitialSchemaSetup1767578244685 implements MigrationInterface {
         `);
         await queryRunner.query(`
             DROP TABLE "user"
+        `);
+        await queryRunner.query(`
+            DROP TABLE "contact"
         `);
         await queryRunner.query(`
             DROP TABLE "status"

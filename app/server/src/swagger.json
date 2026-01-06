@@ -74,8 +74,8 @@
 				"type": "object",
 				"description": "From T, pick a set of properties whose keys are in the union K"
 			},
-			"UserCreateResponseDTO": {
-				"description": "Represents a user register response dto object.",
+			"UserReadResponseDTO": {
+				"description": "Represents a user read account response dto object.",
 				"properties": {
 					"createdAt": {
 						"type": "string",
@@ -147,58 +147,21 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"ConflictError": {
+			"AuthLoginResponseDTO": {
+				"description": "Represents a user login response dto object.",
 				"properties": {
-					"name": {
-						"type": "string"
+					"refreshToken": {
+						"type": "string",
+						"description": "The JWT refresh token.",
+						"example": "some-refresh-token"
 					},
-					"message": {
-						"type": "string"
-					},
-					"stack": {
-						"type": "string"
-					},
-					"statusCode": {
-						"type": "number",
-						"format": "double"
-					},
-					"title": {
+					"accessToken": {
 						"type": "string"
 					}
 				},
 				"required": [
-					"name",
-					"message",
-					"statusCode",
-					"title"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"InternalServerError": {
-				"properties": {
-					"name": {
-						"type": "string"
-					},
-					"message": {
-						"type": "string"
-					},
-					"stack": {
-						"type": "string"
-					},
-					"statusCode": {
-						"type": "number",
-						"format": "double"
-					},
-					"title": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"name",
-					"message",
-					"statusCode",
-					"title"
+					"refreshToken",
+					"accessToken"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -259,48 +222,43 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"UserCreateRequestDTO": {
-				"description": "Represents a user object creation request.",
+			"AuthLoginRequestDTO": {
+				"description": "Represents a user login request dto object.",
 				"properties": {
 					"password": {
 						"type": "string",
 						"description": "The user's password.",
 						"example": "SecurePassword123!"
 					},
-					"fullname": {
-						"type": "string",
-						"description": "The user's full name.",
-						"example": "John Doe"
-					},
-					"username": {
-						"type": "string",
-						"description": "The user's username.",
-						"example": "John1Doe"
-					},
 					"email": {
 						"type": "string",
 						"description": "The user's email.",
 						"example": "JohnDoe@gmail.com",
 						"pattern": "^(.+)@(.+)$"
-					},
-					"phone": {
-						"type": "string",
-						"description": "The user's phone number.",
-						"example": "123-456-7890"
 					}
 				},
 				"required": [
 					"password",
-					"fullname",
-					"username",
-					"email",
-					"phone"
+					"email"
 				],
 				"type": "object",
 				"additionalProperties": false
 			},
-			"UserReadResponseDTO": {
-				"description": "Represents a user read account response dto object.",
+			"AuthLogoutResponseDTO": {
+				"description": "Represents a user logout response dto object.",
+				"properties": {
+					"message": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AuthRegisterResponseDTO": {
+				"description": "Represents a user register response dto object.",
 				"properties": {
 					"createdAt": {
 						"type": "string",
@@ -367,43 +325,98 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"AuthLoginResponseDTO": {
-				"description": "Represents a user login response dto object.",
+			"ConflictError": {
 				"properties": {
-					"refreshToken": {
-						"type": "string",
-						"description": "The JWT refresh token.",
-						"example": "some-refresh-token"
+					"name": {
+						"type": "string"
 					},
-					"accessToken": {
+					"message": {
+						"type": "string"
+					},
+					"stack": {
+						"type": "string"
+					},
+					"statusCode": {
+						"type": "number",
+						"format": "double"
+					},
+					"title": {
 						"type": "string"
 					}
 				},
 				"required": [
-					"refreshToken",
-					"accessToken"
+					"name",
+					"message",
+					"statusCode",
+					"title"
 				],
 				"type": "object",
 				"additionalProperties": false
 			},
-			"AuthLoginRequestDTO": {
-				"description": "Represents a user login request dto object.",
+			"InternalServerError": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"message": {
+						"type": "string"
+					},
+					"stack": {
+						"type": "string"
+					},
+					"statusCode": {
+						"type": "number",
+						"format": "double"
+					},
+					"title": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"name",
+					"message",
+					"statusCode",
+					"title"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AuthRegisterRequestDTO": {
+				"description": "Represents a user object creation request.",
 				"properties": {
 					"password": {
 						"type": "string",
 						"description": "The user's password.",
 						"example": "SecurePassword123!"
 					},
+					"fullname": {
+						"type": "string",
+						"description": "The user's full name.",
+						"example": "John Doe"
+					},
+					"username": {
+						"type": "string",
+						"description": "The user's username.",
+						"example": "John1Doe"
+					},
 					"email": {
 						"type": "string",
 						"description": "The user's email.",
 						"example": "JohnDoe@gmail.com",
 						"pattern": "^(.+)@(.+)$"
+					},
+					"phone": {
+						"type": "string",
+						"description": "The user's phone number.",
+						"example": "123-456-7890"
 					}
 				},
 				"required": [
 					"password",
-					"email"
+					"fullname",
+					"username",
+					"email",
+					"phone"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -470,6 +483,7 @@
 			"Resource": {
 				"enum": [
 					"user",
+					"users",
 					"auth",
 					"product",
 					"order",
@@ -855,104 +869,6 @@
 		}
 	},
 	"paths": {
-		"/users": {
-			"post": {
-				"operationId": "CreateUser",
-				"responses": {
-					"201": {
-						"description": "Created",
-						"content": {
-							"application/json": {
-								"schema": {
-									"anyOf": [
-										{
-											"$ref": "#/components/schemas/UserCreateResponseDTO"
-										},
-										{
-											"$ref": "#/components/schemas/ErrorResponse"
-										}
-									]
-								},
-								"examples": {
-									"Example 1": {
-										"value": {
-											"id": 1,
-											"username": "john1doe",
-											"fullname": "John Doe",
-											"email": "johndoe@tsoa.com",
-											"phone": "123-456-7890",
-											"createdAt": "2023-01-01T10:00:00.000Z",
-											"updatedAt": "2023-01-01T11:30:00.000Z",
-											"failedLogins": 0,
-											"isEnabled": false
-										}
-									}
-								}
-							}
-						}
-					},
-					"400": {
-						"description": "Bad Request",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/BadRequestError"
-								}
-							}
-						}
-					},
-					"404": {
-						"description": "Resource Not Found",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ResourceNotFoundError"
-								}
-							}
-						}
-					},
-					"409": {
-						"description": "Conflict",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ConflictError"
-								}
-							}
-						}
-					},
-					"500": {
-						"description": "Internal Server Error",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/InternalServerError"
-								}
-							}
-						}
-					}
-				},
-				"description": "Creates a new user in the system.",
-				"summary": "Create a new user",
-				"tags": [
-					"User"
-				],
-				"security": [],
-				"parameters": [],
-				"requestBody": {
-					"description": "The user details for creation.",
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/UserCreateRequestDTO",
-								"description": "The user details for creation."
-							}
-						}
-					}
-				}
-			}
-		},
 		"/users/{userId}": {
 			"get": {
 				"operationId": "GetSingleUser",
@@ -1354,7 +1270,7 @@
 				"operationId": "LoginUser",
 				"responses": {
 					"200": {
-						"description": "Ok",
+						"description": "ok",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -1366,11 +1282,41 @@
 											"$ref": "#/components/schemas/ErrorResponse"
 										}
 									]
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoicm9vdEBBZG1pbmlzdHJhdG9yMSIsImVtYWlsIjoicm9vdEBleGFtcGxlLmNvbSIsImlkIjoxLCJyb2xlcyI6W3siaWQiOjEsIm5hbWUiOiJBRE1JTiIsImRlc2NyaXB0aW9uIjoiQWRtaW5pc3RyYXRvcjogSGlnaGVzdCBsZXZlbDsgbWFuYWdlcyB1c2Vycywgc2V0dGluZ3MsIGFuZCBzeXN0ZW0gYWNjZXNzOyBjYW4gZG8gZXZlcnl0aGluZy4iLCJwZXJtaXNzaW9ucyI6W3siaWQiOjEsImRlc2NyaXB0aW9uIjoiRnVsbCBhY2Nlc3MgdG8gYWxsIHJlc291cmNlcy4iLCJyZXNvdXJjZSI6IioiLCJhY3Rpb24iOiIqIn0seyJpZCI6MiwiZGVzY3JpcHRpb24iOiJDcmVhdGUgbmV3IHVzZXIuIiwicmVzb3VyY2UiOiJ1c2VyIiwiYWN0aW9uIjoiY3JlYXRlIn0seyJpZCI6MywiZGVzY3JpcHRpb24iOiJSZWFkIG93biBkYXRhLiIsInJlc291cmNlIjoidXNlciIsImFjdGlvbiI6InJlYWQifSx7ImlkIjo0LCJkZXNjcmlwdGlvbiI6IlVwZGF0ZSBvd24gZGF0YS4iLCJyZXNvdXJjZSI6InVzZXIiLCJhY3Rpb24iOiJ1cGRhdGUifSx7ImlkIjo1LCJkZXNjcmlwdGlvbiI6IkRlbGV0ZSBvd24gcmVjb3JkLiIsInJlc291cmNlIjoidXNlciIsImFjdGlvbiI6ImRlbGV0ZSJ9LHsiaWQiOjksImRlc2NyaXB0aW9uIjoiUmVhZCBvd24gYXV0aCBkYXRhLiIsInJlc291cmNlIjoiYXV0aCIsImFjdGlvbiI6InJlYWQifSx7ImlkIjoxMCwiZGVzY3JpcHRpb24iOiJVcGRhdGUgb3duIGF1dGggZGF0YS4iLCJyZXNvdXJjZSI6ImF1dGgiLCJhY3Rpb24iOiJ1cGRhdGUifSx7ImlkIjoxMSwiZGVzY3JpcHRpb24iOiJDcmVhdGUgYXV0aCBkYXRhLiIsInJlc291cmNlIjoiYXV0aCIsImFjdGlvbiI6ImNyZWF0ZSJ9XX1dfSwic2NvcGVzIjpbIio6KiIsInVzZXI6Y3JlYXRlIiwidXNlcjpyZWFkIiwidXNlcjp1cGRhdGUiLCJ1c2VyOmRlbGV0ZSIsImF1dGg6cmVhZCIsImF1dGg6dXBkYXRlIiwiYXV0aDpjcmVhdGUiXSwiaWF0IjoxNzY3NjcwMzE0LCJleHAiOjE3NjgyNzUxMTR9.PCFsmtyNL1uFauuvfD38KTu927LjpzQDTQVJvC05ZM2",
+											"refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoicm9vdEBBZG1pbmlzdHJhdG9yMSIsImVtYWlsIjoicm9vdEBleGFtcGxlLmNvbSIsImlkIjoxLCJyb2xlcyI6W3siaWQiOjEsIm5hbWUiOiJBRE1JTiIsImRlc2NyaXB0aW9uIjoiQWRtaW5pc3RyYXRvcjogSGlnaGVzdCBsZXZlbDsgbWFuYWdlcyB1c2Vycywgc2V0dGluZ3MsIGFuZCBzeXN0ZW0gYWNjZXNzOyBjYW4gZG8gZXZlcnl0aGluZy4iLCJwZXJtaXNzaW9ucyI6W3siaWQiOjEsImRlc2NyaXB0aW9uIjoiRnVsbCBhY2Nlc3MgdG8gYWxsIHJlc291cmNlcy4iLCJyZXNvdXJjZSI6IioiLCJhY3Rpb24iOiIqIn0seyJpZCI6MiwiZGVzY3JpcHRpb24iOiJDcmVhdGUgbmV3IHVzZXIuIiwicmVzb3VyY2UiOiJ1c2VyIiwiYWN0aW9uIjoiY3JlYXRlIn0seyJpZCI6MywiZGVzY3JpcHRpb24iOiJSZWFkIG93biBkYXRhLiIsInJlc291cmNlIjoidXNlciIsImFjdGlvbiI6InJlYWQifSx7ImlkIjo0LCJkZXNjcmlwdGlvbiI6IlVwZGF0ZSBvd24gZGF0YS4iLCJyZXNvdXJjZSI6InVzZXIiLCJhY3Rpb24iOiJ1cGRhdGUifSx7ImlkIjo1LCJkZXNjcmlwdGlvbiI6IkRlbGV0ZSBvd24gcmVjb3JkLiIsInJlc291cmNlIjoidXNlciIsImFjdGlvbiI6ImRlbGV0ZSJ9LHsiaWQiOjksImRlc2NyaXB0aW9uIjoiUmVhZCBvd24gYXV0aCBkYXRhLiIsInJlc291cmNlIjoiYXV0aCIsImFjdGlvbiI6InJlYWQifSx7ImlkIjoxMCwiZGVzY3JpcHRpb24iOiJVcGRhdGUgb3duIGF1dGggZGF0YS4iLCJyZXNvdXJjZSI6ImF1dGgiLCJhY3Rpb24iOiJ1cGRhdGUifSx7ImlkIjoxMSwiZGVzY3JpcHRpb24iOiJDcmVhdGUgYXV0aCBkYXRhLiIsInJlc291cmNlIjoiYXV0aCIsImFjdGlvbiI6ImNyZWF0ZSJ9XX1dfSwic2NvcGVzIjpbIio6KiIsInVzZXI6Y3JlYXRlIiwidXNlcjpyZWFkIiwidXNlcjp1cGRhdGUiLCJ1c2VyOmRlbGV0ZSIsImF1dGg6cmVhZCIsImF1dGg6dXBkYXRlIiwiYXV0aDpjcmVhdGUiXSwiaWF0IjoxNzY3NjcwMzE0LCJleHAiOjE3NjgyNzUxMTR9.eLK-wWRy2D1DOxEjyFw_K4XMlS57kNXNeCgRy6GZ8J7"
+										}
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BadRequestError"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Resource Not Found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ResourceNotFoundError"
 								}
 							}
 						}
 					}
 				},
+				"description": "Authenticates a registered user.",
+				"summary": "Authenticates an existing user",
 				"tags": [
 					"Auth"
 				],
@@ -1396,7 +1342,9 @@
 						"description": "Ok",
 						"content": {
 							"application/json": {
-								"schema": {}
+								"schema": {
+									"$ref": "#/components/schemas/AuthLogoutResponseDTO"
+								}
 							}
 						}
 					}
@@ -1404,7 +1352,13 @@
 				"tags": [
 					"Auth"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": [
+							"auth:delete"
+						]
+					}
+				],
 				"parameters": []
 			}
 		},
@@ -1448,12 +1402,110 @@
 				"parameters": []
 			}
 		},
+		"/auths/register": {
+			"post": {
+				"operationId": "RegisterUser",
+				"responses": {
+					"201": {
+						"description": "Created",
+						"content": {
+							"application/json": {
+								"schema": {
+									"anyOf": [
+										{
+											"$ref": "#/components/schemas/AuthRegisterResponseDTO"
+										},
+										{
+											"$ref": "#/components/schemas/ErrorResponse"
+										}
+									]
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"id": 1,
+											"username": "john1doe",
+											"fullname": "John Doe",
+											"email": "johndoe@tsoa.com",
+											"phone": "123-456-7890",
+											"createdAt": "2023-01-01T10:00:00.000Z",
+											"updatedAt": "2023-01-01T11:30:00.000Z",
+											"failedLogins": 0,
+											"isEnabled": false
+										}
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BadRequestError"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Resource Not Found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ResourceNotFoundError"
+								}
+							}
+						}
+					},
+					"409": {
+						"description": "Conflict",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ConflictError"
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "Internal Server Error",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/InternalServerError"
+								}
+							}
+						}
+					}
+				},
+				"description": "Creates a new user in the system.",
+				"summary": "Create a new user",
+				"tags": [
+					"Auth"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"description": "The user details for creation.",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/AuthRegisterRequestDTO",
+								"description": "The user details for creation."
+							}
+						}
+					}
+				}
+			}
+		},
 		"/auths/refresh": {
 			"post": {
 				"operationId": "RefreshToken",
 				"responses": {
 					"200": {
-						"description": "The newly created user.",
+						"description": "The newly created refresh and access tokens.",
 						"content": {
 							"application/json": {
 								"schema": {}
@@ -1461,8 +1513,8 @@
 						}
 					}
 				},
-				"description": "Creates a new user in the system.",
-				"summary": "Create a new user",
+				"description": "Creates a new refresh token in the system.",
+				"summary": "Invalidate current refresh token and generate a new pair of tokens",
 				"tags": [
 					"Auth"
 				],

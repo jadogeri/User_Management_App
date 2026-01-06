@@ -8,17 +8,16 @@ export const PermissionLibrary: Record<string, { id: number; resource: Resource;
   ["*"]: { id: 1, resource: Resource.ALL, action: Action.ALL, description: "Full access to all resources." },
   ['USER_CREATE']: { id: 2, resource: Resource.USER, action: Action.CREATE, description: "Create new user." },
   ['USER_READ']: { id: 3, resource: Resource.USER, action: Action.READ, description: "Read own data." },
-  ['USERS_READ']: { id: 4, resource: Resource.USER, action: Action.ALL, description: "Read all users." },
-  ['USER_UPDATE']: { id: 5, resource: Resource.USER, action: Action.UPDATE, description: "Update own data." },
-  ['USER_DELETE']: { id: 6, resource: Resource.USER, action: Action.DELETE, description: "Delete own record." },
-  // ['USER_DEACTIVATE']: { id: 7, resource: Resource.USER, action: Action.MANAGE, description: "Deactivate own data." },
-  // ['USER_REACTIVATE']: { id: 8, resource: Resource.USER, action: Action.MANAGE, description: "Reactivate own data." },
-  ['USER_ALL']: { id: 9, resource: Resource.USER, action: Action.ALL, description: "Full access to user resource." },
-  ['AUTH_READ']: { id: 10, resource: Resource.AUTH, action: Action.READ, description: "Read own auth data." },
-  ['AUTH_UPDATE']: { id: 11, resource: Resource.AUTH, action: Action.UPDATE, description: "Update own auth data." },
-  ['AUTH_CREATE']: { id: 12, resource: Resource.AUTH, action: Action.CREATE, description: "Create auth data." },
-  ['AUTH_DELETE']: { id: 13, resource: Resource.AUTH, action: Action.DELETE, description: "Delete auth data." },
-  ['AUTH_ALL']: { id: 14, resource: Resource.AUTH, action: Action.ALL, description: "Full access to auth resource." },
+  ['USER_UPDATE']: { id:4 , resource: Resource.USER, action: Action.UPDATE, description: "Update own data." },
+  ['USER_DELETE']: { id: 5, resource: Resource.USER, action: Action.DELETE, description: "Delete own record." },
+  // ['USER_DEACTIVATE']: { id: 6, resource: Resource.USER, action: Action.MANAGE, description: "Deactivate own data." },
+  // ['USER_REACTIVATE']: { id: 7, resource: Resource.USER, action: Action.MANAGE, description: "Reactivate own data." },
+  ['USER_ALL']: { id: 8, resource: Resource.USERS, action: Action.ALL, description: "Full access to user resource." },
+  ['AUTH_READ']: { id: 9, resource: Resource.AUTH, action: Action.READ, description: "Read own auth data." },
+  ['AUTH_UPDATE']: { id: 10, resource: Resource.AUTH, action: Action.UPDATE, description: "Update own auth data." },
+  ['AUTH_CREATE']: { id: 11, resource: Resource.AUTH, action: Action.CREATE, description: "Create auth data." },
+  ['AUTH_DELETE']: { id: 12, resource: Resource.AUTH, action: Action.DELETE, description: "Delete auth data." },
+  ['AUTH_ALL']: { id: 13, resource: Resource.AUTH, action: Action.ALL, description: "Full access to auth resource." },
 };
 
 const allPermissions = new Permission();
@@ -39,11 +38,11 @@ userReadPermission.description = PermissionLibrary  ["USER_READ"].description
 userReadPermission.resource = PermissionLibrary["USER_READ"].resource
 userReadPermission.action = PermissionLibrary["USER_READ"].action
 
-const usersReadPermission = new Permission();
-usersReadPermission.id = PermissionLibrary["USERS_READ"].id
-usersReadPermission.description = PermissionLibrary["USERS_READ"].description 
-usersReadPermission.resource = PermissionLibrary["USERS_READ"].resource
-usersReadPermission.action = PermissionLibrary["USERS_READ"].action
+// const usersReadPermission = new Permission();
+// usersReadPermission.id = PermissionLibrary["USERS_READ"].id
+// usersReadPermission.description = PermissionLibrary["USERS_READ"].description 
+// usersReadPermission.resource = PermissionLibrary["USERS_READ"].resource
+// usersReadPermission.action = PermissionLibrary["USERS_READ"].action
 
 const userUpdatePermission = new Permission();  
 userUpdatePermission.id = PermissionLibrary["USER_UPDATE"].id
@@ -105,7 +104,8 @@ authAllPermissions.description = PermissionLibrary["AUTH_ALL"].description
 authAllPermissions.resource = PermissionLibrary["AUTH_ALL"].resource
 authAllPermissions.action = PermissionLibrary["AUTH_ALL"].action
 export const permissions = [
-  allPermissions,  userReadPermission, usersReadPermission, userCreatePermission, userUpdatePermission,
+  allPermissions,  userReadPermission, //usersReadPermission, 
+  userCreatePermission, userUpdatePermission,
   userDeletePermission,  userAllPermission,
   authReadPermission, authUpdatePermission, authCreatePermission, authDeletePermission, authAllPermissions,
 

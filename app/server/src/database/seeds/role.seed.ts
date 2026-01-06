@@ -17,12 +17,24 @@ export default class RoleSeeder implements Seeder {
     const roles = [AdminRole, UserRole, ViewerRole, EditorRole];
 
     for (const role of roles) {
-      // Check if the role already exists by ID
-      const existingRole = await roleRepository.findOneBy({ id: role.id });
+      // // Check if the role already exists by ID
+      // const existingRole = await roleRepository.findOneBy({ id: role.id });
       
-      if (!existingRole) {
-        await roleRepository.save(role);
-      }
+      // if (!existingRole) {
+      //   await roleRepository.upsert(role, ["id"]);
+      // }
+    // Use upsert for the Role itself to prevent ID conflicts
+    await roleRepository.upsert(
+      role,
+      ["id"]
+    );
+
+    // Re-fetch the role to establish relations safely
+    const savedRole = await roleRepository.findOneBy({ id: role.id });
+    if (savedRole) {
+      savedRole.permissions = role.permissions;
+      await roleRepository.save(savedRole); // TypeORM handles role_permission automatically
+    }
     }
   }
 }

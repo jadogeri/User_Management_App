@@ -9,6 +9,10 @@ import { NodeEnvironment } from '../types/node-environment.type';
 import { Permission } from '../entities/permission.entity';
 import Profile from '../entities/profile.entity';
 import { Contact } from '../entities/contact.entity';
+import StatusSeeder from '../database/seeds/status.seed';
+import PermissionSeeder from '../database/seeds/permission.seed';
+import RoleSeeder from '../database/seeds/role.seed';
+import UserSeeder from '../database/seeds/user.seed';
 
 const env : NodeEnvironment = process.env.NODE_ENV || 'development';
 console.log(`Current Environment: ${env}`);
@@ -22,7 +26,13 @@ const options: DataSourceOptions & SeederOptions = {
   migrations: ["src/migrations/**/*.ts"],
   subscribers: [],
   // These belong to SeederOptions
-  seeds: ['src/database/seeds/**/*{.ts,.js}'],
+  seeds: [ 'src/database/seeds/**/*{.ts,.js}'
+  //   StatusSeeder,     // Runs 1st
+  //   PermissionSeeder, // Runs 2nd
+  //   RoleSeeder,       // Runs 3rd
+  //  UserSeeder,       // Runs 4th
+
+  ],
   factories: ['src/database/factories/**/*{.ts,.js}'],
 };
 

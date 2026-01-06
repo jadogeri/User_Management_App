@@ -29,7 +29,9 @@ export interface AuthLoginResponseDTO extends Pick<AuthType, "refreshToken">{
 /**
  * Represents a user logout response dto object.
  */
-export interface AuthLogoutResponseDTO extends UserType{}
+export interface AuthLogoutResponseDTO {
+  message: string;
+}
 /**
  * Represents a user forgot password response dto object.
  */
@@ -42,4 +44,8 @@ export interface AuthResetPasswordResponseDTO extends UserType{}
  * Represents a user refresh token response dto object.
  */
 export interface AuthRefreshTokenResponseDTO extends AuthLoginResponseDTO{}
+/**
+ * Represents a user register response dto object.
+ */
+export interface AuthRegisterResponseDTO extends Omit<UserType, 'password'>{}
 

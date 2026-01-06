@@ -51,7 +51,6 @@ export async function expressAuthentication(
     }
     const decodedPayload : JwtPayloadInterface = jwtDecode<JwtPayloadInterface>(accessToken);
     console.log("decodedPayload = ", decodedPayload);
-    try {
       const { user : decodedUser } = decodedPayload;
       console.log("decoded user from payload: ", decodedUser);  
       //verify scopes/roles if provided
@@ -106,7 +105,7 @@ export async function expressAuthentication(
               console.log("scope to check permission: ", scope);
               const [resource, action] = scope.split(':');
               console.log("resource and action : ", resource,action)
-              hasPermission = accessControl.can(action as any, resource as any);
+              hasPermission = accessControl.can(action as any, resource as any);              
             }
             
             if (!isRoleMatch && !hasPermission) {
@@ -122,12 +121,6 @@ export async function expressAuthentication(
       }
       console.log("Insufficient permissions to access this resource: no user in token payload");
       throw new ForbiddenError("Insufficient permissions to access this resource");
-    } catch (error : unknown) {
-      if (error instanceof HttpError) {
-        throw new HttpError(error.statusCode, error.message);
-      }
-      throw new HttpError(500, "Unknown error during token verification");
-    }
   }
   
   throw new HttpError(500, "Unknown security name");

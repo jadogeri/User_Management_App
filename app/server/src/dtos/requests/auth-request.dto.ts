@@ -32,5 +32,8 @@ export interface AuthResetPasswordRequestDTO extends Pick<UserType, "email">{
  * Represents an auth refresh token request dto object.
  */
 export interface AuthRefreshTokenRequestDTO extends Pick<AuthType, "refreshToken">{}
-
+/**
+ * Represents a user object creation request.
+ */
+export interface AuthRegisterRequestDTO extends Pick<UserType, "email" | "username" | "fullname" | "phone" | "password">{}
 

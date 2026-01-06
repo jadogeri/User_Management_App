@@ -13,6 +13,7 @@ export enum Action {
 // permission.resources.ts
 export enum Resource {
   USER = 'user',
+  USERS = 'users',
   AUTH = 'auth',
   PRODUCT = 'product',
   ORDER = 'order',

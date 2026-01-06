@@ -18,7 +18,6 @@ export class Role {
   @Column({
     type: 'simple-enum',    
     unique: true,
-    length: 20,
     nullable: false,
     enum: RoleNamesEnum,
     default: RoleNamesEnum.USER,
