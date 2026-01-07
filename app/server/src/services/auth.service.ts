@@ -52,6 +52,7 @@ export class AuthService implements AuthServiceInterface{
     private readonly passwordGeneratorService!: PasswordGeneratorInterface;
     @AutoWired(TYPES.DataSource)
     private readonly dataSource!:  DataSource;
+
  
 
 
@@ -95,6 +96,9 @@ export class AuthService implements AuthServiceInterface{
                 savedAuth.refreshToken = refreshToken;
                 await this.authRepository.save(savedAuth);
             }
+            //update user login field
+            user.lastLogin = new Date();
+            this.userRepository.save(user);
             const userResponse : AuthLoginResponseDTO = { accessToken: accessToken, refreshToken: refreshToken };
             return userResponse;
         }else{ 
