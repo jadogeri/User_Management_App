@@ -224,6 +224,7 @@ const models: TsoaRoute.Models = {
             "failedLogins": {"dataType":"double","required":true},
             "isEnabled": {"dataType":"boolean","required":true},
             "suspension": {"dataType":"union","subSchemas":[{"ref":"SuspensionDetails"},{"dataType":"enum","enums":[null]}],"required":true},
+            "lastLogin": {"dataType":"datetime","required":true},
             "status": {"ref":"Status","required":true},
             "roles": {"dataType":"array","array":{"dataType":"refObject","ref":"Role"},"required":true},
             "contacts": {"dataType":"array","array":{"dataType":"refObject","ref":"Contact"},"required":true},

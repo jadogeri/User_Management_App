@@ -1,6 +1,9 @@
 // src/entities/User.ts
-import { Entity,  Column, PrimaryGeneratedColumn, JoinColumn, ManyToOne, ManyToMany, JoinTable, OneToMany } from "typeorm";
-import { IsInt, IsString } from 'class-validator';
+import {
+  Entity, Column, PrimaryGeneratedColumn, JoinColumn, ManyToOne, ManyToMany, JoinTable, OneToMany,
+  UpdateDateColumn, ValueTransformer
+} from "typeorm";
+import {IsDate, IsInt, IsString} from 'class-validator';
 import { Audit } from "../models/audit.model";
 import { UserType } from "../types/user.type";
 import Role from "./role.entity";
@@ -8,6 +11,16 @@ import Status from "./status.entity";
 import { SuspensionDetails } from "../types/suspension-details.type";
 import { RBACPermission } from "../types/rbac.type";
 import { Contact } from "./contact.entity";
+import moment from 'moment';
+import {Transform} from "node:stream";
+
+export const MomentDateTransformer: ValueTransformer = {
+  // Before saving to DB: Keep it as a Date object or ISO string for the database
+  to: (value: any) => (value ? moment(value).toDate() : value),
+
+  // After retrieving from DB: Format it to the desired string type
+  from: (value: Date) => (value ? moment(value).format("DD-MM-YYYY") : null),
+};
 
 @Entity()
 export class User extends Audit implements UserType {
@@ -50,6 +63,14 @@ export class User extends Audit implements UserType {
     default: null
   })
   suspension: SuspensionDetails | null;
+
+  @Column({
+    type: "datetime",
+    transformer: MomentDateTransformer,
+    nullable: true, default: null
+  })
+  @IsDate()
+  lastLogin: Date
 
   @ManyToOne(() => Status)
   @JoinColumn({ name: 'status_id' })

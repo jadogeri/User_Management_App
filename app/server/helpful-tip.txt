@@ -1,0 +1,12 @@
+    transformer: {
+      // How it is saved to the DB (keep as Date object)
+      to: (value: Date) => value,
+      // How it is retrieved from the DB (format to string)
+      from: (value: Date) => {
+        if (!value) return null;
+        const d = new Date(value);
+        const day = String(d.getDate()).padStart(2, '0');
+        const month = String(d.getMonth() + 1).padStart(2, '0');
+        const year = d.getFullYear();
+        return `${day}-${month}-${year}`;
+      }

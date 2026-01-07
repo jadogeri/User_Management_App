@@ -630,6 +630,10 @@
 						],
 						"nullable": true
 					},
+					"lastLogin": {
+						"type": "string",
+						"format": "date-time"
+					},
 					"status": {
 						"$ref": "#/components/schemas/Status"
 					},
@@ -658,6 +662,7 @@
 					"failedLogins",
 					"isEnabled",
 					"suspension",
+					"lastLogin",
 					"status",
 					"roles",
 					"contacts"
