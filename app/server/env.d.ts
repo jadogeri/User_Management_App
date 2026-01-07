@@ -31,7 +31,6 @@ declare global {
             ROOT_USERNAME: string;
             ROOT_EMAIL: string;
             ROOT_PASSWORD: string;
-            ROOT_FULLNAME: string;
         }
     }
 }

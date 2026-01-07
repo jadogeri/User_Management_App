@@ -22,7 +22,6 @@ const generateRootUser = async () => {
     const root = new User();
     root.id = 1;
     root.username = process.env.ROOT_USERNAME!;
-    root.fullname = process.env.ROOT_FULLNAME!;
     root.email = process.env.ROOT_EMAIL;
     const hashedPassword =  await generateRootPassword();
     root.password = hashedPassword;

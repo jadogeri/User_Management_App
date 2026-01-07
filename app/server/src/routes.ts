@@ -25,7 +25,7 @@ const expressAuthenticationRecasted = expressAuthentication as (req: ExRequest, 
 const models: TsoaRoute.Models = {
     "Pick_UserType.Exclude_keyofUserType.password__": {
         "dataType": "refAlias",
-        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"createdAt":{"dataType":"datetime","required":true},"updatedAt":{"dataType":"datetime","required":true},"id":{"dataType":"double","required":true},"fullname":{"dataType":"string","required":true},"username":{"dataType":"string","required":true},"email":{"dataType":"string","required":true,"validators":{"pattern":{"errorMsg":"please provide correct email","value":"^(.+)@(.+)$"}}},"phone":{"dataType":"string","required":true},"failedLogins":{"dataType":"double","required":true},"isEnabled":{"dataType":"boolean","required":true}},"validators":{}},
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"createdAt":{"dataType":"datetime","required":true},"updatedAt":{"dataType":"datetime","required":true},"id":{"dataType":"double","required":true},"username":{"dataType":"string","required":true},"email":{"dataType":"string","required":true,"validators":{"pattern":{"errorMsg":"please provide correct email","value":"^(.+)@(.+)$"}}},"phone":{"dataType":"string","required":true},"failedLogins":{"dataType":"double","required":true},"isEnabled":{"dataType":"boolean","required":true}},"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "UserReadResponseDTO": {
@@ -34,7 +34,6 @@ const models: TsoaRoute.Models = {
             "createdAt": {"dataType":"datetime","required":true},
             "updatedAt": {"dataType":"datetime","required":true},
             "id": {"dataType":"double","required":true},
-            "fullname": {"dataType":"string","required":true},
             "username": {"dataType":"string","required":true},
             "email": {"dataType":"string","required":true,"validators":{"pattern":{"errorMsg":"please provide correct email","value":"^(.+)@(.+)$"}}},
             "phone": {"dataType":"string","required":true},
@@ -107,7 +106,6 @@ const models: TsoaRoute.Models = {
             "createdAt": {"dataType":"datetime","required":true},
             "updatedAt": {"dataType":"datetime","required":true},
             "id": {"dataType":"double","required":true},
-            "fullname": {"dataType":"string","required":true},
             "username": {"dataType":"string","required":true},
             "email": {"dataType":"string","required":true,"validators":{"pattern":{"errorMsg":"please provide correct email","value":"^(.+)@(.+)$"}}},
             "phone": {"dataType":"string","required":true},
@@ -145,7 +143,6 @@ const models: TsoaRoute.Models = {
         "dataType": "refObject",
         "properties": {
             "password": {"dataType":"string","required":true},
-            "fullname": {"dataType":"string","required":true},
             "username": {"dataType":"string","required":true},
             "email": {"dataType":"string","required":true,"validators":{"pattern":{"errorMsg":"please provide correct email","value":"^(.+)@(.+)$"}}},
             "phone": {"dataType":"string","required":true},
@@ -216,7 +213,6 @@ const models: TsoaRoute.Models = {
             "updatedAt": {"dataType":"datetime","required":true},
             "createdAt": {"dataType":"datetime","required":true},
             "id": {"dataType":"double","required":true},
-            "fullname": {"dataType":"string","required":true},
             "username": {"dataType":"string","required":true},
             "email": {"dataType":"string","required":true},
             "phone": {"dataType":"string","required":true},

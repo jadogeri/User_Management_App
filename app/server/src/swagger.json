@@ -27,11 +27,6 @@
 						"description": "The user's identifier.",
 						"example": "1"
 					},
-					"fullname": {
-						"type": "string",
-						"description": "The user's full name.",
-						"example": "John Doe"
-					},
 					"username": {
 						"type": "string",
 						"description": "The user's username.",
@@ -64,7 +59,6 @@
 					"createdAt",
 					"updatedAt",
 					"id",
-					"fullname",
 					"username",
 					"email",
 					"phone",
@@ -95,11 +89,6 @@
 						"description": "The user's identifier.",
 						"example": "1"
 					},
-					"fullname": {
-						"type": "string",
-						"description": "The user's full name.",
-						"example": "John Doe"
-					},
 					"username": {
 						"type": "string",
 						"description": "The user's username.",
@@ -132,7 +121,6 @@
 					"createdAt",
 					"updatedAt",
 					"id",
-					"fullname",
 					"username",
 					"email",
 					"phone",
@@ -278,11 +266,6 @@
 						"description": "The user's identifier.",
 						"example": "1"
 					},
-					"fullname": {
-						"type": "string",
-						"description": "The user's full name.",
-						"example": "John Doe"
-					},
 					"username": {
 						"type": "string",
 						"description": "The user's username.",
@@ -315,7 +298,6 @@
 					"createdAt",
 					"updatedAt",
 					"id",
-					"fullname",
 					"username",
 					"email",
 					"phone",
@@ -389,11 +371,6 @@
 						"description": "The user's password.",
 						"example": "SecurePassword123!"
 					},
-					"fullname": {
-						"type": "string",
-						"description": "The user's full name.",
-						"example": "John Doe"
-					},
 					"username": {
 						"type": "string",
 						"description": "The user's username.",
@@ -413,7 +390,6 @@
 				},
 				"required": [
 					"password",
-					"fullname",
 					"username",
 					"email",
 					"phone"
@@ -593,10 +569,6 @@
 						"format": "double",
 						"description": "The user's identifier."
 					},
-					"fullname": {
-						"type": "string",
-						"description": "The user's full name."
-					},
 					"username": {
 						"type": "string",
 						"description": "The user's username."
@@ -654,7 +626,6 @@
 					"updatedAt",
 					"createdAt",
 					"id",
-					"fullname",
 					"username",
 					"email",
 					"phone",
@@ -897,7 +868,6 @@
 										"value": {
 											"id": 1,
 											"username": "john1doe",
-											"fullname": "John Doe",
 											"email": "johndoe@tsoa.com",
 											"phone": "123-456-7890",
 											"createdAt": "2023-01-01T10:00:00.000Z",
@@ -1430,7 +1400,6 @@
 										"value": {
 											"id": 1,
 											"username": "john1doe",
-											"fullname": "John Doe",
 											"email": "johndoe@tsoa.com",
 											"phone": "123-456-7890",
 											"createdAt": "2023-01-01T10:00:00.000Z",
