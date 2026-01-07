@@ -3,25 +3,38 @@ import { DataSource } from 'typeorm';
 import { Seeder } from 'typeorm-extension';
 import { Role } from '../../entities/role.entity';
 import { AdminRole, UserRole, ViewerRole, EditorRole } from '../../data/role.data';
+
 export default class RoleSeeder implements Seeder {
-/**
-   * Checks for the existence of predefined status entities in the database 
-   * and saves them if they do not already exist. 
-   * 
-   * @param dataSource - The data source used to access the repository.
-   * @returns A promise that resolves to void.
-   * @throws Any errors thrown by the repository methods during execution.
-   */
   public async run(dataSource: DataSource): Promise<void> {
     const roleRepository = dataSource.getRepository(Role);
     const roles = [AdminRole, UserRole, ViewerRole, EditorRole];
 
-    for (const role of roles) {
-      // Check if the role already exists by ID
-      const existingRole = await roleRepository.findOneBy({ id: role.id });
-      
+    for (const roleData of roles) {
+      // 1. Fetch the existing role with its current permissions
+      const existingRole = await roleRepository.findOne({
+        where: { id: roleData.id },
+        relations: ['permissions']
+      });
+
+      // 2. Local Deduplication: Ensure roleData itself doesn't have duplicate permissions
+      if (roleData.permissions) {
+        const uniqueMap = new Map();
+        roleData.permissions.forEach(p => uniqueMap.set(p.id, p));
+        roleData.permissions = Array.from(uniqueMap.values());
+      }
+
       if (!existingRole) {
-        await roleRepository.save(role);
+        // 3. New Role: Save the role with its unique permissions
+        await roleRepository.save(roleData);
+      } else {
+        // 4. Existing Role: Only add permissions that are not already in the database
+        const existingPermIds = new Set(existingRole.permissions.map(p => p.id));
+        const newPerms = (roleData.permissions || []).filter(p => !existingPermIds.has(p.id));
+
+        if (newPerms.length > 0) {
+          existingRole.permissions = [...existingRole.permissions, ...newPerms];
+          await roleRepository.save(existingRole);
+        }
       }
     }
   }

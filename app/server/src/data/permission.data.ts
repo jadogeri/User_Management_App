@@ -12,7 +12,7 @@ export const PermissionLibrary: Record<string, { id: number; resource: Resource;
   ['USER_DELETE']: { id: 5, resource: Resource.USER, action: Action.DELETE, description: "Delete own record." },
   // ['USER_DEACTIVATE']: { id: 6, resource: Resource.USER, action: Action.MANAGE, description: "Deactivate own data." },
   // ['USER_REACTIVATE']: { id: 7, resource: Resource.USER, action: Action.MANAGE, description: "Reactivate own data." },
-  ['USER_ALL']: { id: 8, resource: Resource.USERS, action: Action.ALL, description: "Full access to user resource." },
+  ['USER_ALL']: { id: 8, resource: Resource.USER, action: Action.ALL, description: "Full access to user resource." },
   ['AUTH_READ']: { id: 9, resource: Resource.AUTH, action: Action.READ, description: "Read own auth data." },
   ['AUTH_UPDATE']: { id: 10, resource: Resource.AUTH, action: Action.UPDATE, description: "Update own auth data." },
   ['AUTH_CREATE']: { id: 11, resource: Resource.AUTH, action: Action.CREATE, description: "Create auth data." },
