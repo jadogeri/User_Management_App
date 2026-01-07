@@ -30,13 +30,11 @@ describe("TSOA Integration with SQLite Testcontainer", () => {
     // 2. Start container and get the initialized DataSource
     await sqliteContainer.startTestConatiner();
     dataSource = sqliteContainer.getDataSource();
-    if (!dataSource.isInitialized) {
+   //await dataSource.initialize();
+  
+    if (!dataSource?.isInitialized) {
       console.log("Initializing Test DataSource... not yet initialized.");
-      dataSource.setOptions({
-        entities: [User, Role, Status, Permission, Contact, Profile, Auth],
-        migrations: [path.join(__dirname, '../src/migrations/*.{ts,js}')],
-      });
-      dataSource = await dataSource.initialize();
+
     }
     console.log("Test DataSource initialized:", dataSource.isInitialized);
     
@@ -46,18 +44,16 @@ describe("TSOA Integration with SQLite Testcontainer", () => {
     // 4. Seed the database
     await bindDataSource(dataSource);
 
-    // if (iocContainer.isBound(TYPES.AuthServiceInterface)) {
-    // await iocContainer.unbind(TYPES.AuthServiceInterface);
-    // iocContainer.bind(TYPES.AuthServiceInterface).to(AuthService).inSingletonScope();
-    //iocContainer.bind<DataSource>(TYPES.DataSource).toConstantValue(dataSource);
-  //}
-      app = buildApp();
+
 
     // Ensure all tables (Role, Status, etc.) are populated before tests run
-    await sqliteContainer.runSeeders(dataSource);
+    await sqliteContainer.runSeeders();
+
+    app = buildApp();
+
 
     
-  }, 120000); // 2026 Recommended: 60s timeout for container pull + seeding
+  }, 80000); // 2026 Recommended: 60s timeout for container pull + seeding
 
   afterAll(async () => {
     // Revert container to production state

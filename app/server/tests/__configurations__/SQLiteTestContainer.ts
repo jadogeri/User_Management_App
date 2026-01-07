@@ -1,4 +1,5 @@
 // tests/test-environment.ts
+import 'reflect-metadata'; // Required by TypeORM
 import { GenericContainer, StartedTestContainer } from "testcontainers";
 import { DataSource, DataSourceOptions } from "typeorm";
 import { Auth } from '../../src/entities/auth.entity';
@@ -12,22 +13,14 @@ import {SeederOptions } from 'typeorm-extension';
 import PermissionSeeder from '../../src/database/seeds/permission.seed';
 import RoleSeeder from '../../src/database/seeds/role.seed';
 import StatusSeeder from '../../src/database/seeds/status.seed';
-import { DatabaseServiceInterface } from '../../src/interfaces/database-service.interface';
 
 const options: DataSourceOptions & SeederOptions = {
+  type: "sqlite",
   database: "./tests/__database__/testdb.sqlite", // Even in a container, in-memory is fastest for tests
+  entities: [User, Role, Status, Permission, Profile, Contact, Auth],
   synchronize: true,
-   type: "better-sqlite3",
-   //logging: true, // Set to true to log generated SQL queries to the console
-   entities: [User, Role, Status, Auth, Permission, Profile, Contact], // List your entity classes or use a glob pattern
-   migrations: ["src/migrations/**/*.ts"],
-   subscribers: [],
-   // These belong to SeederOptions
-   seeds: [ 'src/database/seeds/**/*{.ts,.js}'],
-   //   StatusSeeder,     // Runs 1st
-   //   PermissionSeeder, // Runs 2nd
-   //   RoleSeeder,       // Runs 3rd
-   //  UserSeeder,       // Runs 4th
+  // These belong to SeederOptions
+ seeds: ['./src/database/seeds/**/*{.ts,.js}'],
 
 
   factories: ['src/database/factories/**/*{.ts,.js}'],
@@ -37,17 +30,9 @@ const SQLITE_IMAGE = "keinos/sqlite3:latest"; // Use a specific version in produ
 
 // Define the container (e.g., in a test utility file)
 
-export class SQLiteTestContainer implements DatabaseServiceInterface{
-
+export class SQLiteTestContainer {
   private sqliteContainer: StartedTestContainer | null = null;
   private dataSource: DataSource;
-
-  async connect(): Promise<void> {
-    console.log("Starting SQLite Test Container...");
-    const details = await this.createSqliteContainer();
-    this.sqliteContainer = details.container;
-  }
-
 
  private readonly createSqliteContainer = async () => {
   const container : StartedTestContainer= await new GenericContainer(SQLITE_IMAGE)
@@ -61,11 +46,13 @@ export class SQLiteTestContainer implements DatabaseServiceInterface{
 
   public startTestConatiner  = async ()=>{
     console.log("Starting SQLite Test Container...");
-    await this.connect();
+    const details = await this.createSqliteContainer();
+    this.sqliteContainer = details.container;
+
 
     this.dataSource = new DataSource(options);
 
-    this.dataSource = await this.dataSource.initialize();
+    await this.dataSource.initialize();
 
   }
 
@@ -83,20 +70,19 @@ export class SQLiteTestContainer implements DatabaseServiceInterface{
     return this.dataSource;
   }
 
-  public runSeeders = async (dataSource: DataSource) => {
-
-    console.log("Running Seeders...");
+  public runSeeders = async () => {
+    if (!this.dataSource.isInitialized) {
+      throw new Error("DataSource is not initialized.");
+    }
 
   const statusSeeder = new StatusSeeder();
-  await statusSeeder.run(dataSource);
+  await statusSeeder.run(this.getDataSource());
 
   const roleSeeder = new RoleSeeder();
-  await roleSeeder.run(dataSource);
+  await roleSeeder.run(this.getDataSource());
 
   const permissionSeeder = new PermissionSeeder();
-  await permissionSeeder.run(dataSource);
-
-  console.log("Seeders completed.");
+  await permissionSeeder.run(this.getDataSource());
 
   }
 }
