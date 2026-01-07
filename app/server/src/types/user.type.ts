@@ -7,11 +7,6 @@ export type UserType = AuditType & {
    */
 id: number
   /**
-   * The user's full name.
-   * @example "John Doe"
-   */
-  fullname: string
-  /**
    * The user's username.
    * @example "John1Doe"
    */

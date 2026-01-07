@@ -40,7 +40,6 @@ export class UserController extends BaseController implements UserControllerInte
   @Example<UserReadResponseDTO>({
    id: 1,
     username: "john1doe",
-    fullname: "John Doe",
     email: "johndoe@tsoa.com",
     phone: "123-456-7890",
     createdAt: new Date("2023-01-01T10:00:00Z"),

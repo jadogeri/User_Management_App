@@ -56,8 +56,7 @@ export class UserService implements UserServiceInterface{
             isEnabled: user.isEnabled,
             id: user.id,
             createdAt: user.createdAt,
-            updatedAt: user.updatedAt,
-            fullname: user.fullname
+            updatedAt: user.updatedAt
         }
         return userResponse;
     }

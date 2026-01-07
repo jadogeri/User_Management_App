@@ -8,7 +8,7 @@ import { UserType } from "../../types/user.type";
 /**
  * Represents a user object creation request.
  */
-export interface UserCreateRequestDTO extends Pick<UserType, "email" | "username" | "fullname" | "phone" | "password">{}
+export interface UserCreateRequestDTO extends Pick<UserType, "email" | "username" | "phone" | "password">{}
 
 /**
  * Represents a list of users retrieve request dto object.

@@ -27,10 +27,6 @@ export class User extends Audit implements UserType {
   @PrimaryGeneratedColumn() // SQLite uses auto-increment integers by default
   id: number;
 
-  @Column({type: "varchar", length: 40, nullable: false, unique: false })
-  @IsString()
-  fullname: string;
-
   @Column({type: "varchar", length: 40, nullable: false, unique: true })
   @IsString()
   username: string;

@@ -233,8 +233,7 @@ export class AuthService implements AuthServiceInterface{
                 isEnabled: savedUser.isEnabled,
                 id: savedUser.id,
                 createdAt: savedUser.createdAt,
-                updatedAt: savedUser.updatedAt,
-                fullname: savedUser.fullname
+                updatedAt: savedUser.updatedAt
             }
             // If in production environment send email
             // SEND EMAIL
