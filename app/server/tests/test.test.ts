@@ -70,7 +70,6 @@ describe("TSOA Integration with SQLite Testcontainer", () => {
 
   it('should create a new user via TSOA endpoint', async () => {
     const payload = {
-      fullname: "Supertest User",
       username: "supertest_user",
       email: "tester@example.com",
       password: "@securePassword123",
